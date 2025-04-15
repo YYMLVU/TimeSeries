@@ -1,0 +1,1306 @@
+2025-03-27 11:05:46,377 - INFO - ------------ Options -------------
+2025-03-27 11:05:46,377 - INFO - anormly_ratio: 1.0
+2025-03-27 11:05:46,377 - INFO - anormly_ratio_span: [0.1, 1]
+2025-03-27 11:05:46,377 - INFO - anormly_ratio_step: 0.1
+2025-03-27 11:05:46,377 - INFO - attn_temp: 1
+2025-03-27 11:05:46,377 - INFO - attn_temp_range: [1, 1]
+2025-03-27 11:05:46,377 - INFO - attn_temp_step: 5
+2025-03-27 11:05:46,377 - INFO - batch_size: 128
+2025-03-27 11:05:46,377 - INFO - data_path: ./sub_adjacent_transformer-main/dataset/WADI
+2025-03-27 11:05:46,377 - INFO - dataset: wadi
+2025-03-27 11:05:46,377 - INFO - input_c: 93
+2025-03-27 11:05:46,378 - INFO - k: 10
+2025-03-27 11:05:46,378 - INFO - kernel_length: 100
+2025-03-27 11:05:46,378 - INFO - kernel_length_range: [0, 600]
+2025-03-27 11:05:46,378 - INFO - kernel_length_step: 10
+2025-03-27 11:05:46,378 - INFO - lr: 0.0001
+2025-03-27 11:05:46,378 - INFO - mapping_function: ours
+2025-03-27 11:05:46,378 - INFO - mode: monte_carlo_search
+2025-03-27 11:05:46,378 - INFO - model_save_path: ./sub_adjacent_transformer-main/checkpoints
+2025-03-27 11:05:46,378 - INFO - monte_carlo: 1
+2025-03-27 11:05:46,378 - INFO - no_gauss_dynamic: False
+2025-03-27 11:05:46,378 - INFO - no_linear_attn: False
+2025-03-27 11:05:46,378 - INFO - no_point_adjustment: False
+2025-03-27 11:05:46,378 - INFO - num_epochs: 1
+2025-03-27 11:05:46,378 - INFO - oneside: False
+2025-03-27 11:05:46,378 - INFO - output_c: 93
+2025-03-27 11:05:46,378 - INFO - pretrained_model: None
+2025-03-27 11:05:46,378 - INFO - record_state: True
+2025-03-27 11:05:46,378 - INFO - softmax_span: 200
+2025-03-27 11:05:46,378 - INFO - softmax_span_range: [200, 200]
+2025-03-27 11:05:46,378 - INFO - softmax_span_step: 50
+2025-03-27 11:05:46,378 - INFO - span: [20, 30]
+2025-03-27 11:05:46,378 - INFO - temperature: 50
+2025-03-27 11:05:46,378 - INFO - temperature_range: [50, 50]
+2025-03-27 11:05:46,378 - INFO - temperature_step: 10
+2025-03-27 11:05:46,378 - INFO - train_data_ratio: 1.0
+2025-03-27 11:05:46,378 - INFO - train_data_step: 1
+2025-03-27 11:05:46,378 - INFO - win_size: 100
+2025-03-27 11:05:46,379 - INFO - ------------ End -------------
+2025-03-27 11:05:58,477 - INFO - ======================TRAIN MODE======================
+2025-03-27 11:06:03,069 - INFO - 	 loss1: 0.2875, loss2: -2.0618; rec_loss: 0.2875, loss_attn: 0.2349 speed: 0.0884s/iter; left time: 537.7056s
+2025-03-27 11:06:06,871 - INFO - 	 loss1: 0.1861, loss2: -3.1614; rec_loss: 0.1861, loss_attn: 0.3347 speed: 0.0760s/iter; left time: 458.5080s
+2025-03-27 11:06:10,599 - INFO - 	 loss1: 0.1718, loss2: -5.5906; rec_loss: 0.1718, loss_attn: 0.5762 speed: 0.0745s/iter; left time: 445.7708s
+2025-03-27 11:06:14,382 - INFO - 	 loss1: 0.1107, loss2: -7.6258; rec_loss: 0.1107, loss_attn: 0.7737 speed: 0.0757s/iter; left time: 448.6492s
+2025-03-27 11:06:18,146 - INFO - 	 loss1: 0.0845, loss2: -8.4015; rec_loss: 0.0845, loss_attn: 0.8486 speed: 0.0752s/iter; left time: 442.4652s
+2025-03-27 11:06:21,888 - INFO - 	 loss1: 0.0903, loss2: -8.8574; rec_loss: 0.0903, loss_attn: 0.8948 speed: 0.0748s/iter; left time: 436.2435s
+2025-03-27 11:06:25,616 - INFO - 	 loss1: 0.0573, loss2: -9.2038; rec_loss: 0.0573, loss_attn: 0.9261 speed: 0.0746s/iter; left time: 430.9185s
+2025-03-27 11:06:29,350 - INFO - 	 loss1: 0.0465, loss2: -9.4144; rec_loss: 0.0465, loss_attn: 0.9461 speed: 0.0747s/iter; left time: 427.8487s
+2025-03-27 11:06:33,122 - INFO - 	 loss1: 0.0321, loss2: -9.5649; rec_loss: 0.0321, loss_attn: 0.9597 speed: 0.0754s/iter; left time: 428.4627s
+2025-03-27 11:06:36,863 - INFO - 	 loss1: 0.0268, loss2: -9.6548; rec_loss: 0.0268, loss_attn: 0.9682 speed: 0.0748s/iter; left time: 421.0978s
+2025-03-27 11:06:40,589 - INFO - 	 loss1: 0.0442, loss2: -9.6934; rec_loss: 0.0442, loss_attn: 0.9738 speed: 0.0745s/iter; left time: 415.7757s
+2025-03-27 11:06:44,290 - INFO - 	 loss1: 0.0370, loss2: -9.7439; rec_loss: 0.0370, loss_attn: 0.9781 speed: 0.0740s/iter; left time: 409.3016s
+2025-03-27 11:06:48,008 - INFO - 	 loss1: 0.0210, loss2: -9.7969; rec_loss: 0.0210, loss_attn: 0.9818 speed: 0.0744s/iter; left time: 407.4739s
+2025-03-27 11:06:51,746 - INFO - 	 loss1: 0.0709, loss2: -9.7675; rec_loss: 0.0709, loss_attn: 0.9838 speed: 0.0747s/iter; left time: 405.8102s
+2025-03-27 11:06:55,495 - INFO - 	 loss1: 0.0429, loss2: -9.8188; rec_loss: 0.0429, loss_attn: 0.9862 speed: 0.0750s/iter; left time: 403.3787s
+2025-03-27 11:06:59,221 - INFO - 	 loss1: 0.0115, loss2: -9.8670; rec_loss: 0.0115, loss_attn: 0.9879 speed: 0.0745s/iter; left time: 397.1228s
+2025-03-27 11:07:02,960 - INFO - 	 loss1: 0.2611, loss2: -9.6206; rec_loss: 0.2611, loss_attn: 0.9882 speed: 0.0748s/iter; left time: 394.7540s
+2025-03-27 11:07:06,668 - INFO - 	 loss1: 0.0085, loss2: -9.8966; rec_loss: 0.0085, loss_attn: 0.9905 speed: 0.0742s/iter; left time: 387.8935s
+2025-03-27 11:07:10,397 - INFO - 	 loss1: 0.0135, loss2: -9.9003; rec_loss: 0.0135, loss_attn: 0.9914 speed: 0.0746s/iter; left time: 386.2458s
+2025-03-27 11:07:14,117 - INFO - 	 loss1: 0.0221, loss2: -9.8975; rec_loss: 0.0221, loss_attn: 0.9920 speed: 0.0744s/iter; left time: 381.5817s
+2025-03-27 11:07:17,846 - INFO - 	 loss1: 0.0153, loss2: -9.9124; rec_loss: 0.0153, loss_attn: 0.9928 speed: 0.0746s/iter; left time: 378.8338s
+2025-03-27 11:07:21,559 - INFO - 	 loss1: 0.0086, loss2: -9.9258; rec_loss: 0.0086, loss_attn: 0.9934 speed: 0.0743s/iter; left time: 373.4801s
+2025-03-27 11:07:25,292 - INFO - 	 loss1: 0.0093, loss2: -9.9300; rec_loss: 0.0093, loss_attn: 0.9939 speed: 0.0747s/iter; left time: 371.7649s
+2025-03-27 11:07:29,037 - INFO - 	 loss1: 0.0309, loss2: -9.9098; rec_loss: 0.0309, loss_attn: 0.9941 speed: 0.0749s/iter; left time: 369.2952s
+2025-03-27 11:07:32,804 - INFO - 	 loss1: 0.0115, loss2: -9.9363; rec_loss: 0.0115, loss_attn: 0.9948 speed: 0.0753s/iter; left time: 367.6325s
+2025-03-27 11:07:36,534 - INFO - 	 loss1: 0.0082, loss2: -9.9446; rec_loss: 0.0082, loss_attn: 0.9953 speed: 0.0746s/iter; left time: 360.2779s
+2025-03-27 11:07:40,284 - INFO - 	 loss1: 0.2338, loss2: -9.7109; rec_loss: 0.2338, loss_attn: 0.9945 speed: 0.0750s/iter; left time: 358.4560s
+2025-03-27 11:07:44,025 - INFO - 	 loss1: 0.0076, loss2: -9.9511; rec_loss: 0.0076, loss_attn: 0.9959 speed: 0.0748s/iter; left time: 353.7707s
+2025-03-27 11:07:47,734 - INFO - 	 loss1: 0.0376, loss2: -9.9186; rec_loss: 0.0376, loss_attn: 0.9956 speed: 0.0742s/iter; left time: 347.1232s
+2025-03-27 11:07:51,474 - INFO - 	 loss1: 0.0064, loss2: -9.9579; rec_loss: 0.0064, loss_attn: 0.9964 speed: 0.0748s/iter; left time: 346.2974s
+2025-03-27 11:07:55,179 - INFO - 	 loss1: 0.0064, loss2: -9.9598; rec_loss: 0.0064, loss_attn: 0.9966 speed: 0.0741s/iter; left time: 339.3711s
+2025-03-27 11:07:58,911 - INFO - 	 loss1: 0.1394, loss2: -9.8266; rec_loss: 0.1394, loss_attn: 0.9966 speed: 0.0746s/iter; left time: 338.0803s
+2025-03-27 11:08:02,654 - INFO - 	 loss1: 0.0047, loss2: -9.9652; rec_loss: 0.0047, loss_attn: 0.9970 speed: 0.0749s/iter; left time: 335.3366s
+2025-03-27 11:08:06,372 - INFO - 	 loss1: 0.0076, loss2: -9.9638; rec_loss: 0.0076, loss_attn: 0.9971 speed: 0.0744s/iter; left time: 329.3839s
+2025-03-27 11:08:10,139 - INFO - 	 loss1: 0.0149, loss2: -9.9574; rec_loss: 0.0149, loss_attn: 0.9972 speed: 0.0753s/iter; left time: 329.9623s
+2025-03-27 11:08:13,870 - INFO - 	 loss1: 0.0155, loss2: -9.9578; rec_loss: 0.0155, loss_attn: 0.9973 speed: 0.0746s/iter; left time: 323.0452s
+2025-03-27 11:08:17,595 - INFO - 	 loss1: 0.0043, loss2: -9.9721; rec_loss: 0.0043, loss_attn: 0.9976 speed: 0.0745s/iter; left time: 318.8587s
+2025-03-27 11:08:21,322 - INFO - 	 loss1: 0.0072, loss2: -9.9702; rec_loss: 0.0072, loss_attn: 0.9977 speed: 0.0745s/iter; left time: 315.2650s
+2025-03-27 11:08:25,041 - INFO - 	 loss1: 0.0172, loss2: -9.9595; rec_loss: 0.0172, loss_attn: 0.9977 speed: 0.0744s/iter; left time: 310.8835s
+2025-03-27 11:08:28,797 - INFO - 	 loss1: 0.0049, loss2: -9.9748; rec_loss: 0.0049, loss_attn: 0.9980 speed: 0.0751s/iter; left time: 310.2002s
+2025-03-27 11:08:32,538 - INFO - 	 loss1: 0.2352, loss2: -9.7364; rec_loss: 0.2352, loss_attn: 0.9972 speed: 0.0748s/iter; left time: 305.2579s
+2025-03-27 11:08:36,303 - INFO - 	 loss1: 0.0044, loss2: -9.9771; rec_loss: 0.0044, loss_attn: 0.9982 speed: 0.0753s/iter; left time: 303.4565s
+2025-03-27 11:08:40,057 - INFO - 	 loss1: 0.0049, loss2: -9.9771; rec_loss: 0.0049, loss_attn: 0.9982 speed: 0.0751s/iter; left time: 298.7504s
+2025-03-27 11:08:43,794 - INFO - 	 loss1: 0.0256, loss2: -9.9557; rec_loss: 0.0256, loss_attn: 0.9981 speed: 0.0747s/iter; left time: 293.7314s
+2025-03-27 11:08:47,518 - INFO - 	 loss1: 0.0155, loss2: -9.9680; rec_loss: 0.0155, loss_attn: 0.9983 speed: 0.0745s/iter; left time: 288.9657s
+2025-03-27 11:08:51,235 - INFO - 	 loss1: 0.0116, loss2: -9.9711; rec_loss: 0.0116, loss_attn: 0.9983 speed: 0.0743s/iter; left time: 284.6881s
+2025-03-27 11:08:54,954 - INFO - 	 loss1: 0.0041, loss2: -9.9810; rec_loss: 0.0041, loss_attn: 0.9985 speed: 0.0744s/iter; left time: 281.1033s
+2025-03-27 11:08:58,681 - INFO - 	 loss1: 0.0026, loss2: -9.9835; rec_loss: 0.0026, loss_attn: 0.9986 speed: 0.0745s/iter; left time: 277.9852s
+2025-03-27 11:09:02,410 - INFO - 	 loss1: 0.0112, loss2: -9.9750; rec_loss: 0.0112, loss_attn: 0.9986 speed: 0.0746s/iter; left time: 274.4650s
+2025-03-27 11:09:06,135 - INFO - 	 loss1: 0.0032, loss2: -9.9841; rec_loss: 0.0032, loss_attn: 0.9987 speed: 0.0745s/iter; left time: 270.4218s
+2025-03-27 11:09:09,848 - INFO - 	 loss1: 0.0032, loss2: -9.9844; rec_loss: 0.0032, loss_attn: 0.9988 speed: 0.0742s/iter; left time: 265.8059s
+2025-03-27 11:09:13,573 - INFO - 	 loss1: 0.0032, loss2: -9.9851; rec_loss: 0.0032, loss_attn: 0.9988 speed: 0.0745s/iter; left time: 262.9438s
+2025-03-27 11:09:17,317 - INFO - 	 loss1: 0.1225, loss2: -9.8629; rec_loss: 0.1225, loss_attn: 0.9985 speed: 0.0749s/iter; left time: 260.5626s
+2025-03-27 11:09:21,033 - INFO - 	 loss1: 0.0026, loss2: -9.9866; rec_loss: 0.0026, loss_attn: 0.9989 speed: 0.0743s/iter; left time: 254.8952s
+2025-03-27 11:09:24,762 - INFO - 	 loss1: 0.0026, loss2: -9.9870; rec_loss: 0.0026, loss_attn: 0.9990 speed: 0.0746s/iter; left time: 252.0495s
+2025-03-27 11:09:28,536 - INFO - 	 loss1: 0.0062, loss2: -9.9838; rec_loss: 0.0062, loss_attn: 0.9990 speed: 0.0755s/iter; left time: 251.3715s
+2025-03-27 11:09:32,268 - INFO - 	 loss1: 0.0035, loss2: -9.9868; rec_loss: 0.0035, loss_attn: 0.9990 speed: 0.0746s/iter; left time: 244.7727s
+2025-03-27 11:09:35,996 - INFO - 	 loss1: 0.0022, loss2: -9.9886; rec_loss: 0.0022, loss_attn: 0.9991 speed: 0.0745s/iter; left time: 240.7811s
+2025-03-27 11:09:39,725 - INFO - 	 loss1: 0.0110, loss2: -9.9794; rec_loss: 0.0110, loss_attn: 0.9990 speed: 0.0746s/iter; left time: 237.1785s
+2025-03-27 11:09:43,479 - INFO - 	 loss1: 0.1152, loss2: -9.8732; rec_loss: 0.1152, loss_attn: 0.9988 speed: 0.0751s/iter; left time: 234.9520s
+2025-03-27 11:09:47,224 - INFO - 	 loss1: 0.0027, loss2: -9.9889; rec_loss: 0.0027, loss_attn: 0.9992 speed: 0.0749s/iter; left time: 230.6442s
+2025-03-27 11:09:50,967 - INFO - 	 loss1: 0.0016, loss2: -9.9905; rec_loss: 0.0016, loss_attn: 0.9992 speed: 0.0749s/iter; left time: 226.8018s
+2025-03-27 11:09:54,715 - INFO - 	 loss1: 0.0032, loss2: -9.9891; rec_loss: 0.0032, loss_attn: 0.9992 speed: 0.0749s/iter; left time: 223.3240s
+2025-03-27 11:09:58,451 - INFO - 	 loss1: 0.0030, loss2: -9.9896; rec_loss: 0.0030, loss_attn: 0.9993 speed: 0.0747s/iter; left time: 218.9204s
+2025-03-27 11:10:02,233 - INFO - 	 loss1: 0.0019, loss2: -9.9910; rec_loss: 0.0019, loss_attn: 0.9993 speed: 0.0756s/iter; left time: 217.8212s
+2025-03-27 11:10:05,977 - INFO - 	 loss1: 0.0024, loss2: -9.9906; rec_loss: 0.0024, loss_attn: 0.9993 speed: 0.0749s/iter; left time: 211.8850s
+2025-03-27 11:10:09,743 - INFO - 	 loss1: 0.0018, loss2: -9.9915; rec_loss: 0.0018, loss_attn: 0.9993 speed: 0.0753s/iter; left time: 209.3804s
+2025-03-27 11:10:13,496 - INFO - 	 loss1: 0.0065, loss2: -9.9868; rec_loss: 0.0065, loss_attn: 0.9993 speed: 0.0750s/iter; left time: 204.8794s
+2025-03-27 11:10:17,233 - INFO - 	 loss1: 0.0318, loss2: -9.9587; rec_loss: 0.0318, loss_attn: 0.9991 speed: 0.0747s/iter; left time: 200.2552s
+2025-03-27 11:10:20,949 - INFO - 	 loss1: 0.0021, loss2: -9.9918; rec_loss: 0.0021, loss_attn: 0.9994 speed: 0.0743s/iter; left time: 195.4489s
+2025-03-27 11:10:24,687 - INFO - 	 loss1: 0.0074, loss2: -9.9861; rec_loss: 0.0074, loss_attn: 0.9993 speed: 0.0748s/iter; left time: 192.8794s
+2025-03-27 11:10:28,402 - INFO - 	 loss1: 0.0111, loss2: -9.9818; rec_loss: 0.0111, loss_attn: 0.9993 speed: 0.0743s/iter; left time: 187.9262s
+2025-03-27 11:10:32,121 - INFO - 	 loss1: 0.0016, loss2: -9.9930; rec_loss: 0.0016, loss_attn: 0.9995 speed: 0.0744s/iter; left time: 184.4759s
+2025-03-27 11:10:35,843 - INFO - 	 loss1: 0.0017, loss2: -9.9930; rec_loss: 0.0017, loss_attn: 0.9995 speed: 0.0744s/iter; left time: 180.8795s
+2025-03-27 11:10:39,553 - INFO - 	 loss1: 0.0021, loss2: -9.9927; rec_loss: 0.0021, loss_attn: 0.9995 speed: 0.0742s/iter; left time: 176.5359s
+2025-03-27 11:10:43,267 - INFO - 	 loss1: 0.0142, loss2: -9.9794; rec_loss: 0.0142, loss_attn: 0.9994 speed: 0.0743s/iter; left time: 173.0467s
+2025-03-27 11:10:46,993 - INFO - 	 loss1: 0.0023, loss2: -9.9930; rec_loss: 0.0023, loss_attn: 0.9995 speed: 0.0745s/iter; left time: 169.8900s
+2025-03-27 11:10:50,730 - INFO - 	 loss1: 0.0013, loss2: -9.9939; rec_loss: 0.0013, loss_attn: 0.9995 speed: 0.0747s/iter; left time: 166.6537s
+2025-03-27 11:10:54,470 - INFO - 	 loss1: 0.0021, loss2: -9.9935; rec_loss: 0.0021, loss_attn: 0.9996 speed: 0.0748s/iter; left time: 163.0812s
+2025-03-27 11:10:58,182 - INFO - 	 loss1: 0.0013, loss2: -9.9943; rec_loss: 0.0013, loss_attn: 0.9996 speed: 0.0742s/iter; left time: 158.1039s
+2025-03-27 11:11:01,924 - INFO - 	 loss1: 0.0244, loss2: -9.9694; rec_loss: 0.0244, loss_attn: 0.9994 speed: 0.0748s/iter; left time: 155.6253s
+2025-03-27 11:11:05,644 - INFO - 	 loss1: 0.0031, loss2: -9.9928; rec_loss: 0.0031, loss_attn: 0.9996 speed: 0.0744s/iter; left time: 151.0188s
+2025-03-27 11:11:09,403 - INFO - 	 loss1: 0.0017, loss2: -9.9943; rec_loss: 0.0017, loss_attn: 0.9996 speed: 0.0752s/iter; left time: 148.8501s
+2025-03-27 11:11:13,114 - INFO - 	 loss1: 0.0013, loss2: -9.9949; rec_loss: 0.0013, loss_attn: 0.9996 speed: 0.0742s/iter; left time: 143.2274s
+2025-03-27 11:11:16,853 - INFO - 	 loss1: 0.0048, loss2: -9.9911; rec_loss: 0.0048, loss_attn: 0.9996 speed: 0.0748s/iter; left time: 140.5706s
+2025-03-27 11:11:20,600 - INFO - 	 loss1: 0.0047, loss2: -9.9912; rec_loss: 0.0047, loss_attn: 0.9996 speed: 0.0749s/iter; left time: 137.0982s
+2025-03-27 11:11:24,316 - INFO - 	 loss1: 0.0012, loss2: -9.9953; rec_loss: 0.0012, loss_attn: 0.9996 speed: 0.0743s/iter; left time: 132.2776s
+2025-03-27 11:11:28,041 - INFO - 	 loss1: 0.0011, loss2: -9.9956; rec_loss: 0.0011, loss_attn: 0.9997 speed: 0.0745s/iter; left time: 128.8699s
+2025-03-27 11:11:31,779 - INFO - 	 loss1: 0.0010, loss2: -9.9958; rec_loss: 0.0010, loss_attn: 0.9997 speed: 0.0748s/iter; left time: 125.5831s
+2025-03-27 11:11:35,529 - INFO - 	 loss1: 0.0023, loss2: -9.9945; rec_loss: 0.0023, loss_attn: 0.9997 speed: 0.0750s/iter; left time: 122.2355s
+2025-03-27 11:11:39,265 - INFO - 	 loss1: 0.0014, loss2: -9.9954; rec_loss: 0.0014, loss_attn: 0.9997 speed: 0.0747s/iter; left time: 118.0685s
+2025-03-27 11:11:42,992 - INFO - 	 loss1: 0.0031, loss2: -9.9935; rec_loss: 0.0031, loss_attn: 0.9997 speed: 0.0745s/iter; left time: 114.0246s
+2025-03-27 11:11:46,729 - INFO - 	 loss1: 0.0010, loss2: -9.9961; rec_loss: 0.0010, loss_attn: 0.9997 speed: 0.0747s/iter; left time: 110.6171s
+2025-03-27 11:11:50,484 - INFO - 	 loss1: 0.0011, loss2: -9.9961; rec_loss: 0.0011, loss_attn: 0.9997 speed: 0.0751s/iter; left time: 107.3770s
+2025-03-27 11:11:54,226 - INFO - 	 loss1: 0.0015, loss2: -9.9957; rec_loss: 0.0015, loss_attn: 0.9997 speed: 0.0748s/iter; left time: 103.2605s
+2025-03-27 11:11:57,935 - INFO - 	 loss1: 0.0011, loss2: -9.9961; rec_loss: 0.0011, loss_attn: 0.9997 speed: 0.0742s/iter; left time: 98.6453s
+2025-03-27 11:12:01,638 - INFO - 	 loss1: 0.0014, loss2: -9.9959; rec_loss: 0.0014, loss_attn: 0.9997 speed: 0.0741s/iter; left time: 94.7868s
+2025-03-27 11:12:05,378 - INFO - 	 loss1: 0.0042, loss2: -9.9929; rec_loss: 0.0042, loss_attn: 0.9997 speed: 0.0748s/iter; left time: 92.0013s
+2025-03-27 11:12:09,083 - INFO - 	 loss1: 0.0014, loss2: -9.9960; rec_loss: 0.0014, loss_attn: 0.9997 speed: 0.0741s/iter; left time: 87.4376s
+2025-03-27 11:12:12,794 - INFO - 	 loss1: 0.0095, loss2: -9.9877; rec_loss: 0.0095, loss_attn: 0.9997 speed: 0.0742s/iter; left time: 83.8525s
+2025-03-27 11:12:16,557 - INFO - 	 loss1: 0.0013, loss2: -9.9964; rec_loss: 0.0013, loss_attn: 0.9998 speed: 0.0752s/iter; left time: 81.2666s
+2025-03-27 11:12:20,298 - INFO - 	 loss1: 0.0011, loss2: -9.9966; rec_loss: 0.0011, loss_attn: 0.9998 speed: 0.0748s/iter; left time: 77.0696s
+2025-03-27 11:12:24,102 - INFO - 	 loss1: 0.0012, loss2: -9.9966; rec_loss: 0.0012, loss_attn: 0.9998 speed: 0.0761s/iter; left time: 74.5382s
+2025-03-27 11:12:27,835 - INFO - 	 loss1: 0.0009, loss2: -9.9970; rec_loss: 0.0009, loss_attn: 0.9998 speed: 0.0747s/iter; left time: 69.4334s
+2025-03-27 11:12:31,604 - INFO - 	 loss1: 0.0014, loss2: -9.9965; rec_loss: 0.0014, loss_attn: 0.9998 speed: 0.0754s/iter; left time: 66.3215s
+2025-03-27 11:12:35,352 - INFO - 	 loss1: 0.0008, loss2: -9.9972; rec_loss: 0.0008, loss_attn: 0.9998 speed: 0.0750s/iter; left time: 62.2095s
+2025-03-27 11:12:39,079 - INFO - 	 loss1: 0.0011, loss2: -9.9969; rec_loss: 0.0011, loss_attn: 0.9998 speed: 0.0745s/iter; left time: 58.1354s
+2025-03-27 11:12:42,812 - INFO - 	 loss1: 0.0008, loss2: -9.9972; rec_loss: 0.0008, loss_attn: 0.9998 speed: 0.0746s/iter; left time: 54.4900s
+2025-03-27 11:12:46,532 - INFO - 	 loss1: 0.0012, loss2: -9.9969; rec_loss: 0.0012, loss_attn: 0.9998 speed: 0.0744s/iter; left time: 50.5863s
+2025-03-27 11:12:50,244 - INFO - 	 loss1: 0.0017, loss2: -9.9964; rec_loss: 0.0017, loss_attn: 0.9998 speed: 0.0742s/iter; left time: 46.7663s
+2025-03-27 11:12:53,972 - INFO - 	 loss1: 0.0010, loss2: -9.9972; rec_loss: 0.0010, loss_attn: 0.9998 speed: 0.0746s/iter; left time: 43.2441s
+2025-03-27 11:12:57,705 - INFO - 	 loss1: 0.0033, loss2: -9.9947; rec_loss: 0.0033, loss_attn: 0.9998 speed: 0.0747s/iter; left time: 39.5669s
+2025-03-27 11:13:01,459 - INFO - 	 loss1: 0.0045, loss2: -9.9937; rec_loss: 0.0045, loss_attn: 0.9998 speed: 0.0751s/iter; left time: 36.0302s
+2025-03-27 11:13:05,168 - INFO - 	 loss1: 0.0010, loss2: -9.9973; rec_loss: 0.0010, loss_attn: 0.9998 speed: 0.0742s/iter; left time: 31.8997s
+2025-03-27 11:13:08,927 - INFO - 	 loss1: 0.0011, loss2: -9.9973; rec_loss: 0.0011, loss_attn: 0.9998 speed: 0.0752s/iter; left time: 28.5612s
+2025-03-27 11:13:12,651 - INFO - 	 loss1: 0.0012, loss2: -9.9972; rec_loss: 0.0012, loss_attn: 0.9998 speed: 0.0745s/iter; left time: 24.5764s
+2025-03-27 11:13:16,387 - INFO - 	 loss1: 0.0010, loss2: -9.9974; rec_loss: 0.0010, loss_attn: 0.9998 speed: 0.0747s/iter; left time: 20.9202s
+2025-03-27 11:13:20,103 - INFO - 	 loss1: 0.0008, loss2: -9.9978; rec_loss: 0.0008, loss_attn: 0.9999 speed: 0.0743s/iter; left time: 17.0903s
+2025-03-27 11:13:23,837 - INFO - 	 loss1: 0.0007, loss2: -9.9978; rec_loss: 0.0007, loss_attn: 0.9999 speed: 0.0747s/iter; left time: 13.4408s
+2025-03-27 11:13:27,559 - INFO - 	 loss1: 0.0010, loss2: -9.9976; rec_loss: 0.0010, loss_attn: 0.9999 speed: 0.0744s/iter; left time: 9.6749s
+2025-03-27 11:13:31,279 - INFO - 	 loss1: 0.1032, loss2: -9.8888; rec_loss: 0.1032, loss_attn: 0.9992 speed: 0.0744s/iter; left time: 5.9510s
+2025-03-27 11:13:34,989 - INFO - 	 loss1: 0.0007, loss2: -9.9980; rec_loss: 0.0007, loss_attn: 0.9999 speed: 0.0742s/iter; left time: 2.2258s
+2025-03-27 11:13:37,201 - INFO - Epoch: 1 cost time: 458.0619378089905, memory: 1.93GB, flops: 0.493256GFLOPS, params: 4.925533M
+2025-03-27 11:13:37,299 - INFO - ======================TEST MODE======================
+2025-03-27 11:13:37,955 - INFO - Threshold : 0.7079155558336946
+2025-03-27 11:13:37,957 - INFO - Threshold for reconstruction loss: 0.04061475768685341
+2025-03-27 11:16:13,768 - INFO - ------------ Options -------------
+2025-03-27 11:16:13,769 - INFO - anormly_ratio: 1.0
+2025-03-27 11:16:13,769 - INFO - anormly_ratio_span: [0.1, 1]
+2025-03-27 11:16:13,769 - INFO - anormly_ratio_step: 0.1
+2025-03-27 11:16:13,769 - INFO - attn_temp: 1
+2025-03-27 11:16:13,769 - INFO - attn_temp_range: [1, 1]
+2025-03-27 11:16:13,769 - INFO - attn_temp_step: 5
+2025-03-27 11:16:13,769 - INFO - batch_size: 128
+2025-03-27 11:16:13,769 - INFO - data_path: ./sub_adjacent_transformer-main/dataset/WADI
+2025-03-27 11:16:13,769 - INFO - dataset: wadi
+2025-03-27 11:16:13,769 - INFO - input_c: 93
+2025-03-27 11:16:13,769 - INFO - k: 10
+2025-03-27 11:16:13,769 - INFO - kernel_length: 100
+2025-03-27 11:16:13,769 - INFO - kernel_length_range: [0, 600]
+2025-03-27 11:16:13,769 - INFO - kernel_length_step: 10
+2025-03-27 11:16:13,769 - INFO - lr: 0.0001
+2025-03-27 11:16:13,770 - INFO - mapping_function: ours
+2025-03-27 11:16:13,770 - INFO - mode: monte_carlo_search
+2025-03-27 11:16:13,770 - INFO - model_save_path: ./sub_adjacent_transformer-main/checkpoints
+2025-03-27 11:16:13,770 - INFO - monte_carlo: 1
+2025-03-27 11:16:13,770 - INFO - no_gauss_dynamic: False
+2025-03-27 11:16:13,770 - INFO - no_linear_attn: False
+2025-03-27 11:16:13,770 - INFO - no_point_adjustment: False
+2025-03-27 11:16:13,770 - INFO - num_epochs: 1
+2025-03-27 11:16:13,770 - INFO - oneside: False
+2025-03-27 11:16:13,770 - INFO - output_c: 93
+2025-03-27 11:16:13,770 - INFO - pretrained_model: None
+2025-03-27 11:16:13,770 - INFO - record_state: True
+2025-03-27 11:16:13,770 - INFO - softmax_span: 200
+2025-03-27 11:16:13,770 - INFO - softmax_span_range: [200, 200]
+2025-03-27 11:16:13,770 - INFO - softmax_span_step: 50
+2025-03-27 11:16:13,770 - INFO - span: [20, 30]
+2025-03-27 11:16:13,770 - INFO - temperature: 50
+2025-03-27 11:16:13,770 - INFO - temperature_range: [50, 50]
+2025-03-27 11:16:13,770 - INFO - temperature_step: 10
+2025-03-27 11:16:13,771 - INFO - train_data_ratio: 1.0
+2025-03-27 11:16:13,771 - INFO - train_data_step: 1
+2025-03-27 11:16:13,771 - INFO - win_size: 100
+2025-03-27 11:16:13,771 - INFO - ------------ End -------------
+2025-03-27 11:16:26,184 - INFO - ======================TRAIN MODE======================
+2025-03-27 11:16:30,640 - INFO - 	 loss1: 0.3509, loss2: -1.9973; rec_loss: 0.3509, loss_attn: 0.2348 speed: 0.0855s/iter; left time: 519.7390s
+2025-03-27 11:16:34,331 - INFO - 	 loss1: 0.2019, loss2: -3.1603; rec_loss: 0.2019, loss_attn: 0.3362 speed: 0.0738s/iter; left time: 445.0008s
+2025-03-27 11:16:38,047 - INFO - 	 loss1: 0.1909, loss2: -5.5168; rec_loss: 0.1909, loss_attn: 0.5708 speed: 0.0743s/iter; left time: 444.4409s
+2025-03-27 11:16:41,762 - INFO - 	 loss1: 0.1457, loss2: -7.5042; rec_loss: 0.1457, loss_attn: 0.7650 speed: 0.0743s/iter; left time: 440.5660s
+2025-03-27 11:16:45,475 - INFO - 	 loss1: 0.0785, loss2: -8.3864; rec_loss: 0.0785, loss_attn: 0.8465 speed: 0.0742s/iter; left time: 436.5726s
+2025-03-27 11:16:49,159 - INFO - 	 loss1: 0.1112, loss2: -8.8007; rec_loss: 0.1112, loss_attn: 0.8912 speed: 0.0737s/iter; left time: 429.4082s
+2025-03-27 11:16:52,864 - INFO - 	 loss1: 0.0589, loss2: -9.1868; rec_loss: 0.0589, loss_attn: 0.9246 speed: 0.0741s/iter; left time: 428.2534s
+2025-03-27 11:16:56,559 - INFO - 	 loss1: 0.0390, loss2: -9.4177; rec_loss: 0.0390, loss_attn: 0.9457 speed: 0.0739s/iter; left time: 423.4487s
+2025-03-27 11:17:00,298 - INFO - 	 loss1: 0.0380, loss2: -9.5459; rec_loss: 0.0380, loss_attn: 0.9584 speed: 0.0748s/iter; left time: 424.6039s
+2025-03-27 11:17:03,976 - INFO - 	 loss1: 0.0272, loss2: -9.6455; rec_loss: 0.0272, loss_attn: 0.9673 speed: 0.0736s/iter; left time: 414.1163s
+2025-03-27 11:17:07,653 - INFO - 	 loss1: 0.0277, loss2: -9.7046; rec_loss: 0.0277, loss_attn: 0.9732 speed: 0.0735s/iter; left time: 410.3937s
+2025-03-27 11:17:11,366 - INFO - 	 loss1: 0.0365, loss2: -9.7381; rec_loss: 0.0365, loss_attn: 0.9775 speed: 0.0742s/iter; left time: 410.6020s
+2025-03-27 11:17:15,063 - INFO - 	 loss1: 0.0165, loss2: -9.7977; rec_loss: 0.0165, loss_attn: 0.9814 speed: 0.0739s/iter; left time: 405.1084s
+2025-03-27 11:17:18,759 - INFO - 	 loss1: 0.0332, loss2: -9.8037; rec_loss: 0.0332, loss_attn: 0.9837 speed: 0.0739s/iter; left time: 401.3352s
+2025-03-27 11:17:22,439 - INFO - 	 loss1: 0.0311, loss2: -9.8261; rec_loss: 0.0311, loss_attn: 0.9857 speed: 0.0736s/iter; left time: 395.8918s
+2025-03-27 11:17:26,137 - INFO - 	 loss1: 0.0135, loss2: -9.8634; rec_loss: 0.0135, loss_attn: 0.9877 speed: 0.0740s/iter; left time: 394.1881s
+2025-03-27 11:17:29,854 - INFO - 	 loss1: 0.0376, loss2: -9.8510; rec_loss: 0.0376, loss_attn: 0.9889 speed: 0.0743s/iter; left time: 392.4706s
+2025-03-27 11:17:33,587 - INFO - 	 loss1: 0.0132, loss2: -9.8890; rec_loss: 0.0132, loss_attn: 0.9902 speed: 0.0746s/iter; left time: 390.4028s
+2025-03-27 11:17:37,292 - INFO - 	 loss1: 0.0113, loss2: -9.9014; rec_loss: 0.0113, loss_attn: 0.9913 speed: 0.0741s/iter; left time: 383.8092s
+2025-03-27 11:17:41,025 - INFO - 	 loss1: 0.0102, loss2: -9.9109; rec_loss: 0.0102, loss_attn: 0.9921 speed: 0.0747s/iter; left time: 383.0235s
+2025-03-27 11:17:44,736 - INFO - 	 loss1: 0.0114, loss2: -9.9171; rec_loss: 0.0114, loss_attn: 0.9929 speed: 0.0742s/iter; left time: 376.9306s
+2025-03-27 11:17:48,463 - INFO - 	 loss1: 0.0192, loss2: -9.9135; rec_loss: 0.0192, loss_attn: 0.9933 speed: 0.0745s/iter; left time: 374.8608s
+2025-03-27 11:17:52,189 - INFO - 	 loss1: 0.0098, loss2: -9.9303; rec_loss: 0.0098, loss_attn: 0.9940 speed: 0.0745s/iter; left time: 371.0587s
+2025-03-27 11:17:55,926 - INFO - 	 loss1: 0.0062, loss2: -9.9385; rec_loss: 0.0062, loss_attn: 0.9945 speed: 0.0747s/iter; left time: 368.3886s
+2025-03-27 11:17:59,632 - INFO - 	 loss1: 0.0250, loss2: -9.9220; rec_loss: 0.0250, loss_attn: 0.9947 speed: 0.0741s/iter; left time: 361.7092s
+2025-03-27 11:18:03,369 - INFO - 	 loss1: 0.0088, loss2: -9.9435; rec_loss: 0.0088, loss_attn: 0.9952 speed: 0.0747s/iter; left time: 360.9644s
+2025-03-27 11:18:07,131 - INFO - 	 loss1: 0.0189, loss2: -9.9359; rec_loss: 0.0189, loss_attn: 0.9955 speed: 0.0752s/iter; left time: 359.5720s
+2025-03-27 11:18:10,848 - INFO - 	 loss1: 0.0228, loss2: -9.9348; rec_loss: 0.0228, loss_attn: 0.9958 speed: 0.0743s/iter; left time: 351.5733s
+2025-03-27 11:18:14,599 - INFO - 	 loss1: 0.0294, loss2: -9.9302; rec_loss: 0.0294, loss_attn: 0.9960 speed: 0.0750s/iter; left time: 351.0708s
+2025-03-27 11:18:18,365 - INFO - 	 loss1: 0.0059, loss2: -9.9583; rec_loss: 0.0059, loss_attn: 0.9964 speed: 0.0753s/iter; left time: 348.6430s
+2025-03-27 11:18:22,074 - INFO - 	 loss1: 0.0206, loss2: -9.9447; rec_loss: 0.0206, loss_attn: 0.9965 speed: 0.0742s/iter; left time: 339.7315s
+2025-03-27 11:18:25,804 - INFO - 	 loss1: 0.0048, loss2: -9.9635; rec_loss: 0.0048, loss_attn: 0.9968 speed: 0.0746s/iter; left time: 337.8862s
+2025-03-27 11:18:29,544 - INFO - 	 loss1: 0.0061, loss2: -9.9638; rec_loss: 0.0061, loss_attn: 0.9970 speed: 0.0748s/iter; left time: 335.0773s
+2025-03-27 11:18:33,276 - INFO - 	 loss1: 0.0198, loss2: -9.9512; rec_loss: 0.0198, loss_attn: 0.9971 speed: 0.0746s/iter; left time: 330.5730s
+2025-03-27 11:18:37,002 - INFO - 	 loss1: 0.0041, loss2: -9.9695; rec_loss: 0.0041, loss_attn: 0.9974 speed: 0.0745s/iter; left time: 326.3639s
+2025-03-27 11:18:40,746 - INFO - 	 loss1: 0.0165, loss2: -9.9575; rec_loss: 0.0165, loss_attn: 0.9974 speed: 0.0749s/iter; left time: 324.2358s
+2025-03-27 11:18:44,465 - INFO - 	 loss1: 0.0168, loss2: -9.9574; rec_loss: 0.0168, loss_attn: 0.9974 speed: 0.0744s/iter; left time: 318.3391s
+2025-03-27 11:18:48,207 - INFO - 	 loss1: 0.0084, loss2: -9.9687; rec_loss: 0.0084, loss_attn: 0.9977 speed: 0.0748s/iter; left time: 316.4557s
+2025-03-27 11:18:51,931 - INFO - 	 loss1: 0.0038, loss2: -9.9748; rec_loss: 0.0038, loss_attn: 0.9979 speed: 0.0745s/iter; left time: 311.3662s
+2025-03-27 11:18:55,679 - INFO - 	 loss1: 0.0043, loss2: -9.9751; rec_loss: 0.0043, loss_attn: 0.9979 speed: 0.0749s/iter; left time: 309.5041s
+2025-03-27 11:18:59,403 - INFO - 	 loss1: 0.0040, loss2: -9.9764; rec_loss: 0.0040, loss_attn: 0.9980 speed: 0.0745s/iter; left time: 303.8666s
+2025-03-27 11:19:03,152 - INFO - 	 loss1: 0.0033, loss2: -9.9782; rec_loss: 0.0033, loss_attn: 0.9982 speed: 0.0750s/iter; left time: 302.1659s
+2025-03-27 11:19:06,912 - INFO - 	 loss1: 0.0148, loss2: -9.9666; rec_loss: 0.0148, loss_attn: 0.9981 speed: 0.0752s/iter; left time: 299.2283s
+2025-03-27 11:19:10,651 - INFO - 	 loss1: 0.0064, loss2: -9.9767; rec_loss: 0.0064, loss_attn: 0.9983 speed: 0.0748s/iter; left time: 293.8515s
+2025-03-27 11:19:14,393 - INFO - 	 loss1: 0.0025, loss2: -9.9817; rec_loss: 0.0025, loss_attn: 0.9984 speed: 0.0748s/iter; left time: 290.3155s
+2025-03-27 11:19:18,155 - INFO - 	 loss1: 0.0044, loss2: -9.9800; rec_loss: 0.0044, loss_attn: 0.9984 speed: 0.0752s/iter; left time: 288.1927s
+2025-03-27 11:19:21,878 - INFO - 	 loss1: 0.0023, loss2: -9.9832; rec_loss: 0.0023, loss_attn: 0.9986 speed: 0.0744s/iter; left time: 281.3346s
+2025-03-27 11:19:25,618 - INFO - 	 loss1: 0.0051, loss2: -9.9808; rec_loss: 0.0051, loss_attn: 0.9986 speed: 0.0748s/iter; left time: 278.9687s
+2025-03-27 11:19:29,332 - INFO - 	 loss1: 0.0029, loss2: -9.9837; rec_loss: 0.0029, loss_attn: 0.9987 speed: 0.0743s/iter; left time: 273.3221s
+2025-03-27 11:19:33,034 - INFO - 	 loss1: 0.0131, loss2: -9.9735; rec_loss: 0.0131, loss_attn: 0.9987 speed: 0.0740s/iter; left time: 268.7670s
+2025-03-27 11:19:36,759 - INFO - 	 loss1: 0.1258, loss2: -9.8596; rec_loss: 0.1258, loss_attn: 0.9985 speed: 0.0745s/iter; left time: 266.6487s
+2025-03-27 11:19:40,477 - INFO - 	 loss1: 0.0160, loss2: -9.9708; rec_loss: 0.0160, loss_attn: 0.9987 speed: 0.0743s/iter; left time: 262.4550s
+2025-03-27 11:19:44,227 - INFO - 	 loss1: 0.0032, loss2: -9.9854; rec_loss: 0.0032, loss_attn: 0.9989 speed: 0.0750s/iter; left time: 260.9889s
+2025-03-27 11:19:47,974 - INFO - 	 loss1: 0.0031, loss2: -9.9858; rec_loss: 0.0031, loss_attn: 0.9989 speed: 0.0749s/iter; left time: 257.0313s
+2025-03-27 11:19:51,750 - INFO - 	 loss1: 0.0045, loss2: -9.9847; rec_loss: 0.0045, loss_attn: 0.9989 speed: 0.0755s/iter; left time: 255.2531s
+2025-03-27 11:19:55,475 - INFO - 	 loss1: 0.0033, loss2: -9.9865; rec_loss: 0.0033, loss_attn: 0.9990 speed: 0.0745s/iter; left time: 247.9987s
+2025-03-27 11:19:59,212 - INFO - 	 loss1: 0.0021, loss2: -9.9883; rec_loss: 0.0021, loss_attn: 0.9990 speed: 0.0747s/iter; left time: 245.1152s
+2025-03-27 11:20:02,941 - INFO - 	 loss1: 0.0022, loss2: -9.9886; rec_loss: 0.0022, loss_attn: 0.9991 speed: 0.0746s/iter; left time: 240.9033s
+2025-03-27 11:20:06,679 - INFO - 	 loss1: 0.0026, loss2: -9.9884; rec_loss: 0.0026, loss_attn: 0.9991 speed: 0.0747s/iter; left time: 237.6921s
+2025-03-27 11:20:10,426 - INFO - 	 loss1: 0.0031, loss2: -9.9883; rec_loss: 0.0031, loss_attn: 0.9991 speed: 0.0749s/iter; left time: 234.5684s
+2025-03-27 11:20:14,182 - INFO - 	 loss1: 0.0169, loss2: -9.9743; rec_loss: 0.0169, loss_attn: 0.9991 speed: 0.0751s/iter; left time: 231.2969s
+2025-03-27 11:20:17,932 - INFO - 	 loss1: 0.0832, loss2: -9.9030; rec_loss: 0.0832, loss_attn: 0.9986 speed: 0.0750s/iter; left time: 227.2703s
+2025-03-27 11:20:21,679 - INFO - 	 loss1: 0.0025, loss2: -9.9898; rec_loss: 0.0025, loss_attn: 0.9992 speed: 0.0749s/iter; left time: 223.2959s
+2025-03-27 11:20:25,418 - INFO - 	 loss1: 0.0017, loss2: -9.9909; rec_loss: 0.0017, loss_attn: 0.9993 speed: 0.0748s/iter; left time: 219.0367s
+2025-03-27 11:20:29,177 - INFO - 	 loss1: 0.0028, loss2: -9.9899; rec_loss: 0.0028, loss_attn: 0.9993 speed: 0.0752s/iter; left time: 216.4954s
+2025-03-27 11:20:32,920 - INFO - 	 loss1: 0.0018, loss2: -9.9913; rec_loss: 0.0018, loss_attn: 0.9993 speed: 0.0748s/iter; left time: 211.8232s
+2025-03-27 11:20:36,679 - INFO - 	 loss1: 0.0021, loss2: -9.9912; rec_loss: 0.0021, loss_attn: 0.9993 speed: 0.0752s/iter; left time: 209.0206s
+2025-03-27 11:20:40,435 - INFO - 	 loss1: 0.0022, loss2: -9.9914; rec_loss: 0.0022, loss_attn: 0.9994 speed: 0.0751s/iter; left time: 205.0545s
+2025-03-27 11:20:44,150 - INFO - 	 loss1: 0.0098, loss2: -9.9833; rec_loss: 0.0098, loss_attn: 0.9993 speed: 0.0743s/iter; left time: 199.0792s
+2025-03-27 11:20:47,909 - INFO - 	 loss1: 0.0018, loss2: -9.9920; rec_loss: 0.0018, loss_attn: 0.9994 speed: 0.0752s/iter; left time: 197.7524s
+2025-03-27 11:20:51,691 - INFO - 	 loss1: 0.0020, loss2: -9.9922; rec_loss: 0.0020, loss_attn: 0.9994 speed: 0.0756s/iter; left time: 195.1121s
+2025-03-27 11:20:55,448 - INFO - 	 loss1: 0.0027, loss2: -9.9916; rec_loss: 0.0027, loss_attn: 0.9994 speed: 0.0751s/iter; left time: 190.0849s
+2025-03-27 11:20:59,170 - INFO - 	 loss1: 0.0244, loss2: -9.9684; rec_loss: 0.0244, loss_attn: 0.9993 speed: 0.0744s/iter; left time: 184.5985s
+2025-03-27 11:21:02,919 - INFO - 	 loss1: 0.0028, loss2: -9.9919; rec_loss: 0.0028, loss_attn: 0.9995 speed: 0.0750s/iter; left time: 182.1943s
+2025-03-27 11:21:06,660 - INFO - 	 loss1: 0.0015, loss2: -9.9934; rec_loss: 0.0015, loss_attn: 0.9995 speed: 0.0748s/iter; left time: 178.0311s
+2025-03-27 11:21:10,369 - INFO - 	 loss1: 0.0020, loss2: -9.9931; rec_loss: 0.0020, loss_attn: 0.9995 speed: 0.0742s/iter; left time: 172.8105s
+2025-03-27 11:21:14,099 - INFO - 	 loss1: 0.0031, loss2: -9.9920; rec_loss: 0.0031, loss_attn: 0.9995 speed: 0.0746s/iter; left time: 170.0675s
+2025-03-27 11:21:17,853 - INFO - 	 loss1: 0.0015, loss2: -9.9939; rec_loss: 0.0015, loss_attn: 0.9995 speed: 0.0751s/iter; left time: 167.4352s
+2025-03-27 11:21:21,589 - INFO - 	 loss1: 0.0022, loss2: -9.9932; rec_loss: 0.0022, loss_attn: 0.9995 speed: 0.0747s/iter; left time: 162.8558s
+2025-03-27 11:21:25,325 - INFO - 	 loss1: 0.0016, loss2: -9.9941; rec_loss: 0.0016, loss_attn: 0.9996 speed: 0.0747s/iter; left time: 159.1614s
+2025-03-27 11:21:29,066 - INFO - 	 loss1: 0.0014, loss2: -9.9944; rec_loss: 0.0014, loss_attn: 0.9996 speed: 0.0748s/iter; left time: 155.6120s
+2025-03-27 11:21:32,800 - INFO - 	 loss1: 0.0014, loss2: -9.9945; rec_loss: 0.0014, loss_attn: 0.9996 speed: 0.0747s/iter; left time: 151.5752s
+2025-03-27 11:21:36,547 - INFO - 	 loss1: 0.0066, loss2: -9.9891; rec_loss: 0.0066, loss_attn: 0.9996 speed: 0.0749s/iter; left time: 148.3585s
+2025-03-27 11:21:40,264 - INFO - 	 loss1: 0.0040, loss2: -9.9921; rec_loss: 0.0040, loss_attn: 0.9996 speed: 0.0743s/iter; left time: 143.4517s
+2025-03-27 11:21:43,985 - INFO - 	 loss1: 0.0017, loss2: -9.9946; rec_loss: 0.0017, loss_attn: 0.9996 speed: 0.0744s/iter; left time: 139.8962s
+2025-03-27 11:21:47,701 - INFO - 	 loss1: 0.0014, loss2: -9.9950; rec_loss: 0.0014, loss_attn: 0.9996 speed: 0.0743s/iter; left time: 135.9587s
+2025-03-27 11:21:51,423 - INFO - 	 loss1: 0.0017, loss2: -9.9940; rec_loss: 0.0017, loss_attn: 0.9996 speed: 0.0744s/iter; left time: 132.5135s
+2025-03-27 11:21:55,145 - INFO - 	 loss1: 0.0023, loss2: -9.9942; rec_loss: 0.0023, loss_attn: 0.9996 speed: 0.0744s/iter; left time: 128.7418s
+2025-03-27 11:21:58,872 - INFO - 	 loss1: 0.0066, loss2: -9.9891; rec_loss: 0.0066, loss_attn: 0.9996 speed: 0.0745s/iter; left time: 125.2173s
+2025-03-27 11:22:02,615 - INFO - 	 loss1: 0.0013, loss2: -9.9954; rec_loss: 0.0013, loss_attn: 0.9997 speed: 0.0749s/iter; left time: 122.0235s
+2025-03-27 11:22:06,365 - INFO - 	 loss1: 0.0011, loss2: -9.9958; rec_loss: 0.0011, loss_attn: 0.9997 speed: 0.0750s/iter; left time: 118.4634s
+2025-03-27 11:22:10,078 - INFO - 	 loss1: 0.0011, loss2: -9.9959; rec_loss: 0.0011, loss_attn: 0.9997 speed: 0.0743s/iter; left time: 113.6156s
+2025-03-27 11:22:13,806 - INFO - 	 loss1: 0.0020, loss2: -9.9951; rec_loss: 0.0020, loss_attn: 0.9997 speed: 0.0746s/iter; left time: 110.3579s
+2025-03-27 11:22:17,572 - INFO - 	 loss1: 0.0014, loss2: -9.9958; rec_loss: 0.0014, loss_attn: 0.9997 speed: 0.0753s/iter; left time: 107.6968s
+2025-03-27 11:22:21,305 - INFO - 	 loss1: 0.0016, loss2: -9.9956; rec_loss: 0.0016, loss_attn: 0.9997 speed: 0.0746s/iter; left time: 103.0056s
+2025-03-27 11:22:25,032 - INFO - 	 loss1: 0.0056, loss2: -9.9917; rec_loss: 0.0056, loss_attn: 0.9997 speed: 0.0745s/iter; left time: 99.1354s
+2025-03-27 11:22:28,769 - INFO - 	 loss1: 0.0077, loss2: -9.9895; rec_loss: 0.0077, loss_attn: 0.9997 speed: 0.0747s/iter; left time: 95.6500s
+2025-03-27 11:22:32,539 - INFO - 	 loss1: 0.0011, loss2: -9.9963; rec_loss: 0.0011, loss_attn: 0.9997 speed: 0.0754s/iter; left time: 92.7309s
+2025-03-27 11:22:36,295 - INFO - 	 loss1: 0.0078, loss2: -9.9895; rec_loss: 0.0078, loss_attn: 0.9997 speed: 0.0751s/iter; left time: 88.6250s
+2025-03-27 11:22:40,041 - INFO - 	 loss1: 0.0010, loss2: -9.9967; rec_loss: 0.0010, loss_attn: 0.9998 speed: 0.0749s/iter; left time: 84.6595s
+2025-03-27 11:22:43,810 - INFO - 	 loss1: 0.0013, loss2: -9.9964; rec_loss: 0.0013, loss_attn: 0.9998 speed: 0.0754s/iter; left time: 81.3983s
+2025-03-27 11:22:47,550 - INFO - 	 loss1: 0.0013, loss2: -9.9964; rec_loss: 0.0013, loss_attn: 0.9998 speed: 0.0748s/iter; left time: 77.0305s
+2025-03-27 11:22:51,270 - INFO - 	 loss1: 0.0009, loss2: -9.9969; rec_loss: 0.0009, loss_attn: 0.9998 speed: 0.0744s/iter; left time: 72.8932s
+2025-03-27 11:22:55,011 - INFO - 	 loss1: 0.0015, loss2: -9.9963; rec_loss: 0.0015, loss_attn: 0.9998 speed: 0.0748s/iter; left time: 69.5862s
+2025-03-27 11:22:58,766 - INFO - 	 loss1: 0.0049, loss2: -9.9929; rec_loss: 0.0049, loss_attn: 0.9998 speed: 0.0751s/iter; left time: 66.0819s
+2025-03-27 11:23:02,542 - INFO - 	 loss1: 0.0019, loss2: -9.9961; rec_loss: 0.0019, loss_attn: 0.9998 speed: 0.0755s/iter; left time: 62.6728s
+2025-03-27 11:23:06,283 - INFO - 	 loss1: 0.0018, loss2: -9.9960; rec_loss: 0.0018, loss_attn: 0.9998 speed: 0.0748s/iter; left time: 58.3569s
+2025-03-27 11:23:10,032 - INFO - 	 loss1: 0.0022, loss2: -9.9959; rec_loss: 0.0022, loss_attn: 0.9998 speed: 0.0750s/iter; left time: 54.7318s
+2025-03-27 11:23:13,786 - INFO - 	 loss1: 0.0044, loss2: -9.9935; rec_loss: 0.0044, loss_attn: 0.9998 speed: 0.0751s/iter; left time: 51.0489s
+2025-03-27 11:23:17,509 - INFO - 	 loss1: 0.0012, loss2: -9.9969; rec_loss: 0.0012, loss_attn: 0.9998 speed: 0.0744s/iter; left time: 46.8976s
+2025-03-27 11:23:21,272 - INFO - 	 loss1: 0.0021, loss2: -9.9961; rec_loss: 0.0021, loss_attn: 0.9998 speed: 0.0753s/iter; left time: 43.6531s
+2025-03-27 11:23:25,009 - INFO - 	 loss1: 0.0073, loss2: -9.9904; rec_loss: 0.0073, loss_attn: 0.9998 speed: 0.0747s/iter; left time: 39.5975s
+2025-03-27 11:23:28,751 - INFO - 	 loss1: 0.0009, loss2: -9.9975; rec_loss: 0.0009, loss_attn: 0.9998 speed: 0.0748s/iter; left time: 35.9230s
+2025-03-27 11:23:32,525 - INFO - 	 loss1: 0.0019, loss2: -9.9964; rec_loss: 0.0019, loss_attn: 0.9998 speed: 0.0755s/iter; left time: 32.4512s
+2025-03-27 11:23:36,290 - INFO - 	 loss1: 0.0007, loss2: -9.9977; rec_loss: 0.0007, loss_attn: 0.9998 speed: 0.0753s/iter; left time: 28.6113s
+2025-03-27 11:23:40,041 - INFO - 	 loss1: 0.0010, loss2: -9.9974; rec_loss: 0.0010, loss_attn: 0.9998 speed: 0.0750s/iter; left time: 24.7555s
+2025-03-27 11:23:43,784 - INFO - 	 loss1: 0.0006, loss2: -9.9979; rec_loss: 0.0006, loss_attn: 0.9998 speed: 0.0749s/iter; left time: 20.9593s
+2025-03-27 11:23:47,527 - INFO - 	 loss1: 0.0013, loss2: -9.9972; rec_loss: 0.0013, loss_attn: 0.9998 speed: 0.0749s/iter; left time: 17.2176s
+2025-03-27 11:23:51,261 - INFO - 	 loss1: 0.0008, loss2: -9.9978; rec_loss: 0.0008, loss_attn: 0.9999 speed: 0.0747s/iter; left time: 13.4403s
+2025-03-27 11:23:55,018 - INFO - 	 loss1: 0.0025, loss2: -9.9960; rec_loss: 0.0025, loss_attn: 0.9998 speed: 0.0751s/iter; left time: 9.7663s
+2025-03-27 11:23:58,753 - INFO - 	 loss1: 0.0025, loss2: -9.9961; rec_loss: 0.0025, loss_attn: 0.9999 speed: 0.0747s/iter; left time: 5.9754s
+2025-03-27 11:24:02,498 - INFO - 	 loss1: 0.0032, loss2: -9.9954; rec_loss: 0.0032, loss_attn: 0.9999 speed: 0.0749s/iter; left time: 2.2470s
+2025-03-27 11:24:04,724 - INFO - Epoch: 1 cost time: 457.86397099494934, memory: 1.93GB, flops: 0.493256GFLOPS, params: 4.925533M
+2025-03-27 11:24:04,822 - INFO - ======================TEST MODE======================
+2025-03-27 11:24:05,557 - INFO - Threshold : 0.6946689263294143
+2025-03-27 11:24:05,559 - INFO - Threshold for reconstruction loss: 0.038853228092193604
+2025-03-27 11:28:04,913 - INFO - ------------ Options -------------
+2025-03-27 11:28:04,913 - INFO - anormly_ratio: 1.0
+2025-03-27 11:28:04,913 - INFO - anormly_ratio_span: [0.1, 1]
+2025-03-27 11:28:04,913 - INFO - anormly_ratio_step: 0.1
+2025-03-27 11:28:04,913 - INFO - attn_temp: 1
+2025-03-27 11:28:04,913 - INFO - attn_temp_range: [1, 1]
+2025-03-27 11:28:04,913 - INFO - attn_temp_step: 5
+2025-03-27 11:28:04,913 - INFO - batch_size: 128
+2025-03-27 11:28:04,913 - INFO - data_path: ./sub_adjacent_transformer-main/dataset/WADI
+2025-03-27 11:28:04,913 - INFO - dataset: wadi
+2025-03-27 11:28:04,913 - INFO - input_c: 93
+2025-03-27 11:28:04,914 - INFO - k: 10
+2025-03-27 11:28:04,914 - INFO - kernel_length: 100
+2025-03-27 11:28:04,914 - INFO - kernel_length_range: [0, 600]
+2025-03-27 11:28:04,914 - INFO - kernel_length_step: 10
+2025-03-27 11:28:04,914 - INFO - lr: 0.0001
+2025-03-27 11:28:04,914 - INFO - mapping_function: ours
+2025-03-27 11:28:04,914 - INFO - mode: find_best
+2025-03-27 11:28:04,914 - INFO - model_save_path: ./sub_adjacent_transformer-main/checkpoints
+2025-03-27 11:28:04,914 - INFO - monte_carlo: 1
+2025-03-27 11:28:04,914 - INFO - no_gauss_dynamic: False
+2025-03-27 11:28:04,914 - INFO - no_linear_attn: False
+2025-03-27 11:28:04,914 - INFO - no_point_adjustment: False
+2025-03-27 11:28:04,914 - INFO - num_epochs: 1
+2025-03-27 11:28:04,914 - INFO - oneside: False
+2025-03-27 11:28:04,914 - INFO - output_c: 93
+2025-03-27 11:28:04,914 - INFO - pretrained_model: None
+2025-03-27 11:28:04,914 - INFO - record_state: False
+2025-03-27 11:28:04,914 - INFO - softmax_span: 200
+2025-03-27 11:28:04,914 - INFO - softmax_span_range: [200, 200]
+2025-03-27 11:28:04,914 - INFO - softmax_span_step: 50
+2025-03-27 11:28:04,914 - INFO - span: [20, 30]
+2025-03-27 11:28:04,914 - INFO - temperature: 50
+2025-03-27 11:28:04,914 - INFO - temperature_range: [50, 50]
+2025-03-27 11:28:04,914 - INFO - temperature_step: 10
+2025-03-27 11:28:04,914 - INFO - train_data_ratio: 1.0
+2025-03-27 11:28:04,914 - INFO - train_data_step: 1
+2025-03-27 11:28:04,914 - INFO - win_size: 100
+2025-03-27 11:28:04,914 - INFO - ------------ End -------------
+2025-03-27 11:28:17,134 - INFO - ======================TEST MODE======================
+2025-03-27 11:28:18,402 - INFO - Threshold : 0.7204972784579938
+2025-03-27 11:28:18,405 - INFO - Threshold for reconstruction loss: 1.871664714574822
+2025-03-27 11:28:18,767 - INFO - wadi Evaluation: cost time: 0.08410835266113281
+2025-03-27 11:28:18,948 - INFO - pred: (172800,)
+2025-03-27 11:28:18,948 - INFO - gt: (172800,)
+2025-03-27 11:28:18,965 - INFO - Accuracy : 97.98%, Precision : 98.14%, Recall : 66.27%, F-score : 79.12%
+2025-03-27 11:28:18,965 - INFO - -------------- End ----------------
+2025-03-27 11:28:19,033 - INFO - ======================TEST MODE======================
+2025-03-27 11:28:19,688 - INFO - Threshold : 0.700944439845545
+2025-03-27 11:28:19,690 - INFO - Threshold for reconstruction loss: 0.2754765744209381
+2025-03-27 11:28:20,024 - INFO - wadi Evaluation: cost time: 0.07282209396362305
+2025-03-27 11:28:20,159 - INFO - pred: (172800,)
+2025-03-27 11:28:20,160 - INFO - gt: (172800,)
+2025-03-27 11:28:20,171 - INFO - Accuracy : 98.97%, Precision : 96.91%, Recall : 84.94%, F-score : 90.53%
+2025-03-27 11:28:20,171 - INFO - -------------- End ----------------
+2025-03-27 11:28:20,234 - INFO - ======================TEST MODE======================
+2025-03-27 11:28:20,911 - INFO - Threshold : 0.6976282071473081
+2025-03-27 11:28:20,914 - INFO - Threshold for reconstruction loss: 0.08081983774900436
+2025-03-27 11:28:21,279 - INFO - wadi Evaluation: cost time: 0.08287596702575684
+2025-03-27 11:28:21,481 - INFO - pred: (172800,)
+2025-03-27 11:28:21,481 - INFO - gt: (172800,)
+2025-03-27 11:28:21,496 - INFO - Accuracy : 99.30%, Precision : 95.58%, Recall : 92.14%, F-score : 93.83%
+2025-03-27 11:28:21,497 - INFO - -------------- End ----------------
+2025-03-27 11:28:21,575 - INFO - ======================TEST MODE======================
+2025-03-27 11:28:22,265 - INFO - Threshold : 0.6964155246653722
+2025-03-27 11:28:22,267 - INFO - Threshold for reconstruction loss: 0.06352239847183228
+2025-03-27 11:28:22,592 - INFO - wadi Evaluation: cost time: 0.07370615005493164
+2025-03-27 11:28:22,748 - INFO - pred: (172800,)
+2025-03-27 11:28:22,749 - INFO - gt: (172800,)
+2025-03-27 11:28:22,770 - INFO - Accuracy : 99.54%, Precision : 94.33%, Recall : 97.97%, F-score : 96.12%
+2025-03-27 11:28:22,770 - INFO - -------------- End ----------------
+2025-03-27 11:28:22,873 - INFO - ======================TEST MODE======================
+2025-03-27 11:28:23,639 - INFO - Threshold : 0.6958397577756734
+2025-03-27 11:28:23,641 - INFO - Threshold for reconstruction loss: 0.05826470004394672
+2025-03-27 11:28:23,993 - INFO - wadi Evaluation: cost time: 0.07830095291137695
+2025-03-27 11:28:24,130 - INFO - pred: (172800,)
+2025-03-27 11:28:24,130 - INFO - gt: (172800,)
+2025-03-27 11:28:24,143 - INFO - Accuracy : 99.45%, Precision : 92.86%, Recall : 97.97%, F-score : 95.34%
+2025-03-27 11:28:24,143 - INFO - -------------- End ----------------
+2025-03-27 11:28:24,180 - INFO - ======================TEST MODE======================
+2025-03-27 11:28:24,846 - INFO - Threshold : 0.6954704208930983
+2025-03-27 11:28:24,848 - INFO - Threshold for reconstruction loss: 0.05344897885620637
+2025-03-27 11:28:25,179 - INFO - wadi Evaluation: cost time: 0.07177615165710449
+2025-03-27 11:28:25,323 - INFO - pred: (172800,)
+2025-03-27 11:28:25,324 - INFO - gt: (172800,)
+2025-03-27 11:28:25,336 - INFO - Accuracy : 99.36%, Precision : 91.47%, Recall : 97.97%, F-score : 94.61%
+2025-03-27 11:28:25,336 - INFO - -------------- End ----------------
+2025-03-27 11:28:25,372 - INFO - ======================TEST MODE======================
+2025-03-27 11:28:26,029 - INFO - Threshold : 0.6951867378760914
+2025-03-27 11:28:26,031 - INFO - Threshold for reconstruction loss: 0.049023301940411164
+2025-03-27 11:28:26,357 - INFO - wadi Evaluation: cost time: 0.0697023868560791
+2025-03-27 11:28:26,498 - INFO - pred: (172800,)
+2025-03-27 11:28:26,499 - INFO - gt: (172800,)
+2025-03-27 11:28:26,511 - INFO - Accuracy : 99.38%, Precision : 90.28%, Recall : 100.00%, F-score : 94.89%
+2025-03-27 11:28:26,511 - INFO - -------------- End ----------------
+2025-03-27 11:28:26,548 - INFO - ======================TEST MODE======================
+2025-03-27 11:28:27,205 - INFO - Threshold : 0.6950107415008672
+2025-03-27 11:28:27,208 - INFO - Threshold for reconstruction loss: 0.0457497164607048
+2025-03-27 11:28:27,578 - INFO - wadi Evaluation: cost time: 0.08469963073730469
+2025-03-27 11:28:27,803 - INFO - pred: (172800,)
+2025-03-27 11:28:27,803 - INFO - gt: (172800,)
+2025-03-27 11:28:27,817 - INFO - Accuracy : 99.28%, Precision : 88.95%, Recall : 100.00%, F-score : 94.15%
+2025-03-27 11:28:27,817 - INFO - -------------- End ----------------
+2025-03-27 11:28:27,860 - INFO - ======================TEST MODE======================
+2025-03-27 11:28:28,576 - INFO - Threshold : 0.6948272698091196
+2025-03-27 11:28:28,578 - INFO - Threshold for reconstruction loss: 0.04195532575249672
+2025-03-27 11:28:28,944 - INFO - wadi Evaluation: cost time: 0.08481550216674805
+2025-03-27 11:28:29,178 - INFO - pred: (172800,)
+2025-03-27 11:28:29,178 - INFO - gt: (172800,)
+2025-03-27 11:28:29,195 - INFO - Accuracy : 99.19%, Precision : 87.67%, Recall : 100.00%, F-score : 93.43%
+2025-03-27 11:28:29,195 - INFO - -------------- End ----------------
+2025-03-27 11:28:29,238 - INFO - ======================TEST MODE======================
+2025-03-27 11:28:29,950 - INFO - Threshold : 0.6946689254555726
+2025-03-27 11:28:29,952 - INFO - Threshold for reconstruction loss: 0.03885327599942689
+2025-03-27 11:28:30,322 - INFO - wadi Evaluation: cost time: 0.08877682685852051
+2025-03-27 11:28:30,520 - INFO - pred: (172800,)
+2025-03-27 11:28:30,520 - INFO - gt: (172800,)
+2025-03-27 11:28:30,536 - INFO - Accuracy : 99.09%, Precision : 86.41%, Recall : 100.00%, F-score : 92.71%
+2025-03-27 11:28:30,536 - INFO - -------------- End ----------------
+2025-03-27 14:13:20,892 - INFO - ------------ Options -------------
+2025-03-27 14:13:20,892 - INFO - anormly_ratio: 1.0
+2025-03-27 14:13:20,892 - INFO - anormly_ratio_span: [0.1, 1]
+2025-03-27 14:13:20,892 - INFO - anormly_ratio_step: 0.1
+2025-03-27 14:13:20,892 - INFO - attn_temp: 1
+2025-03-27 14:13:20,892 - INFO - attn_temp_range: [1, 1]
+2025-03-27 14:13:20,892 - INFO - attn_temp_step: 5
+2025-03-27 14:13:20,892 - INFO - batch_size: 128
+2025-03-27 14:13:20,892 - INFO - data_path: ./sub_adjacent_transformer-main/dataset/WADI
+2025-03-27 14:13:20,892 - INFO - dataset: wadi
+2025-03-27 14:13:20,892 - INFO - input_c: 93
+2025-03-27 14:13:20,892 - INFO - k: 10
+2025-03-27 14:13:20,892 - INFO - kernel_length: 100
+2025-03-27 14:13:20,892 - INFO - kernel_length_range: [0, 600]
+2025-03-27 14:13:20,892 - INFO - kernel_length_step: 10
+2025-03-27 14:13:20,892 - INFO - lr: 0.0001
+2025-03-27 14:13:20,892 - INFO - mapping_function: ours
+2025-03-27 14:13:20,892 - INFO - mode: monte_carlo_search
+2025-03-27 14:13:20,892 - INFO - model_save_path: ./sub_adjacent_transformer-main/checkpoints
+2025-03-27 14:13:20,892 - INFO - monte_carlo: 1
+2025-03-27 14:13:20,892 - INFO - no_gauss_dynamic: False
+2025-03-27 14:13:20,892 - INFO - no_linear_attn: False
+2025-03-27 14:13:20,892 - INFO - no_point_adjustment: False
+2025-03-27 14:13:20,892 - INFO - num_epochs: 1
+2025-03-27 14:13:20,892 - INFO - oneside: False
+2025-03-27 14:13:20,892 - INFO - output_c: 93
+2025-03-27 14:13:20,892 - INFO - pretrained_model: None
+2025-03-27 14:13:20,893 - INFO - record_state: True
+2025-03-27 14:13:20,893 - INFO - softmax_span: 200
+2025-03-27 14:13:20,893 - INFO - softmax_span_range: [200, 200]
+2025-03-27 14:13:20,893 - INFO - softmax_span_step: 50
+2025-03-27 14:13:20,893 - INFO - span: [20, 30]
+2025-03-27 14:13:20,893 - INFO - temperature: 50
+2025-03-27 14:13:20,893 - INFO - temperature_range: [50, 50]
+2025-03-27 14:13:20,893 - INFO - temperature_step: 10
+2025-03-27 14:13:20,893 - INFO - train_data_ratio: 1.0
+2025-03-27 14:13:20,893 - INFO - train_data_step: 1
+2025-03-27 14:13:20,893 - INFO - win_size: 100
+2025-03-27 14:13:20,893 - INFO - ------------ End -------------
+2025-03-27 14:13:31,033 - INFO - ======================TRAIN MODE======================
+2025-03-27 14:13:34,207 - INFO - 	 loss1: 1.0110, loss2: 13.1643; rec_loss: 1.0110, cl: 12.1533 speed: 0.0628s/iter; left time: 382.0755s
+2025-03-27 14:13:36,544 - INFO - 	 loss1: 0.9993, loss2: 12.8675; rec_loss: 0.9993, cl: 11.8681 speed: 0.0467s/iter; left time: 281.8979s
+2025-03-27 14:13:38,796 - INFO - 	 loss1: 0.7868, loss2: 12.2096; rec_loss: 0.7868, cl: 11.4229 speed: 0.0450s/iter; left time: 269.2661s
+2025-03-27 14:13:41,094 - INFO - 	 loss1: 0.5909, loss2: 11.7693; rec_loss: 0.5909, cl: 11.1784 speed: 0.0460s/iter; left time: 272.5326s
+2025-03-27 14:13:43,296 - INFO - 	 loss1: 0.6165, loss2: 11.7191; rec_loss: 0.6165, cl: 11.1026 speed: 0.0440s/iter; left time: 258.9316s
+2025-03-27 14:13:45,457 - INFO - 	 loss1: 0.4689, loss2: 11.4564; rec_loss: 0.4689, cl: 10.9875 speed: 0.0432s/iter; left time: 251.8390s
+2025-03-27 14:13:47,648 - INFO - 	 loss1: 0.4121, loss2: 11.3522; rec_loss: 0.4121, cl: 10.9401 speed: 0.0438s/iter; left time: 253.3234s
+2025-03-27 14:13:49,809 - INFO - 	 loss1: 0.3740, loss2: 11.4560; rec_loss: 0.3740, cl: 11.0820 speed: 0.0432s/iter; left time: 247.5537s
+2025-03-27 14:13:51,978 - INFO - 	 loss1: 0.3665, loss2: 11.2240; rec_loss: 0.3665, cl: 10.8575 speed: 0.0434s/iter; left time: 246.3873s
+2025-03-27 14:13:54,184 - INFO - 	 loss1: 0.3892, loss2: 11.4436; rec_loss: 0.3892, cl: 11.0544 speed: 0.0441s/iter; left time: 248.3217s
+2025-03-27 14:13:56,393 - INFO - 	 loss1: 0.3552, loss2: 11.2444; rec_loss: 0.3552, cl: 10.8892 speed: 0.0442s/iter; left time: 246.5390s
+2025-03-27 14:13:58,612 - INFO - 	 loss1: 0.2389, loss2: 11.2005; rec_loss: 0.2389, cl: 10.9616 speed: 0.0444s/iter; left time: 245.4098s
+2025-03-27 14:14:00,877 - INFO - 	 loss1: 0.3100, loss2: 11.1037; rec_loss: 0.3100, cl: 10.7938 speed: 0.0453s/iter; left time: 248.1864s
+2025-03-27 14:14:03,165 - INFO - 	 loss1: 0.1928, loss2: 11.0385; rec_loss: 0.1928, cl: 10.8457 speed: 0.0457s/iter; left time: 248.4139s
+2025-03-27 14:14:05,363 - INFO - 	 loss1: 0.2907, loss2: 11.1614; rec_loss: 0.2907, cl: 10.8707 speed: 0.0440s/iter; left time: 236.5565s
+2025-03-27 14:14:07,528 - INFO - 	 loss1: 0.3522, loss2: 11.1536; rec_loss: 0.3522, cl: 10.8014 speed: 0.0433s/iter; left time: 230.7157s
+2025-03-27 14:14:09,635 - INFO - 	 loss1: 0.2568, loss2: 11.0849; rec_loss: 0.2568, cl: 10.8281 speed: 0.0421s/iter; left time: 222.5030s
+2025-03-27 14:14:11,810 - INFO - 	 loss1: 0.2324, loss2: 10.9713; rec_loss: 0.2324, cl: 10.7389 speed: 0.0435s/iter; left time: 227.4657s
+2025-03-27 14:14:14,052 - INFO - 	 loss1: 0.2440, loss2: 10.9750; rec_loss: 0.2440, cl: 10.7309 speed: 0.0448s/iter; left time: 232.1658s
+2025-03-27 14:14:16,210 - INFO - 	 loss1: 0.5032, loss2: 11.2080; rec_loss: 0.5032, cl: 10.7048 speed: 0.0432s/iter; left time: 221.4260s
+2025-03-27 14:14:18,456 - INFO - 	 loss1: 0.2512, loss2: 11.0119; rec_loss: 0.2512, cl: 10.7607 speed: 0.0449s/iter; left time: 228.1014s
+2025-03-27 14:14:20,775 - INFO - 	 loss1: 0.2597, loss2: 10.9923; rec_loss: 0.2597, cl: 10.7327 speed: 0.0464s/iter; left time: 233.3038s
+2025-03-27 14:14:22,996 - INFO - 	 loss1: 0.1686, loss2: 10.8965; rec_loss: 0.1686, cl: 10.7279 speed: 0.0444s/iter; left time: 221.1351s
+2025-03-27 14:14:25,264 - INFO - 	 loss1: 0.1801, loss2: 10.9135; rec_loss: 0.1801, cl: 10.7334 speed: 0.0454s/iter; left time: 223.6774s
+2025-03-27 14:14:27,529 - INFO - 	 loss1: 0.2986, loss2: 10.9520; rec_loss: 0.2986, cl: 10.6534 speed: 0.0453s/iter; left time: 220.9798s
+2025-03-27 14:14:29,705 - INFO - 	 loss1: 0.2678, loss2: 10.9867; rec_loss: 0.2678, cl: 10.7189 speed: 0.0435s/iter; left time: 210.1743s
+2025-03-27 14:14:31,880 - INFO - 	 loss1: 0.1953, loss2: 10.9058; rec_loss: 0.1953, cl: 10.7106 speed: 0.0435s/iter; left time: 207.9054s
+2025-03-27 14:14:34,139 - INFO - 	 loss1: 0.2267, loss2: 10.7870; rec_loss: 0.2267, cl: 10.5602 speed: 0.0452s/iter; left time: 213.6832s
+2025-03-27 14:14:36,358 - INFO - 	 loss1: 0.2274, loss2: 10.9023; rec_loss: 0.2274, cl: 10.6749 speed: 0.0444s/iter; left time: 207.6529s
+2025-03-27 14:14:38,642 - INFO - 	 loss1: 0.2915, loss2: 10.8420; rec_loss: 0.2915, cl: 10.5505 speed: 0.0457s/iter; left time: 211.5087s
+2025-03-27 14:14:40,909 - INFO - 	 loss1: 0.2328, loss2: 10.7823; rec_loss: 0.2328, cl: 10.5495 speed: 0.0453s/iter; left time: 207.5623s
+2025-03-27 14:14:43,168 - INFO - 	 loss1: 0.1539, loss2: 10.6113; rec_loss: 0.1539, cl: 10.4574 speed: 0.0452s/iter; left time: 204.7089s
+2025-03-27 14:14:45,333 - INFO - 	 loss1: 0.2150, loss2: 10.8122; rec_loss: 0.2150, cl: 10.5972 speed: 0.0433s/iter; left time: 193.8889s
+2025-03-27 14:14:47,534 - INFO - 	 loss1: 0.1980, loss2: 10.6709; rec_loss: 0.1980, cl: 10.4729 speed: 0.0440s/iter; left time: 195.0044s
+2025-03-27 14:14:49,729 - INFO - 	 loss1: 0.2371, loss2: 10.8451; rec_loss: 0.2371, cl: 10.6079 speed: 0.0439s/iter; left time: 192.2841s
+2025-03-27 14:14:51,957 - INFO - 	 loss1: 0.3494, loss2: 10.8230; rec_loss: 0.3494, cl: 10.4736 speed: 0.0446s/iter; left time: 192.9031s
+2025-03-27 14:14:54,205 - INFO - 	 loss1: 0.2468, loss2: 10.7731; rec_loss: 0.2468, cl: 10.5263 speed: 0.0450s/iter; left time: 192.4257s
+2025-03-27 14:14:56,424 - INFO - 	 loss1: 0.2049, loss2: 10.6506; rec_loss: 0.2049, cl: 10.4457 speed: 0.0444s/iter; left time: 187.7050s
+2025-03-27 14:14:58,721 - INFO - 	 loss1: 0.1550, loss2: 10.6348; rec_loss: 0.1550, cl: 10.4798 speed: 0.0459s/iter; left time: 191.9419s
+2025-03-27 14:15:01,027 - INFO - 	 loss1: 0.1386, loss2: 10.6620; rec_loss: 0.1386, cl: 10.5235 speed: 0.0461s/iter; left time: 190.4715s
+2025-03-27 14:15:03,286 - INFO - 	 loss1: 0.2864, loss2: 10.6845; rec_loss: 0.2864, cl: 10.3980 speed: 0.0452s/iter; left time: 184.3529s
+2025-03-27 14:15:05,544 - INFO - 	 loss1: 0.1912, loss2: 10.5081; rec_loss: 0.1912, cl: 10.3169 speed: 0.0451s/iter; left time: 181.9329s
+2025-03-27 14:15:07,748 - INFO - 	 loss1: 0.1809, loss2: 10.6392; rec_loss: 0.1809, cl: 10.4582 speed: 0.0441s/iter; left time: 175.3872s
+2025-03-27 14:15:09,903 - INFO - 	 loss1: 0.2420, loss2: 10.7028; rec_loss: 0.2420, cl: 10.4608 speed: 0.0431s/iter; left time: 169.3846s
+2025-03-27 14:15:12,093 - INFO - 	 loss1: 0.3178, loss2: 10.6114; rec_loss: 0.3178, cl: 10.2935 speed: 0.0438s/iter; left time: 169.9634s
+2025-03-27 14:15:14,362 - INFO - 	 loss1: 0.3970, loss2: 10.6667; rec_loss: 0.3970, cl: 10.2696 speed: 0.0454s/iter; left time: 173.7466s
+2025-03-27 14:15:16,605 - INFO - 	 loss1: 0.4418, loss2: 10.7768; rec_loss: 0.4418, cl: 10.3350 speed: 0.0449s/iter; left time: 169.5745s
+2025-03-27 14:15:18,921 - INFO - 	 loss1: 0.2164, loss2: 10.4846; rec_loss: 0.2164, cl: 10.2682 speed: 0.0463s/iter; left time: 172.6948s
+2025-03-27 14:15:21,145 - INFO - 	 loss1: 0.1624, loss2: 10.4025; rec_loss: 0.1624, cl: 10.2400 speed: 0.0445s/iter; left time: 163.6475s
+2025-03-27 14:15:23,295 - INFO - 	 loss1: 0.1827, loss2: 10.3745; rec_loss: 0.1827, cl: 10.1918 speed: 0.0430s/iter; left time: 156.1278s
+2025-03-27 14:15:25,471 - INFO - 	 loss1: 0.2212, loss2: 10.5848; rec_loss: 0.2212, cl: 10.3635 speed: 0.0435s/iter; left time: 155.7300s
+2025-03-27 14:15:27,706 - INFO - 	 loss1: 0.1792, loss2: 10.4010; rec_loss: 0.1792, cl: 10.2218 speed: 0.0447s/iter; left time: 157.8056s
+2025-03-27 14:15:29,914 - INFO - 	 loss1: 0.1900, loss2: 10.3107; rec_loss: 0.1900, cl: 10.1206 speed: 0.0441s/iter; left time: 153.6339s
+2025-03-27 14:15:32,125 - INFO - 	 loss1: 0.1827, loss2: 10.5056; rec_loss: 0.1827, cl: 10.3229 speed: 0.0442s/iter; left time: 151.6988s
+2025-03-27 14:15:34,373 - INFO - 	 loss1: 0.2484, loss2: 10.6223; rec_loss: 0.2484, cl: 10.3739 speed: 0.0449s/iter; left time: 151.9133s
+2025-03-27 14:15:36,627 - INFO - 	 loss1: 0.1769, loss2: 10.4425; rec_loss: 0.1769, cl: 10.2656 speed: 0.0451s/iter; left time: 150.0750s
+2025-03-27 14:15:38,846 - INFO - 	 loss1: 0.2070, loss2: 10.3844; rec_loss: 0.2070, cl: 10.1773 speed: 0.0444s/iter; left time: 145.5397s
+2025-03-27 14:15:41,091 - INFO - 	 loss1: 0.2411, loss2: 10.5082; rec_loss: 0.2411, cl: 10.2671 speed: 0.0449s/iter; left time: 145.0021s
+2025-03-27 14:15:43,356 - INFO - 	 loss1: 0.1709, loss2: 10.3418; rec_loss: 0.1709, cl: 10.1708 speed: 0.0453s/iter; left time: 144.0493s
+2025-03-27 14:15:45,639 - INFO - 	 loss1: 0.2188, loss2: 10.2800; rec_loss: 0.2188, cl: 10.0612 speed: 0.0457s/iter; left time: 142.8915s
+2025-03-27 14:15:47,879 - INFO - 	 loss1: 0.2339, loss2: 10.4951; rec_loss: 0.2339, cl: 10.2612 speed: 0.0448s/iter; left time: 137.9728s
+2025-03-27 14:15:50,175 - INFO - 	 loss1: 0.4933, loss2: 10.5089; rec_loss: 0.4933, cl: 10.0157 speed: 0.0459s/iter; left time: 139.0946s
+2025-03-27 14:15:52,443 - INFO - 	 loss1: 0.3734, loss2: 10.4464; rec_loss: 0.3734, cl: 10.0730 speed: 0.0454s/iter; left time: 135.1983s
+2025-03-27 14:15:54,698 - INFO - 	 loss1: 0.2032, loss2: 10.3586; rec_loss: 0.2032, cl: 10.1554 speed: 0.0451s/iter; left time: 132.1121s
+2025-03-27 14:15:56,926 - INFO - 	 loss1: 0.2132, loss2: 10.4020; rec_loss: 0.2132, cl: 10.1888 speed: 0.0445s/iter; left time: 128.2939s
+2025-03-27 14:15:59,140 - INFO - 	 loss1: 0.1147, loss2: 10.1908; rec_loss: 0.1147, cl: 10.0761 speed: 0.0443s/iter; left time: 125.3197s
+2025-03-27 14:16:01,359 - INFO - 	 loss1: 0.1567, loss2: 10.2313; rec_loss: 0.1567, cl: 10.0746 speed: 0.0444s/iter; left time: 123.3443s
+2025-03-27 14:16:03,581 - INFO - 	 loss1: 0.1463, loss2: 10.1229; rec_loss: 0.1463, cl: 9.9766 speed: 0.0444s/iter; left time: 121.3093s
+2025-03-27 14:16:05,737 - INFO - 	 loss1: 0.2272, loss2: 10.3049; rec_loss: 0.2272, cl: 10.0777 speed: 0.0431s/iter; left time: 115.5724s
+2025-03-27 14:16:07,988 - INFO - 	 loss1: 0.1800, loss2: 10.3359; rec_loss: 0.1800, cl: 10.1559 speed: 0.0450s/iter; left time: 118.3635s
+2025-03-27 14:16:10,199 - INFO - 	 loss1: 0.1555, loss2: 10.3212; rec_loss: 0.1555, cl: 10.1657 speed: 0.0442s/iter; left time: 114.0582s
+2025-03-27 14:16:12,422 - INFO - 	 loss1: 0.2111, loss2: 10.2349; rec_loss: 0.2111, cl: 10.0238 speed: 0.0445s/iter; left time: 112.4773s
+2025-03-27 14:16:14,766 - INFO - 	 loss1: 0.1657, loss2: 10.2945; rec_loss: 0.1657, cl: 10.1288 speed: 0.0469s/iter; left time: 116.2624s
+2025-03-27 14:16:17,111 - INFO - 	 loss1: 0.1366, loss2: 10.1390; rec_loss: 0.1366, cl: 10.0024 speed: 0.0469s/iter; left time: 113.9397s
+2025-03-27 14:16:19,329 - INFO - 	 loss1: 0.2122, loss2: 10.2276; rec_loss: 0.2122, cl: 10.0154 speed: 0.0444s/iter; left time: 105.5739s
+2025-03-27 14:16:21,530 - INFO - 	 loss1: 0.4110, loss2: 10.4385; rec_loss: 0.4110, cl: 10.0275 speed: 0.0440s/iter; left time: 102.5249s
+2025-03-27 14:16:23,792 - INFO - 	 loss1: 0.1972, loss2: 10.2877; rec_loss: 0.1972, cl: 10.0905 speed: 0.0452s/iter; left time: 103.1319s
+2025-03-27 14:16:26,054 - INFO - 	 loss1: 0.2297, loss2: 10.3169; rec_loss: 0.2297, cl: 10.0872 speed: 0.0452s/iter; left time: 100.8890s
+2025-03-27 14:16:28,240 - INFO - 	 loss1: 0.1696, loss2: 10.3032; rec_loss: 0.1696, cl: 10.1336 speed: 0.0437s/iter; left time: 95.3023s
+2025-03-27 14:16:30,509 - INFO - 	 loss1: 0.1875, loss2: 10.1195; rec_loss: 0.1875, cl: 9.9319 speed: 0.0454s/iter; left time: 96.6224s
+2025-03-27 14:16:32,807 - INFO - 	 loss1: 0.1868, loss2: 10.2133; rec_loss: 0.1868, cl: 10.0266 speed: 0.0460s/iter; left time: 95.5897s
+2025-03-27 14:16:35,157 - INFO - 	 loss1: 0.1936, loss2: 10.1889; rec_loss: 0.1936, cl: 9.9953 speed: 0.0470s/iter; left time: 95.3946s
+2025-03-27 14:16:37,467 - INFO - 	 loss1: 0.2475, loss2: 10.1689; rec_loss: 0.2475, cl: 9.9213 speed: 0.0462s/iter; left time: 91.4557s
+2025-03-27 14:16:39,729 - INFO - 	 loss1: 0.1401, loss2: 10.1379; rec_loss: 0.1401, cl: 9.9978 speed: 0.0452s/iter; left time: 87.3059s
+2025-03-27 14:16:41,958 - INFO - 	 loss1: 0.1632, loss2: 10.2555; rec_loss: 0.1632, cl: 10.0923 speed: 0.0446s/iter; left time: 83.8051s
+2025-03-27 14:16:44,172 - INFO - 	 loss1: 0.1842, loss2: 10.2846; rec_loss: 0.1842, cl: 10.1005 speed: 0.0443s/iter; left time: 81.0441s
+2025-03-27 14:16:46,420 - INFO - 	 loss1: 0.1935, loss2: 10.1284; rec_loss: 0.1935, cl: 9.9349 speed: 0.0450s/iter; left time: 80.0121s
+2025-03-27 14:16:48,617 - INFO - 	 loss1: 0.1463, loss2: 10.1249; rec_loss: 0.1463, cl: 9.9786 speed: 0.0439s/iter; left time: 75.9901s
+2025-03-27 14:16:50,800 - INFO - 	 loss1: 0.1435, loss2: 10.1966; rec_loss: 0.1435, cl: 10.0531 speed: 0.0437s/iter; left time: 73.3531s
+2025-03-27 14:16:53,101 - INFO - 	 loss1: 0.1541, loss2: 10.1575; rec_loss: 0.1541, cl: 10.0034 speed: 0.0460s/iter; left time: 74.9806s
+2025-03-27 14:16:55,328 - INFO - 	 loss1: 0.1607, loss2: 10.1037; rec_loss: 0.1607, cl: 9.9430 speed: 0.0445s/iter; left time: 70.3870s
+2025-03-27 14:16:57,597 - INFO - 	 loss1: 0.1212, loss2: 10.1991; rec_loss: 0.1212, cl: 10.0778 speed: 0.0454s/iter; left time: 69.3986s
+2025-03-27 14:16:59,881 - INFO - 	 loss1: 0.1728, loss2: 10.1790; rec_loss: 0.1728, cl: 10.0063 speed: 0.0457s/iter; left time: 67.6038s
+2025-03-27 14:17:02,104 - INFO - 	 loss1: 0.1831, loss2: 10.0414; rec_loss: 0.1831, cl: 9.8582 speed: 0.0444s/iter; left time: 63.5613s
+2025-03-27 14:17:04,387 - INFO - 	 loss1: 0.1100, loss2: 10.2422; rec_loss: 0.1100, cl: 10.1322 speed: 0.0457s/iter; left time: 63.0205s
+2025-03-27 14:17:06,657 - INFO - 	 loss1: 0.2225, loss2: 10.1883; rec_loss: 0.2225, cl: 9.9658 speed: 0.0454s/iter; left time: 60.3628s
+2025-03-27 14:17:08,949 - INFO - 	 loss1: 0.1802, loss2: 10.1778; rec_loss: 0.1802, cl: 9.9976 speed: 0.0458s/iter; left time: 58.6578s
+2025-03-27 14:17:11,157 - INFO - 	 loss1: 0.1199, loss2: 10.1526; rec_loss: 0.1199, cl: 10.0328 speed: 0.0442s/iter; left time: 54.3329s
+2025-03-27 14:17:13,399 - INFO - 	 loss1: 0.1351, loss2: 9.9919; rec_loss: 0.1351, cl: 9.8568 speed: 0.0448s/iter; left time: 52.9024s
+2025-03-27 14:17:15,531 - INFO - 	 loss1: 0.1282, loss2: 10.1626; rec_loss: 0.1282, cl: 10.0345 speed: 0.0426s/iter; left time: 48.1646s
+2025-03-27 14:17:17,721 - INFO - 	 loss1: 0.1405, loss2: 10.0499; rec_loss: 0.1405, cl: 9.9095 speed: 0.0438s/iter; left time: 47.3104s
+2025-03-27 14:17:19,922 - INFO - 	 loss1: 0.1110, loss2: 10.1326; rec_loss: 0.1110, cl: 10.0215 speed: 0.0440s/iter; left time: 45.3214s
+2025-03-27 14:17:22,066 - INFO - 	 loss1: 0.1388, loss2: 10.1887; rec_loss: 0.1388, cl: 10.0499 speed: 0.0429s/iter; left time: 42.0187s
+2025-03-27 14:17:24,247 - INFO - 	 loss1: 0.1470, loss2: 10.0196; rec_loss: 0.1470, cl: 9.8726 speed: 0.0436s/iter; left time: 40.5651s
+2025-03-27 14:17:26,407 - INFO - 	 loss1: 0.0860, loss2: 10.0538; rec_loss: 0.0860, cl: 9.9678 speed: 0.0432s/iter; left time: 37.9992s
+2025-03-27 14:17:28,622 - INFO - 	 loss1: 0.1096, loss2: 9.9609; rec_loss: 0.1096, cl: 9.8513 speed: 0.0443s/iter; left time: 36.7687s
+2025-03-27 14:17:30,819 - INFO - 	 loss1: 0.0934, loss2: 10.0583; rec_loss: 0.0934, cl: 9.9649 speed: 0.0439s/iter; left time: 34.2675s
+2025-03-27 14:17:33,064 - INFO - 	 loss1: 0.1227, loss2: 10.0767; rec_loss: 0.1227, cl: 9.9540 speed: 0.0449s/iter; left time: 32.7776s
+2025-03-27 14:17:35,288 - INFO - 	 loss1: 0.1039, loss2: 9.9915; rec_loss: 0.1039, cl: 9.8876 speed: 0.0445s/iter; left time: 30.2365s
+2025-03-27 14:17:37,569 - INFO - 	 loss1: 0.0942, loss2: 10.0391; rec_loss: 0.0942, cl: 9.9449 speed: 0.0456s/iter; left time: 28.7359s
+2025-03-27 14:17:39,841 - INFO - 	 loss1: 0.1117, loss2: 10.0211; rec_loss: 0.1117, cl: 9.9094 speed: 0.0455s/iter; left time: 26.3611s
+2025-03-27 14:17:42,061 - INFO - 	 loss1: 0.1620, loss2: 10.0514; rec_loss: 0.1620, cl: 9.8894 speed: 0.0444s/iter; left time: 23.5212s
+2025-03-27 14:17:44,311 - INFO - 	 loss1: 0.1196, loss2: 9.9476; rec_loss: 0.1196, cl: 9.8280 speed: 0.0450s/iter; left time: 21.6012s
+2025-03-27 14:17:46,626 - INFO - 	 loss1: 0.1058, loss2: 10.0672; rec_loss: 0.1058, cl: 9.9614 speed: 0.0463s/iter; left time: 19.9023s
+2025-03-27 14:17:48,887 - INFO - 	 loss1: 0.1683, loss2: 9.9315; rec_loss: 0.1683, cl: 9.7632 speed: 0.0452s/iter; left time: 17.1830s
+2025-03-27 14:17:51,068 - INFO - 	 loss1: 0.1555, loss2: 9.9716; rec_loss: 0.1555, cl: 9.8161 speed: 0.0436s/iter; left time: 14.3943s
+2025-03-27 14:17:53,288 - INFO - 	 loss1: 0.1032, loss2: 9.9628; rec_loss: 0.1032, cl: 9.8595 speed: 0.0444s/iter; left time: 12.4278s
+2025-03-27 14:17:55,559 - INFO - 	 loss1: 0.1277, loss2: 10.0071; rec_loss: 0.1277, cl: 9.8794 speed: 0.0454s/iter; left time: 10.4444s
+2025-03-27 14:17:57,777 - INFO - 	 loss1: 0.1678, loss2: 10.0165; rec_loss: 0.1678, cl: 9.8487 speed: 0.0444s/iter; left time: 7.9865s
+2025-03-27 14:17:59,979 - INFO - 	 loss1: 0.1339, loss2: 10.0574; rec_loss: 0.1339, cl: 9.9235 speed: 0.0440s/iter; left time: 5.7211s
+2025-03-27 14:18:02,168 - INFO - 	 loss1: 0.1462, loss2: 10.1138; rec_loss: 0.1462, cl: 9.9677 speed: 0.0438s/iter; left time: 3.5021s
+2025-03-27 14:18:04,359 - INFO - 	 loss1: 0.1130, loss2: 10.0378; rec_loss: 0.1130, cl: 9.9248 speed: 0.0438s/iter; left time: 1.3144s
+2025-03-27 14:18:05,761 - INFO - Epoch: 1 cost time: 274.0945658683777, memory: 2.67GB, flops: 0.015068GFLOPS, params: 0.116641M
+2025-03-27 14:18:05,780 - INFO - ======================TEST MODE======================
+2025-03-27 14:18:06,567 - INFO - Threshold : 1.259660171423228
+2025-03-27 14:18:06,570 - INFO - Threshold for reconstruction loss: 2.1661694049835205
+2025-03-27 14:22:16,098 - INFO - ------------ Options -------------
+2025-03-27 14:22:16,098 - INFO - anormly_ratio: 1.0
+2025-03-27 14:22:16,098 - INFO - anormly_ratio_span: [0.1, 1]
+2025-03-27 14:22:16,098 - INFO - anormly_ratio_step: 0.1
+2025-03-27 14:22:16,099 - INFO - attn_temp: 1
+2025-03-27 14:22:16,099 - INFO - attn_temp_range: [1, 1]
+2025-03-27 14:22:16,099 - INFO - attn_temp_step: 5
+2025-03-27 14:22:16,099 - INFO - batch_size: 128
+2025-03-27 14:22:16,099 - INFO - data_path: ./sub_adjacent_transformer-main/dataset/WADI
+2025-03-27 14:22:16,099 - INFO - dataset: wadi
+2025-03-27 14:22:16,099 - INFO - input_c: 93
+2025-03-27 14:22:16,099 - INFO - k: 10
+2025-03-27 14:22:16,099 - INFO - kernel_length: 100
+2025-03-27 14:22:16,099 - INFO - kernel_length_range: [0, 600]
+2025-03-27 14:22:16,099 - INFO - kernel_length_step: 10
+2025-03-27 14:22:16,099 - INFO - lr: 0.0001
+2025-03-27 14:22:16,099 - INFO - mapping_function: ours
+2025-03-27 14:22:16,099 - INFO - mode: find_best
+2025-03-27 14:22:16,099 - INFO - model_save_path: ./sub_adjacent_transformer-main/checkpoints
+2025-03-27 14:22:16,099 - INFO - monte_carlo: 1
+2025-03-27 14:22:16,099 - INFO - no_gauss_dynamic: False
+2025-03-27 14:22:16,099 - INFO - no_linear_attn: False
+2025-03-27 14:22:16,099 - INFO - no_point_adjustment: False
+2025-03-27 14:22:16,099 - INFO - num_epochs: 1
+2025-03-27 14:22:16,099 - INFO - oneside: False
+2025-03-27 14:22:16,099 - INFO - output_c: 93
+2025-03-27 14:22:16,099 - INFO - pretrained_model: None
+2025-03-27 14:22:16,099 - INFO - record_state: False
+2025-03-27 14:22:16,099 - INFO - softmax_span: 200
+2025-03-27 14:22:16,099 - INFO - softmax_span_range: [200, 200]
+2025-03-27 14:22:16,099 - INFO - softmax_span_step: 50
+2025-03-27 14:22:16,100 - INFO - span: [20, 30]
+2025-03-27 14:22:16,100 - INFO - temperature: 50
+2025-03-27 14:22:16,100 - INFO - temperature_range: [50, 50]
+2025-03-27 14:22:16,100 - INFO - temperature_step: 10
+2025-03-27 14:22:16,100 - INFO - train_data_ratio: 1.0
+2025-03-27 14:22:16,100 - INFO - train_data_step: 1
+2025-03-27 14:22:16,100 - INFO - win_size: 100
+2025-03-27 14:22:16,100 - INFO - ------------ End -------------
+2025-03-27 14:22:26,192 - INFO - ======================TEST MODE======================
+2025-03-27 14:22:27,610 - INFO - Threshold : 6.599706578878958
+2025-03-27 14:22:27,614 - INFO - Threshold for reconstruction loss: 5.504482078075433
+2025-03-27 14:22:28,019 - INFO - wadi Evaluation: cost time: 0.27819013595581055
+2025-03-27 14:22:28,147 - INFO - pred: (172800,)
+2025-03-27 14:22:28,147 - INFO - gt: (172800,)
+2025-03-27 14:22:28,160 - INFO - Accuracy : 96.74%, Precision : 96.69%, Recall : 45.05%, F-score : 61.47%
+2025-03-27 14:22:28,160 - INFO - -------------- End ----------------
+2025-03-27 14:22:28,175 - INFO - ======================TEST MODE======================
+2025-03-27 14:22:28,957 - INFO - Threshold : 3.8720767998379158
+2025-03-27 14:22:28,961 - INFO - Threshold for reconstruction loss: 4.563045983314514
+2025-03-27 14:22:29,361 - INFO - wadi Evaluation: cost time: 0.28130340576171875
+2025-03-27 14:22:29,487 - INFO - pred: (172800,)
+2025-03-27 14:22:29,487 - INFO - gt: (172800,)
+2025-03-27 14:22:29,499 - INFO - Accuracy : 96.65%, Precision : 93.55%, Recall : 45.05%, F-score : 60.82%
+2025-03-27 14:22:29,499 - INFO - -------------- End ----------------
+2025-03-27 14:22:29,512 - INFO - ======================TEST MODE======================
+2025-03-27 14:22:30,309 - INFO - Threshold : 2.8807453532337473
+2025-03-27 14:22:30,313 - INFO - Threshold for reconstruction loss: 4.4197731623649394
+2025-03-27 14:22:30,717 - INFO - wadi Evaluation: cost time: 0.27874112129211426
+2025-03-27 14:22:30,838 - INFO - pred: (172800,)
+2025-03-27 14:22:30,838 - INFO - gt: (172800,)
+2025-03-27 14:22:30,849 - INFO - Accuracy : 97.78%, Precision : 93.09%, Recall : 66.42%, F-score : 77.53%
+2025-03-27 14:22:30,849 - INFO - -------------- End ----------------
+2025-03-27 14:22:30,863 - INFO - ======================TEST MODE======================
+2025-03-27 14:22:31,651 - INFO - Threshold : 2.3096780839154474
+2025-03-27 14:22:31,655 - INFO - Threshold for reconstruction loss: 3.910455089569042
+2025-03-27 14:22:32,061 - INFO - wadi Evaluation: cost time: 0.2802445888519287
+2025-03-27 14:22:32,188 - INFO - pred: (172800,)
+2025-03-27 14:22:32,188 - INFO - gt: (172800,)
+2025-03-27 14:22:32,200 - INFO - Accuracy : 97.69%, Precision : 91.14%, Recall : 66.42%, F-score : 76.84%
+2025-03-27 14:22:32,200 - INFO - -------------- End ----------------
+2025-03-27 14:22:32,214 - INFO - ======================TEST MODE======================
+2025-03-27 14:22:33,015 - INFO - Threshold : 1.9678248062892334
+2025-03-27 14:22:33,019 - INFO - Threshold for reconstruction loss: 3.3629761433601413
+2025-03-27 14:22:33,421 - INFO - wadi Evaluation: cost time: 0.2797374725341797
+2025-03-27 14:22:33,546 - INFO - pred: (172800,)
+2025-03-27 14:22:33,546 - INFO - gt: (172800,)
+2025-03-27 14:22:33,558 - INFO - Accuracy : 98.43%, Precision : 91.00%, Recall : 80.88%, F-score : 85.64%
+2025-03-27 14:22:33,558 - INFO - -------------- End ----------------
+2025-03-27 14:22:33,573 - INFO - ======================TEST MODE======================
+2025-03-27 14:22:34,366 - INFO - Threshold : 1.7127238030470167
+2025-03-27 14:22:34,369 - INFO - Threshold for reconstruction loss: 3.0215133090019357
+2025-03-27 14:22:34,770 - INFO - wadi Evaluation: cost time: 0.28052568435668945
+2025-03-27 14:22:34,901 - INFO - pred: (172800,)
+2025-03-27 14:22:34,901 - INFO - gt: (172800,)
+2025-03-27 14:22:34,913 - INFO - Accuracy : 98.33%, Precision : 89.24%, Recall : 80.88%, F-score : 84.85%
+2025-03-27 14:22:34,913 - INFO - -------------- End ----------------
+2025-03-27 14:22:34,928 - INFO - ======================TEST MODE======================
+2025-03-27 14:22:35,726 - INFO - Threshold : 1.5528712397668174
+2025-03-27 14:22:35,730 - INFO - Threshold for reconstruction loss: 2.708673396587363
+2025-03-27 14:22:36,131 - INFO - wadi Evaluation: cost time: 0.28006720542907715
+2025-03-27 14:22:36,257 - INFO - pred: (172800,)
+2025-03-27 14:22:36,257 - INFO - gt: (172800,)
+2025-03-27 14:22:36,269 - INFO - Accuracy : 98.24%, Precision : 87.70%, Recall : 80.88%, F-score : 84.15%
+2025-03-27 14:22:36,269 - INFO - -------------- End ----------------
+2025-03-27 14:22:36,283 - INFO - ======================TEST MODE======================
+2025-03-27 14:22:37,074 - INFO - Threshold : 1.4215196100505187
+2025-03-27 14:22:37,077 - INFO - Threshold for reconstruction loss: 2.520370904922472
+2025-03-27 14:22:37,491 - INFO - wadi Evaluation: cost time: 0.2825498580932617
+2025-03-27 14:22:37,620 - INFO - pred: (172800,)
+2025-03-27 14:22:37,620 - INFO - gt: (172800,)
+2025-03-27 14:22:37,632 - INFO - Accuracy : 98.14%, Precision : 86.00%, Recall : 80.88%, F-score : 83.36%
+2025-03-27 14:22:37,632 - INFO - -------------- End ----------------
+2025-03-27 14:22:37,647 - INFO - ======================TEST MODE======================
+2025-03-27 14:22:38,439 - INFO - Threshold : 1.3432853739450572
+2025-03-27 14:22:38,443 - INFO - Threshold for reconstruction loss: 2.332180176734917
+2025-03-27 14:22:38,848 - INFO - wadi Evaluation: cost time: 0.2785947322845459
+2025-03-27 14:22:38,976 - INFO - pred: (172800,)
+2025-03-27 14:22:38,976 - INFO - gt: (172800,)
+2025-03-27 14:22:38,988 - INFO - Accuracy : 98.06%, Precision : 84.79%, Recall : 80.88%, F-score : 82.79%
+2025-03-27 14:22:38,988 - INFO - -------------- End ----------------
+2025-03-27 14:22:39,001 - INFO - ======================TEST MODE======================
+2025-03-27 14:22:39,792 - INFO - Threshold : 1.2595221156828387
+2025-03-27 14:22:39,796 - INFO - Threshold for reconstruction loss: 2.1915611505508426
+2025-03-27 14:22:40,205 - INFO - wadi Evaluation: cost time: 0.2806057929992676
+2025-03-27 14:22:40,332 - INFO - pred: (172800,)
+2025-03-27 14:22:40,332 - INFO - gt: (172800,)
+2025-03-27 14:22:40,345 - INFO - Accuracy : 97.93%, Precision : 82.88%, Recall : 80.88%, F-score : 81.86%
+2025-03-27 14:22:40,345 - INFO - -------------- End ----------------
+2025-03-31 19:15:09,184 - INFO - ------------ Options -------------
+2025-03-31 19:15:09,209 - INFO - anormly_ratio: 1.0
+2025-03-31 19:15:09,209 - INFO - anormly_ratio_span: [0.1, 1]
+2025-03-31 19:15:09,209 - INFO - anormly_ratio_step: 0.1
+2025-03-31 19:15:09,209 - INFO - attn_temp: 1
+2025-03-31 19:15:09,209 - INFO - attn_temp_range: [1, 1]
+2025-03-31 19:15:09,209 - INFO - attn_temp_step: 5
+2025-03-31 19:15:09,209 - INFO - batch_size: 128
+2025-03-31 19:15:09,209 - INFO - data_path: ./sub_adjacent_transformer-main/dataset/WADI
+2025-03-31 19:15:09,209 - INFO - dataset: wadi
+2025-03-31 19:15:09,209 - INFO - input_c: 93
+2025-03-31 19:15:09,209 - INFO - k: 10
+2025-03-31 19:15:09,209 - INFO - kernel_length: 100
+2025-03-31 19:15:09,209 - INFO - kernel_length_range: [0, 600]
+2025-03-31 19:15:09,209 - INFO - kernel_length_step: 10
+2025-03-31 19:15:09,209 - INFO - lr: 0.0001
+2025-03-31 19:15:09,209 - INFO - mapping_function: ours
+2025-03-31 19:15:09,209 - INFO - mode: monte_carlo_search
+2025-03-31 19:15:09,209 - INFO - model_save_path: ./sub_adjacent_transformer-main/checkpoints
+2025-03-31 19:15:09,209 - INFO - monte_carlo: 1
+2025-03-31 19:15:09,209 - INFO - no_gauss_dynamic: False
+2025-03-31 19:15:09,209 - INFO - no_linear_attn: False
+2025-03-31 19:15:09,209 - INFO - no_point_adjustment: False
+2025-03-31 19:15:09,209 - INFO - num_epochs: 1
+2025-03-31 19:15:09,209 - INFO - oneside: False
+2025-03-31 19:15:09,209 - INFO - output_c: 93
+2025-03-31 19:15:09,209 - INFO - pretrained_model: None
+2025-03-31 19:15:09,209 - INFO - record_state: True
+2025-03-31 19:15:09,210 - INFO - softmax_span: 200
+2025-03-31 19:15:09,210 - INFO - softmax_span_range: [200, 200]
+2025-03-31 19:15:09,210 - INFO - softmax_span_step: 50
+2025-03-31 19:15:09,210 - INFO - span: [20, 30]
+2025-03-31 19:15:09,210 - INFO - temperature: 50
+2025-03-31 19:15:09,210 - INFO - temperature_range: [50, 50]
+2025-03-31 19:15:09,210 - INFO - temperature_step: 10
+2025-03-31 19:15:09,210 - INFO - train_data_ratio: 1.0
+2025-03-31 19:15:09,210 - INFO - train_data_step: 1
+2025-03-31 19:15:09,210 - INFO - win_size: 100
+2025-03-31 19:15:09,210 - INFO - ------------ End -------------
+2025-03-31 19:15:49,127 - INFO - ======================TRAIN MODE======================
+2025-03-31 19:15:55,115 - INFO - 	 loss1: 1.0977, loss2: 13.0171; rec_loss: 1.0977, cl: 11.9193 speed: 0.1123s/iter; left time: 682.7659s
+2025-03-31 19:15:59,070 - INFO - 	 loss1: 0.9978, loss2: 12.3872; rec_loss: 0.9978, cl: 11.3893 speed: 0.0791s/iter; left time: 476.9324s
+2025-03-31 19:16:02,967 - INFO - 	 loss1: 0.8481, loss2: 12.1379; rec_loss: 0.8481, cl: 11.2898 speed: 0.0779s/iter; left time: 465.9782s
+2025-03-31 19:16:06,957 - INFO - 	 loss1: 0.7512, loss2: 11.8181; rec_loss: 0.7512, cl: 11.0669 speed: 0.0798s/iter; left time: 473.1021s
+2025-03-31 19:16:10,908 - INFO - 	 loss1: 0.7708, loss2: 11.7630; rec_loss: 0.7708, cl: 10.9923 speed: 0.0790s/iter; left time: 464.5411s
+2025-03-31 19:16:14,928 - INFO - 	 loss1: 0.3813, loss2: 11.2306; rec_loss: 0.3813, cl: 10.8493 speed: 0.0804s/iter; left time: 468.7389s
+2025-03-31 19:16:18,842 - INFO - 	 loss1: 0.5005, loss2: 11.2367; rec_loss: 0.5005, cl: 10.7362 speed: 0.0783s/iter; left time: 452.3551s
+2025-03-31 19:16:22,745 - INFO - 	 loss1: 0.4102, loss2: 11.1799; rec_loss: 0.4102, cl: 10.7697 speed: 0.0780s/iter; left time: 447.2189s
+2025-03-31 19:16:26,770 - INFO - 	 loss1: 0.5535, loss2: 11.1536; rec_loss: 0.5535, cl: 10.6001 speed: 0.0805s/iter; left time: 457.2305s
+2025-03-31 19:16:30,760 - INFO - 	 loss1: 0.3658, loss2: 10.9406; rec_loss: 0.3658, cl: 10.5748 speed: 0.0798s/iter; left time: 449.1417s
+2025-03-31 19:16:34,852 - INFO - 	 loss1: 0.2992, loss2: 10.8284; rec_loss: 0.2992, cl: 10.5292 speed: 0.0818s/iter; left time: 456.6269s
+2025-03-31 19:16:39,421 - INFO - 	 loss1: 0.3175, loss2: 10.8202; rec_loss: 0.3175, cl: 10.5028 speed: 0.0904s/iter; left time: 500.0961s
+2025-03-31 19:16:44,304 - INFO - 	 loss1: 0.2968, loss2: 10.7376; rec_loss: 0.2968, cl: 10.4408 speed: 0.0976s/iter; left time: 535.1063s
+2025-03-31 19:16:49,148 - INFO - 	 loss1: 0.3255, loss2: 10.6760; rec_loss: 0.3255, cl: 10.3505 speed: 0.0969s/iter; left time: 525.9644s
+2025-03-31 19:16:53,845 - INFO - 	 loss1: 0.2431, loss2: 10.5199; rec_loss: 0.2431, cl: 10.2768 speed: 0.0939s/iter; left time: 505.3160s
+2025-03-31 19:16:58,680 - INFO - 	 loss1: 0.4835, loss2: 10.6900; rec_loss: 0.4835, cl: 10.2065 speed: 0.0967s/iter; left time: 515.3618s
+2025-03-31 19:17:03,424 - INFO - 	 loss1: 0.2574, loss2: 10.4222; rec_loss: 0.2574, cl: 10.1648 speed: 0.0949s/iter; left time: 500.9827s
+2025-03-31 19:17:08,244 - INFO - 	 loss1: 0.2828, loss2: 10.6256; rec_loss: 0.2828, cl: 10.3428 speed: 0.0964s/iter; left time: 504.1101s
+2025-03-31 19:17:13,021 - INFO - 	 loss1: 0.4635, loss2: 10.6180; rec_loss: 0.4635, cl: 10.1545 speed: 0.0955s/iter; left time: 494.8310s
+2025-03-31 19:17:17,938 - INFO - 	 loss1: 0.2750, loss2: 10.4493; rec_loss: 0.2750, cl: 10.1743 speed: 0.0983s/iter; left time: 504.4624s
+2025-03-31 19:17:22,706 - INFO - 	 loss1: 0.2225, loss2: 10.3521; rec_loss: 0.2225, cl: 10.1296 speed: 0.0953s/iter; left time: 484.3524s
+2025-03-31 19:17:27,521 - INFO - 	 loss1: 0.2684, loss2: 10.4156; rec_loss: 0.2684, cl: 10.1471 speed: 0.0963s/iter; left time: 484.4191s
+2025-03-31 19:17:32,480 - INFO - 	 loss1: 0.1928, loss2: 10.3225; rec_loss: 0.1928, cl: 10.1298 speed: 0.0992s/iter; left time: 493.8277s
+2025-03-31 19:17:37,286 - INFO - 	 loss1: 0.2153, loss2: 10.4365; rec_loss: 0.2153, cl: 10.2212 speed: 0.0961s/iter; left time: 473.8358s
+2025-03-31 19:17:42,042 - INFO - 	 loss1: 0.3121, loss2: 10.4528; rec_loss: 0.3121, cl: 10.1408 speed: 0.0951s/iter; left time: 464.1608s
+2025-03-31 19:17:46,954 - INFO - 	 loss1: 0.4426, loss2: 10.3593; rec_loss: 0.4426, cl: 9.9167 speed: 0.0982s/iter; left time: 474.4442s
+2025-03-31 19:17:51,838 - INFO - 	 loss1: 0.2822, loss2: 10.4389; rec_loss: 0.2822, cl: 10.1567 speed: 0.0977s/iter; left time: 466.8950s
+2025-03-31 19:17:56,672 - INFO - 	 loss1: 0.2508, loss2: 10.3377; rec_loss: 0.2508, cl: 10.0869 speed: 0.0967s/iter; left time: 457.2349s
+2025-03-31 19:18:01,441 - INFO - 	 loss1: 0.4686, loss2: 10.5487; rec_loss: 0.4686, cl: 10.0801 speed: 0.0954s/iter; left time: 446.3439s
+2025-03-31 19:18:06,423 - INFO - 	 loss1: 0.3303, loss2: 10.5252; rec_loss: 0.3303, cl: 10.1949 speed: 0.0996s/iter; left time: 461.3063s
+2025-03-31 19:18:11,224 - INFO - 	 loss1: 0.2161, loss2: 10.3701; rec_loss: 0.2161, cl: 10.1540 speed: 0.0960s/iter; left time: 439.7208s
+2025-03-31 19:18:16,028 - INFO - 	 loss1: 0.2384, loss2: 10.3601; rec_loss: 0.2384, cl: 10.1218 speed: 0.0961s/iter; left time: 435.2193s
+2025-03-31 19:18:20,950 - INFO - 	 loss1: 0.2466, loss2: 10.4039; rec_loss: 0.2466, cl: 10.1573 speed: 0.0984s/iter; left time: 440.9342s
+2025-03-31 19:18:25,740 - INFO - 	 loss1: 0.1967, loss2: 10.2455; rec_loss: 0.1967, cl: 10.0488 speed: 0.0958s/iter; left time: 424.4064s
+2025-03-31 19:18:30,579 - INFO - 	 loss1: 0.1631, loss2: 10.2320; rec_loss: 0.1631, cl: 10.0688 speed: 0.0968s/iter; left time: 423.8250s
+2025-03-31 19:18:35,353 - INFO - 	 loss1: 0.2814, loss2: 10.5126; rec_loss: 0.2814, cl: 10.2312 speed: 0.0955s/iter; left time: 413.3928s
+2025-03-31 19:18:40,274 - INFO - 	 loss1: 0.2053, loss2: 10.2917; rec_loss: 0.2053, cl: 10.0864 speed: 0.0984s/iter; left time: 421.2147s
+2025-03-31 19:18:45,093 - INFO - 	 loss1: 0.1875, loss2: 10.1482; rec_loss: 0.1875, cl: 9.9608 speed: 0.0964s/iter; left time: 407.7008s
+2025-03-31 19:18:49,852 - INFO - 	 loss1: 0.1907, loss2: 10.1748; rec_loss: 0.1907, cl: 9.9841 speed: 0.0952s/iter; left time: 397.8161s
+2025-03-31 19:18:54,862 - INFO - 	 loss1: 0.2262, loss2: 10.2838; rec_loss: 0.2262, cl: 10.0576 speed: 0.1002s/iter; left time: 413.7681s
+2025-03-31 19:18:59,649 - INFO - 	 loss1: 0.2059, loss2: 10.0623; rec_loss: 0.2059, cl: 9.8563 speed: 0.0957s/iter; left time: 390.5416s
+2025-03-31 19:19:04,466 - INFO - 	 loss1: 0.2226, loss2: 10.6794; rec_loss: 0.2226, cl: 10.4568 speed: 0.0963s/iter; left time: 388.2517s
+2025-03-31 19:19:09,313 - INFO - 	 loss1: 0.2679, loss2: 10.2733; rec_loss: 0.2679, cl: 10.0053 speed: 0.0969s/iter; left time: 385.8191s
+2025-03-31 19:19:14,177 - INFO - 	 loss1: 0.2863, loss2: 10.3133; rec_loss: 0.2863, cl: 10.0270 speed: 0.0973s/iter; left time: 382.2277s
+2025-03-31 19:19:18,931 - INFO - 	 loss1: 0.2942, loss2: 10.2387; rec_loss: 0.2942, cl: 9.9444 speed: 0.0951s/iter; left time: 368.9126s
+2025-03-31 19:19:23,784 - INFO - 	 loss1: 0.2172, loss2: 10.1196; rec_loss: 0.2172, cl: 9.9023 speed: 0.0970s/iter; left time: 371.6716s
+2025-03-31 19:19:28,730 - INFO - 	 loss1: 0.1627, loss2: 10.1064; rec_loss: 0.1627, cl: 9.9438 speed: 0.0989s/iter; left time: 373.9247s
+2025-03-31 19:19:33,509 - INFO - 	 loss1: 0.1639, loss2: 9.9597; rec_loss: 0.1639, cl: 9.7958 speed: 0.0956s/iter; left time: 356.4306s
+2025-03-31 19:19:38,348 - INFO - 	 loss1: 0.1512, loss2: 9.9272; rec_loss: 0.1512, cl: 9.7760 speed: 0.0968s/iter; left time: 356.1589s
+2025-03-31 19:19:43,301 - INFO - 	 loss1: 0.2433, loss2: 9.9329; rec_loss: 0.2433, cl: 9.6897 speed: 0.0990s/iter; left time: 359.5190s
+2025-03-31 19:19:48,186 - INFO - 	 loss1: 0.1552, loss2: 10.0012; rec_loss: 0.1552, cl: 9.8460 speed: 0.0977s/iter; left time: 349.7150s
+2025-03-31 19:19:53,006 - INFO - 	 loss1: 0.1797, loss2: 9.8511; rec_loss: 0.1797, cl: 9.6713 speed: 0.0964s/iter; left time: 340.3198s
+2025-03-31 19:19:57,831 - INFO - 	 loss1: 0.1489, loss2: 9.7986; rec_loss: 0.1489, cl: 9.6496 speed: 0.0965s/iter; left time: 335.7971s
+2025-03-31 19:20:02,780 - INFO - 	 loss1: 0.1846, loss2: 9.8119; rec_loss: 0.1846, cl: 9.6272 speed: 0.0990s/iter; left time: 339.4602s
+2025-03-31 19:20:07,541 - INFO - 	 loss1: 0.1605, loss2: 9.9906; rec_loss: 0.1605, cl: 9.8300 speed: 0.0952s/iter; left time: 321.8363s
+2025-03-31 19:20:12,356 - INFO - 	 loss1: 0.1537, loss2: 9.8484; rec_loss: 0.1537, cl: 9.6947 speed: 0.0963s/iter; left time: 320.6169s
+2025-03-31 19:20:17,168 - INFO - 	 loss1: 0.1608, loss2: 10.1754; rec_loss: 0.1608, cl: 10.0146 speed: 0.0962s/iter; left time: 315.6376s
+2025-03-31 19:20:21,781 - INFO - 	 loss1: 0.1483, loss2: 9.6749; rec_loss: 0.1483, cl: 9.5266 speed: 0.0922s/iter; left time: 297.9576s
+2025-03-31 19:20:26,438 - INFO - 	 loss1: 0.1443, loss2: 10.1669; rec_loss: 0.1443, cl: 10.0226 speed: 0.0931s/iter; left time: 296.1436s
+2025-03-31 19:20:31,083 - INFO - 	 loss1: 0.1581, loss2: 9.6961; rec_loss: 0.1581, cl: 9.5380 speed: 0.0929s/iter; left time: 290.7838s
+2025-03-31 19:20:35,733 - INFO - 	 loss1: 0.1726, loss2: 9.7570; rec_loss: 0.1726, cl: 9.5844 speed: 0.0930s/iter; left time: 286.3778s
+2025-03-31 19:20:39,809 - INFO - 	 loss1: 0.1481, loss2: 9.8811; rec_loss: 0.1481, cl: 9.7330 speed: 0.0815s/iter; left time: 246.9969s
+2025-03-31 19:20:43,859 - INFO - 	 loss1: 0.1536, loss2: 9.8510; rec_loss: 0.1536, cl: 9.6974 speed: 0.0810s/iter; left time: 241.2764s
+2025-03-31 19:20:47,867 - INFO - 	 loss1: 0.1919, loss2: 10.6739; rec_loss: 0.1919, cl: 10.4820 speed: 0.0802s/iter; left time: 234.8653s
+2025-03-31 19:20:51,904 - INFO - 	 loss1: 0.1586, loss2: 9.8808; rec_loss: 0.1586, cl: 9.7223 speed: 0.0807s/iter; left time: 232.4791s
+2025-03-31 19:20:55,903 - INFO - 	 loss1: 0.1573, loss2: 9.8308; rec_loss: 0.1573, cl: 9.6735 speed: 0.0800s/iter; left time: 226.3519s
+2025-03-31 19:20:59,988 - INFO - 	 loss1: 0.1491, loss2: 9.8223; rec_loss: 0.1491, cl: 9.6733 speed: 0.0817s/iter; left time: 227.0811s
+2025-03-31 19:21:04,017 - INFO - 	 loss1: 0.1506, loss2: 9.6504; rec_loss: 0.1506, cl: 9.4998 speed: 0.0806s/iter; left time: 219.9964s
+2025-03-31 19:21:08,026 - INFO - 	 loss1: 0.1594, loss2: 9.7362; rec_loss: 0.1594, cl: 9.5767 speed: 0.0802s/iter; left time: 214.8657s
+2025-03-31 19:21:12,034 - INFO - 	 loss1: 0.1342, loss2: 9.5726; rec_loss: 0.1342, cl: 9.4384 speed: 0.0801s/iter; left time: 210.7669s
+2025-03-31 19:21:16,058 - INFO - 	 loss1: 0.1339, loss2: 9.7551; rec_loss: 0.1339, cl: 9.6213 speed: 0.0805s/iter; left time: 207.6305s
+2025-03-31 19:21:20,096 - INFO - 	 loss1: 0.1389, loss2: 9.8025; rec_loss: 0.1389, cl: 9.6635 speed: 0.0807s/iter; left time: 204.2965s
+2025-03-31 19:21:24,149 - INFO - 	 loss1: 0.1186, loss2: 9.7076; rec_loss: 0.1186, cl: 9.5890 speed: 0.0810s/iter; left time: 200.9993s
+2025-03-31 19:21:28,199 - INFO - 	 loss1: 0.1498, loss2: 9.7869; rec_loss: 0.1498, cl: 9.6371 speed: 0.0810s/iter; left time: 196.8393s
+2025-03-31 19:21:32,251 - INFO - 	 loss1: 0.1158, loss2: 9.5618; rec_loss: 0.1158, cl: 9.4460 speed: 0.0810s/iter; left time: 192.8537s
+2025-03-31 19:21:36,248 - INFO - 	 loss1: 0.1024, loss2: 9.7252; rec_loss: 0.1024, cl: 9.6228 speed: 0.0799s/iter; left time: 186.2235s
+2025-03-31 19:21:40,256 - INFO - 	 loss1: 0.1217, loss2: 9.6929; rec_loss: 0.1217, cl: 9.5713 speed: 0.0802s/iter; left time: 182.7649s
+2025-03-31 19:21:44,276 - INFO - 	 loss1: 0.1092, loss2: 9.7902; rec_loss: 0.1092, cl: 9.6810 speed: 0.0804s/iter; left time: 179.2740s
+2025-03-31 19:21:48,342 - INFO - 	 loss1: 0.1583, loss2: 9.7811; rec_loss: 0.1583, cl: 9.6228 speed: 0.0813s/iter; left time: 177.2520s
+2025-03-31 19:21:52,365 - INFO - 	 loss1: 0.3163, loss2: 9.8415; rec_loss: 0.3163, cl: 9.5252 speed: 0.0805s/iter; left time: 171.3749s
+2025-03-31 19:21:56,442 - INFO - 	 loss1: 0.1131, loss2: 9.7052; rec_loss: 0.1131, cl: 9.5921 speed: 0.0815s/iter; left time: 169.5589s
+2025-03-31 19:22:00,518 - INFO - 	 loss1: 0.1484, loss2: 9.5289; rec_loss: 0.1484, cl: 9.3805 speed: 0.0815s/iter; left time: 165.4852s
+2025-03-31 19:22:04,542 - INFO - 	 loss1: 0.1020, loss2: 9.7085; rec_loss: 0.1020, cl: 9.6065 speed: 0.0805s/iter; left time: 159.3408s
+2025-03-31 19:22:08,595 - INFO - 	 loss1: 0.1248, loss2: 9.5153; rec_loss: 0.1248, cl: 9.3905 speed: 0.0810s/iter; left time: 156.4264s
+2025-03-31 19:22:12,612 - INFO - 	 loss1: 0.0953, loss2: 9.6817; rec_loss: 0.0953, cl: 9.5864 speed: 0.0803s/iter; left time: 151.0245s
+2025-03-31 19:22:16,660 - INFO - 	 loss1: 0.0993, loss2: 9.7873; rec_loss: 0.0993, cl: 9.6881 speed: 0.0810s/iter; left time: 148.1494s
+2025-03-31 19:22:20,717 - INFO - 	 loss1: 0.1131, loss2: 9.6932; rec_loss: 0.1131, cl: 9.5801 speed: 0.0811s/iter; left time: 144.4177s
+2025-03-31 19:22:24,752 - INFO - 	 loss1: 0.1112, loss2: 9.5931; rec_loss: 0.1112, cl: 9.4820 speed: 0.0807s/iter; left time: 139.5756s
+2025-03-31 19:22:28,774 - INFO - 	 loss1: 0.1319, loss2: 9.5471; rec_loss: 0.1319, cl: 9.4153 speed: 0.0804s/iter; left time: 135.1401s
+2025-03-31 19:22:32,822 - INFO - 	 loss1: 0.1307, loss2: 9.9784; rec_loss: 0.1307, cl: 9.8477 speed: 0.0810s/iter; left time: 131.9526s
+2025-03-31 19:22:36,869 - INFO - 	 loss1: 0.1177, loss2: 9.6896; rec_loss: 0.1177, cl: 9.5719 speed: 0.0809s/iter; left time: 127.8766s
+2025-03-31 19:22:40,961 - INFO - 	 loss1: 0.1248, loss2: 9.5050; rec_loss: 0.1248, cl: 9.3802 speed: 0.0818s/iter; left time: 125.2090s
+2025-03-31 19:22:45,040 - INFO - 	 loss1: 0.1446, loss2: 9.5442; rec_loss: 0.1446, cl: 9.3996 speed: 0.0816s/iter; left time: 120.7023s
+2025-03-31 19:22:49,122 - INFO - 	 loss1: 0.0944, loss2: 9.6661; rec_loss: 0.0944, cl: 9.5717 speed: 0.0816s/iter; left time: 116.7370s
+2025-03-31 19:22:53,144 - INFO - 	 loss1: 0.1128, loss2: 9.5807; rec_loss: 0.1128, cl: 9.4679 speed: 0.0804s/iter; left time: 111.0096s
+2025-03-31 19:22:57,173 - INFO - 	 loss1: 0.1102, loss2: 10.0719; rec_loss: 0.1102, cl: 9.9618 speed: 0.0806s/iter; left time: 107.1505s
+2025-03-31 19:23:01,231 - INFO - 	 loss1: 0.1047, loss2: 9.7111; rec_loss: 0.1047, cl: 9.6065 speed: 0.0812s/iter; left time: 103.8786s
+2025-03-31 19:23:05,301 - INFO - 	 loss1: 0.1298, loss2: 9.5043; rec_loss: 0.1298, cl: 9.3746 speed: 0.0814s/iter; left time: 100.1240s
+2025-03-31 19:23:09,380 - INFO - 	 loss1: 0.0817, loss2: 9.3599; rec_loss: 0.0817, cl: 9.2783 speed: 0.0816s/iter; left time: 96.2467s
+2025-03-31 19:23:13,456 - INFO - 	 loss1: 0.0805, loss2: 9.4516; rec_loss: 0.0805, cl: 9.3711 speed: 0.0815s/iter; left time: 92.1047s
+2025-03-31 19:23:17,485 - INFO - 	 loss1: 0.1044, loss2: 9.5765; rec_loss: 0.1044, cl: 9.4721 speed: 0.0806s/iter; left time: 87.0266s
+2025-03-31 19:23:21,498 - INFO - 	 loss1: 0.1245, loss2: 9.6639; rec_loss: 0.1245, cl: 9.5394 speed: 0.0802s/iter; left time: 82.6497s
+2025-03-31 19:23:25,580 - INFO - 	 loss1: 0.0912, loss2: 9.5832; rec_loss: 0.0912, cl: 9.4921 speed: 0.0816s/iter; left time: 80.0028s
+2025-03-31 19:23:29,649 - INFO - 	 loss1: 0.0989, loss2: 9.5268; rec_loss: 0.0989, cl: 9.4279 speed: 0.0814s/iter; left time: 75.6826s
+2025-03-31 19:23:33,742 - INFO - 	 loss1: 0.1140, loss2: 9.4853; rec_loss: 0.1140, cl: 9.3713 speed: 0.0818s/iter; left time: 72.0138s
+2025-03-31 19:23:37,804 - INFO - 	 loss1: 0.0850, loss2: 9.5273; rec_loss: 0.0850, cl: 9.4423 speed: 0.0812s/iter; left time: 67.4358s
+2025-03-31 19:23:41,827 - INFO - 	 loss1: 0.0985, loss2: 10.1851; rec_loss: 0.0985, cl: 10.0867 speed: 0.0804s/iter; left time: 62.7405s
+2025-03-31 19:23:45,905 - INFO - 	 loss1: 0.0922, loss2: 9.4943; rec_loss: 0.0922, cl: 9.4021 speed: 0.0816s/iter; left time: 59.5441s
+2025-03-31 19:23:49,990 - INFO - 	 loss1: 0.0946, loss2: 10.0497; rec_loss: 0.0946, cl: 9.9551 speed: 0.0817s/iter; left time: 55.5424s
+2025-03-31 19:23:54,007 - INFO - 	 loss1: 0.1335, loss2: 9.5929; rec_loss: 0.1335, cl: 9.4594 speed: 0.0803s/iter; left time: 50.6165s
+2025-03-31 19:23:58,047 - INFO - 	 loss1: 0.1082, loss2: 9.5441; rec_loss: 0.1082, cl: 9.4359 speed: 0.0808s/iter; left time: 46.8558s
+2025-03-31 19:24:02,119 - INFO - 	 loss1: 0.1122, loss2: 9.5455; rec_loss: 0.1122, cl: 9.4333 speed: 0.0814s/iter; left time: 43.1553s
+2025-03-31 19:24:06,162 - INFO - 	 loss1: 0.1334, loss2: 9.9471; rec_loss: 0.1334, cl: 9.8136 speed: 0.0808s/iter; left time: 38.8076s
+2025-03-31 19:24:10,229 - INFO - 	 loss1: 0.1538, loss2: 9.5746; rec_loss: 0.1538, cl: 9.4208 speed: 0.0813s/iter; left time: 34.9760s
+2025-03-31 19:24:14,319 - INFO - 	 loss1: 0.1094, loss2: 9.5405; rec_loss: 0.1094, cl: 9.4312 speed: 0.0818s/iter; left time: 31.0783s
+2025-03-31 19:24:18,401 - INFO - 	 loss1: 0.2666, loss2: 9.7603; rec_loss: 0.2666, cl: 9.4937 speed: 0.0816s/iter; left time: 26.9433s
+2025-03-31 19:24:22,495 - INFO - 	 loss1: 0.0915, loss2: 9.5022; rec_loss: 0.0915, cl: 9.4107 speed: 0.0819s/iter; left time: 22.9242s
+2025-03-31 19:24:26,574 - INFO - 	 loss1: 0.0963, loss2: 9.4365; rec_loss: 0.0963, cl: 9.3402 speed: 0.0816s/iter; left time: 18.7611s
+2025-03-31 19:24:30,690 - INFO - 	 loss1: 0.0780, loss2: 9.3314; rec_loss: 0.0780, cl: 9.2534 speed: 0.0823s/iter; left time: 14.8172s
+2025-03-31 19:24:34,809 - INFO - 	 loss1: 0.0931, loss2: 9.4390; rec_loss: 0.0931, cl: 9.3459 speed: 0.0824s/iter; left time: 10.7070s
+2025-03-31 19:24:38,878 - INFO - 	 loss1: 0.0788, loss2: 9.4560; rec_loss: 0.0788, cl: 9.3772 speed: 0.0814s/iter; left time: 6.5100s
+2025-03-31 19:24:42,974 - INFO - 	 loss1: 0.1072, loss2: 10.0188; rec_loss: 0.1072, cl: 9.9116 speed: 0.0819s/iter; left time: 2.4576s
+2025-03-31 19:24:45,476 - INFO - Epoch: 1 cost time: 534.7176389694214, memory: 4.50GB, flops: 1.00158GFLOPS, params: 5.042174M
+2025-03-31 19:24:45,743 - INFO - ======================TEST MODE======================
+2025-03-31 19:24:47,052 - INFO - Threshold : 0.9726719241488669
+2025-03-31 19:24:47,068 - INFO - Threshold for reconstruction loss: 1.047265648841858
+2025-03-31 19:25:04,974 - INFO - ------------ Options -------------
+2025-03-31 19:25:04,974 - INFO - anormly_ratio: 1.0
+2025-03-31 19:25:04,974 - INFO - anormly_ratio_span: [0.1, 1]
+2025-03-31 19:25:04,974 - INFO - anormly_ratio_step: 0.1
+2025-03-31 19:25:04,974 - INFO - attn_temp: 1
+2025-03-31 19:25:04,974 - INFO - attn_temp_range: [1, 1]
+2025-03-31 19:25:04,975 - INFO - attn_temp_step: 5
+2025-03-31 19:25:04,975 - INFO - batch_size: 128
+2025-03-31 19:25:04,975 - INFO - data_path: ./sub_adjacent_transformer-main/dataset/WADI
+2025-03-31 19:25:04,975 - INFO - dataset: wadi
+2025-03-31 19:25:04,975 - INFO - input_c: 93
+2025-03-31 19:25:04,975 - INFO - k: 10
+2025-03-31 19:25:04,975 - INFO - kernel_length: 100
+2025-03-31 19:25:04,975 - INFO - kernel_length_range: [0, 600]
+2025-03-31 19:25:04,975 - INFO - kernel_length_step: 10
+2025-03-31 19:25:04,975 - INFO - lr: 0.0001
+2025-03-31 19:25:04,975 - INFO - mapping_function: ours
+2025-03-31 19:25:04,975 - INFO - mode: find_best
+2025-03-31 19:25:04,975 - INFO - model_save_path: ./sub_adjacent_transformer-main/checkpoints
+2025-03-31 19:25:04,975 - INFO - monte_carlo: 1
+2025-03-31 19:25:04,975 - INFO - no_gauss_dynamic: False
+2025-03-31 19:25:04,975 - INFO - no_linear_attn: False
+2025-03-31 19:25:04,975 - INFO - no_point_adjustment: False
+2025-03-31 19:25:04,975 - INFO - num_epochs: 1
+2025-03-31 19:25:04,975 - INFO - oneside: False
+2025-03-31 19:25:04,975 - INFO - output_c: 93
+2025-03-31 19:25:04,975 - INFO - pretrained_model: None
+2025-03-31 19:25:04,976 - INFO - record_state: False
+2025-03-31 19:25:04,976 - INFO - softmax_span: 200
+2025-03-31 19:25:04,976 - INFO - softmax_span_range: [200, 200]
+2025-03-31 19:25:04,976 - INFO - softmax_span_step: 50
+2025-03-31 19:25:04,976 - INFO - span: [20, 30]
+2025-03-31 19:25:04,976 - INFO - temperature: 50
+2025-03-31 19:25:04,976 - INFO - temperature_range: [50, 50]
+2025-03-31 19:25:04,976 - INFO - temperature_step: 10
+2025-03-31 19:25:04,976 - INFO - train_data_ratio: 1.0
+2025-03-31 19:25:04,976 - INFO - train_data_step: 1
+2025-03-31 19:25:04,976 - INFO - win_size: 100
+2025-03-31 19:25:04,976 - INFO - ------------ End -------------
+2025-03-31 19:25:24,276 - INFO - ======================TEST MODE======================
+2025-03-31 19:25:27,465 - INFO - Threshold : 3.767155862099043
+2025-03-31 19:25:27,468 - INFO - Threshold for reconstruction loss: 5.324240623474122
+2025-03-31 19:25:28,097 - INFO - wadi Evaluation: cost time: 0.4899716377258301
+2025-03-31 19:25:28,237 - INFO - pred: (172800,)
+2025-03-31 19:25:28,237 - INFO - gt: (172800,)
+2025-03-31 19:25:28,267 - INFO - Accuracy : 96.34%, Precision : 96.15%, Recall : 38.05%, F-score : 54.52%
+2025-03-31 19:25:28,267 - INFO - -------------- End ----------------
+2025-03-31 19:25:28,348 - INFO - ======================TEST MODE======================
+2025-03-31 19:25:29,591 - INFO - Threshold : 2.3296848103991374
+2025-03-31 19:25:29,595 - INFO - Threshold for reconstruction loss: 5.141652050971997
+2025-03-31 19:25:30,234 - INFO - wadi Evaluation: cost time: 0.49322009086608887
+2025-03-31 19:25:30,374 - INFO - pred: (172800,)
+2025-03-31 19:25:30,374 - INFO - gt: (172800,)
+2025-03-31 19:25:30,387 - INFO - Accuracy : 98.01%, Precision : 95.59%, Recall : 68.63%, F-score : 79.89%
+2025-03-31 19:25:30,387 - INFO - -------------- End ----------------
+2025-03-31 19:25:30,479 - INFO - ======================TEST MODE======================
+2025-03-31 19:25:31,728 - INFO - Threshold : 1.7941178180523591
+2025-03-31 19:25:31,731 - INFO - Threshold for reconstruction loss: 3.0650767886638546
+2025-03-31 19:25:32,361 - INFO - wadi Evaluation: cost time: 0.4914426803588867
+2025-03-31 19:25:32,515 - INFO - pred: (172800,)
+2025-03-31 19:25:32,515 - INFO - gt: (172800,)
+2025-03-31 19:25:32,527 - INFO - Accuracy : 98.28%, Precision : 93.97%, Recall : 74.95%, F-score : 83.39%
+2025-03-31 19:25:32,527 - INFO - -------------- End ----------------
+2025-03-31 19:25:32,600 - INFO - ======================TEST MODE======================
+2025-03-31 19:25:33,853 - INFO - Threshold : 1.5063520916040032
+2025-03-31 19:25:33,857 - INFO - Threshold for reconstruction loss: 2.2132360343933026
+2025-03-31 19:25:34,486 - INFO - wadi Evaluation: cost time: 0.49033498764038086
+2025-03-31 19:25:34,627 - INFO - pred: (172800,)
+2025-03-31 19:25:34,627 - INFO - gt: (172800,)
+2025-03-31 19:25:34,640 - INFO - Accuracy : 98.53%, Precision : 92.67%, Recall : 80.88%, F-score : 86.37%
+2025-03-31 19:25:34,640 - INFO - -------------- End ----------------
+2025-03-31 19:25:34,712 - INFO - ======================TEST MODE======================
+2025-03-31 19:25:35,960 - INFO - Threshold : 1.3297492278246468
+2025-03-31 19:25:35,964 - INFO - Threshold for reconstruction loss: 1.7654028904438057
+2025-03-31 19:25:36,595 - INFO - wadi Evaluation: cost time: 0.49224185943603516
+2025-03-31 19:25:36,737 - INFO - pred: (172800,)
+2025-03-31 19:25:36,737 - INFO - gt: (172800,)
+2025-03-31 19:25:36,749 - INFO - Accuracy : 98.44%, Precision : 91.15%, Recall : 80.88%, F-score : 85.71%
+2025-03-31 19:25:36,749 - INFO - -------------- End ----------------
+2025-03-31 19:25:36,795 - INFO - ======================TEST MODE======================
+2025-03-31 19:25:38,055 - INFO - Threshold : 1.2228860163542805
+2025-03-31 19:25:38,059 - INFO - Threshold for reconstruction loss: 1.5074449713230187
+2025-03-31 19:25:38,694 - INFO - wadi Evaluation: cost time: 0.4929375648498535
+2025-03-31 19:25:38,838 - INFO - pred: (172800,)
+2025-03-31 19:25:38,838 - INFO - gt: (172800,)
+2025-03-31 19:25:38,850 - INFO - Accuracy : 98.34%, Precision : 89.40%, Recall : 80.88%, F-score : 84.92%
+2025-03-31 19:25:38,851 - INFO - -------------- End ----------------
+2025-03-31 19:25:38,896 - INFO - ======================TEST MODE======================
+2025-03-31 19:25:40,147 - INFO - Threshold : 1.1318282785731753
+2025-03-31 19:25:40,150 - INFO - Threshold for reconstruction loss: 1.350511015295982
+2025-03-31 19:25:40,785 - INFO - wadi Evaluation: cost time: 0.4933345317840576
+2025-03-31 19:25:40,928 - INFO - pred: (172800,)
+2025-03-31 19:25:40,929 - INFO - gt: (172800,)
+2025-03-31 19:25:40,941 - INFO - Accuracy : 98.25%, Precision : 87.90%, Recall : 80.88%, F-score : 84.24%
+2025-03-31 19:25:40,941 - INFO - -------------- End ----------------
+2025-03-31 19:25:40,987 - INFO - ======================TEST MODE======================
+2025-03-31 19:25:42,244 - INFO - Threshold : 1.0626365038884087
+2025-03-31 19:25:42,248 - INFO - Threshold for reconstruction loss: 1.2288655719757078
+2025-03-31 19:25:42,889 - INFO - wadi Evaluation: cost time: 0.4971282482147217
+2025-03-31 19:25:43,039 - INFO - pred: (172800,)
+2025-03-31 19:25:43,039 - INFO - gt: (172800,)
+2025-03-31 19:25:43,052 - INFO - Accuracy : 98.16%, Precision : 86.41%, Recall : 80.88%, F-score : 83.55%
+2025-03-31 19:25:43,052 - INFO - -------------- End ----------------
+2025-03-31 19:25:43,100 - INFO - ======================TEST MODE======================
+2025-03-31 19:25:44,352 - INFO - Threshold : 1.0089488413972452
+2025-03-31 19:25:44,355 - INFO - Threshold for reconstruction loss: 1.1290448683500285
+2025-03-31 19:25:44,992 - INFO - wadi Evaluation: cost time: 0.4959571361541748
+2025-03-31 19:25:45,149 - INFO - pred: (172800,)
+2025-03-31 19:25:45,150 - INFO - gt: (172800,)
+2025-03-31 19:25:45,162 - INFO - Accuracy : 98.06%, Precision : 84.89%, Recall : 80.88%, F-score : 82.84%
+2025-03-31 19:25:45,162 - INFO - -------------- End ----------------
+2025-03-31 19:25:45,209 - INFO - ======================TEST MODE======================
+2025-03-31 19:25:46,457 - INFO - Threshold : 0.971214994146132
+2025-03-31 19:25:46,460 - INFO - Threshold for reconstruction loss: 1.0459459352493323
+2025-03-31 19:25:47,084 - INFO - wadi Evaluation: cost time: 0.4932668209075928
+2025-03-31 19:25:47,228 - INFO - pred: (172800,)
+2025-03-31 19:25:47,228 - INFO - gt: (172800,)
+2025-03-31 19:25:47,240 - INFO - Accuracy : 97.98%, Precision : 83.54%, Recall : 80.88%, F-score : 82.19%
+2025-03-31 19:25:47,240 - INFO - -------------- End ----------------
+2025-04-02 15:36:43,679 - INFO - ------------ Options -------------
+2025-04-02 15:36:43,722 - INFO - anormly_ratio: 1.0
+2025-04-02 15:36:43,722 - INFO - anormly_ratio_span: [0.1, 1]
+2025-04-02 15:36:43,722 - INFO - anormly_ratio_step: 0.1
+2025-04-02 15:36:43,722 - INFO - attn_temp: 1
+2025-04-02 15:36:43,722 - INFO - attn_temp_range: [1, 1]
+2025-04-02 15:36:43,722 - INFO - attn_temp_step: 5
+2025-04-02 15:36:43,722 - INFO - batch_size: 128
+2025-04-02 15:36:43,722 - INFO - data_path: ./sub_adjacent_transformer-main/dataset/WADI
+2025-04-02 15:36:43,723 - INFO - dataset: wadi
+2025-04-02 15:36:43,723 - INFO - input_c: 93
+2025-04-02 15:36:43,723 - INFO - k: 10
+2025-04-02 15:36:43,723 - INFO - kernel_length: 100
+2025-04-02 15:36:43,723 - INFO - kernel_length_range: [0, 600]
+2025-04-02 15:36:43,723 - INFO - kernel_length_step: 10
+2025-04-02 15:36:43,723 - INFO - lr: 0.0001
+2025-04-02 15:36:43,723 - INFO - mapping_function: ours
+2025-04-02 15:36:43,723 - INFO - mode: monte_carlo_search
+2025-04-02 15:36:43,723 - INFO - model_save_path: ./sub_adjacent_transformer-main/checkpoints
+2025-04-02 15:36:43,723 - INFO - monte_carlo: 1
+2025-04-02 15:36:43,723 - INFO - no_gauss_dynamic: False
+2025-04-02 15:36:43,723 - INFO - no_linear_attn: False
+2025-04-02 15:36:43,723 - INFO - no_point_adjustment: False
+2025-04-02 15:36:43,723 - INFO - num_epochs: 1
+2025-04-02 15:36:43,723 - INFO - oneside: False
+2025-04-02 15:36:43,723 - INFO - output_c: 93
+2025-04-02 15:36:43,723 - INFO - pretrained_model: None
+2025-04-02 15:36:43,723 - INFO - record_state: True
+2025-04-02 15:36:43,723 - INFO - softmax_span: 200
+2025-04-02 15:36:43,723 - INFO - softmax_span_range: [200, 200]
+2025-04-02 15:36:43,723 - INFO - softmax_span_step: 50
+2025-04-02 15:36:43,723 - INFO - span: [20, 30]
+2025-04-02 15:36:43,723 - INFO - temperature: 50
+2025-04-02 15:36:43,723 - INFO - temperature_range: [50, 50]
+2025-04-02 15:36:43,723 - INFO - temperature_step: 10
+2025-04-02 15:36:43,723 - INFO - train_data_ratio: 1.0
+2025-04-02 15:36:43,723 - INFO - train_data_step: 1
+2025-04-02 15:36:43,723 - INFO - win_size: 100
+2025-04-02 15:36:43,723 - INFO - ------------ End -------------
+2025-04-02 15:36:59,816 - INFO - ======================TRAIN MODE======================
+2025-04-02 15:37:02,433 - INFO - 	 loss1: 0.9144, loss2: 5.6313; rec_loss: 0.9144, cl: 4.7168 speed: 0.0497s/iter; left time: 302.0881s
+2025-04-02 15:37:04,151 - INFO - 	 loss1: 0.9320, loss2: 5.3807; rec_loss: 0.9320, cl: 4.4487 speed: 0.0343s/iter; left time: 207.1021s
+2025-04-02 15:37:05,839 - INFO - 	 loss1: 0.8311, loss2: 5.3246; rec_loss: 0.8311, cl: 4.4935 speed: 0.0338s/iter; left time: 201.8893s
+2025-04-02 15:37:07,577 - INFO - 	 loss1: 0.9768, loss2: 5.4144; rec_loss: 0.9768, cl: 4.4376 speed: 0.0348s/iter; left time: 206.0827s
+2025-04-02 15:37:09,352 - INFO - 	 loss1: 0.9833, loss2: 5.3858; rec_loss: 0.9833, cl: 4.4024 speed: 0.0355s/iter; left time: 208.6768s
+2025-04-02 15:37:11,043 - INFO - 	 loss1: 0.9507, loss2: 5.3898; rec_loss: 0.9507, cl: 4.4390 speed: 0.0338s/iter; left time: 197.2094s
+2025-04-02 15:37:12,780 - INFO - 	 loss1: 1.1541, loss2: 5.4473; rec_loss: 1.1541, cl: 4.2932 speed: 0.0347s/iter; left time: 200.7654s
+2025-04-02 15:37:14,499 - INFO - 	 loss1: 0.8039, loss2: 5.3462; rec_loss: 0.8039, cl: 4.5423 speed: 0.0344s/iter; left time: 196.9403s
+2025-04-02 15:37:16,280 - INFO - 	 loss1: 1.1481, loss2: 5.6582; rec_loss: 1.1481, cl: 4.5101 speed: 0.0356s/iter; left time: 202.3149s
+2025-04-02 15:37:18,023 - INFO - 	 loss1: 1.1128, loss2: 5.6592; rec_loss: 1.1128, cl: 4.5465 speed: 0.0349s/iter; left time: 196.2144s
+2025-04-02 15:37:19,793 - INFO - 	 loss1: 1.0055, loss2: 5.5925; rec_loss: 1.0055, cl: 4.5870 speed: 0.0354s/iter; left time: 197.4354s
+2025-04-02 15:37:21,512 - INFO - 	 loss1: 0.9430, loss2: 5.5609; rec_loss: 0.9430, cl: 4.6179 speed: 0.0344s/iter; left time: 190.1492s
+2025-04-02 15:37:23,201 - INFO - 	 loss1: 1.2949, loss2: 5.7865; rec_loss: 1.2949, cl: 4.4916 speed: 0.0338s/iter; left time: 185.0217s
+2025-04-02 15:37:24,865 - INFO - 	 loss1: 0.9830, loss2: 5.5136; rec_loss: 0.9830, cl: 4.5306 speed: 0.0333s/iter; left time: 180.6665s
+2025-04-02 15:37:26,532 - INFO - 	 loss1: 1.0030, loss2: 5.5277; rec_loss: 1.0030, cl: 4.5247 speed: 0.0333s/iter; left time: 179.3862s
+2025-04-02 15:37:28,223 - INFO - 	 loss1: 0.9311, loss2: 5.4502; rec_loss: 0.9311, cl: 4.5191 speed: 0.0338s/iter; left time: 180.1849s
+2025-04-02 15:37:29,914 - INFO - 	 loss1: 0.9998, loss2: 5.4149; rec_loss: 0.9998, cl: 4.4152 speed: 0.0338s/iter; left time: 178.5898s
+2025-04-02 15:37:31,591 - INFO - 	 loss1: 0.9598, loss2: 5.4352; rec_loss: 0.9598, cl: 4.4755 speed: 0.0335s/iter; left time: 175.3337s
+2025-04-02 15:37:33,324 - INFO - 	 loss1: 0.8757, loss2: 5.2526; rec_loss: 0.8757, cl: 4.3768 speed: 0.0347s/iter; left time: 179.5515s
+2025-04-02 15:37:35,058 - INFO - 	 loss1: 0.9392, loss2: 5.3070; rec_loss: 0.9392, cl: 4.3678 speed: 0.0347s/iter; left time: 177.8165s
+2025-04-02 15:37:36,764 - INFO - 	 loss1: 1.2228, loss2: 5.4811; rec_loss: 1.2228, cl: 4.2583 speed: 0.0341s/iter; left time: 173.3337s
+2025-04-02 15:37:38,454 - INFO - 	 loss1: 0.9954, loss2: 5.3398; rec_loss: 0.9954, cl: 4.3444 speed: 0.0338s/iter; left time: 170.0279s
+2025-04-02 15:37:40,127 - INFO - 	 loss1: 0.9333, loss2: 5.1423; rec_loss: 0.9333, cl: 4.2091 speed: 0.0334s/iter; left time: 166.5633s
+2025-04-02 15:37:41,803 - INFO - 	 loss1: 1.1014, loss2: 5.2876; rec_loss: 1.1014, cl: 4.1862 speed: 0.0335s/iter; left time: 165.1877s
+2025-04-02 15:37:43,494 - INFO - 	 loss1: 0.9639, loss2: 5.0993; rec_loss: 0.9639, cl: 4.1355 speed: 0.0338s/iter; left time: 165.0661s
+2025-04-02 15:37:45,218 - INFO - 	 loss1: 1.0054, loss2: 5.1012; rec_loss: 1.0054, cl: 4.0959 speed: 0.0345s/iter; left time: 166.5065s
+2025-04-02 15:37:46,945 - INFO - 	 loss1: 0.8685, loss2: 5.0567; rec_loss: 0.8685, cl: 4.1882 speed: 0.0345s/iter; left time: 165.1072s
+2025-04-02 15:37:48,659 - INFO - 	 loss1: 0.9861, loss2: 5.1839; rec_loss: 0.9861, cl: 4.1978 speed: 0.0343s/iter; left time: 162.0665s
+2025-04-02 15:37:50,354 - INFO - 	 loss1: 0.7608, loss2: 5.0704; rec_loss: 0.7608, cl: 4.3097 speed: 0.0339s/iter; left time: 158.6508s
+2025-04-02 15:37:52,136 - INFO - 	 loss1: 0.7529, loss2: 5.1729; rec_loss: 0.7529, cl: 4.4200 speed: 0.0356s/iter; left time: 165.0002s
+2025-04-02 15:37:53,916 - INFO - 	 loss1: 0.8022, loss2: 5.2244; rec_loss: 0.8022, cl: 4.4222 speed: 0.0356s/iter; left time: 162.9936s
+2025-04-02 15:37:55,633 - INFO - 	 loss1: 0.8245, loss2: 5.2670; rec_loss: 0.8245, cl: 4.4425 speed: 0.0343s/iter; left time: 155.5401s
+2025-04-02 15:37:57,366 - INFO - 	 loss1: 0.8068, loss2: 5.3100; rec_loss: 0.8068, cl: 4.5033 speed: 0.0346s/iter; left time: 155.2289s
+2025-04-02 15:37:59,123 - INFO - 	 loss1: 0.9024, loss2: 5.4424; rec_loss: 0.9024, cl: 4.5400 speed: 0.0351s/iter; left time: 155.6758s
+2025-04-02 15:38:00,831 - INFO - 	 loss1: 0.8370, loss2: 5.4306; rec_loss: 0.8370, cl: 4.5935 speed: 0.0341s/iter; left time: 149.5746s
+2025-04-02 15:38:02,493 - INFO - 	 loss1: 0.7995, loss2: 5.3662; rec_loss: 0.7995, cl: 4.5667 speed: 0.0332s/iter; left time: 143.9160s
+2025-04-02 15:38:04,166 - INFO - 	 loss1: 0.7536, loss2: 5.3654; rec_loss: 0.7536, cl: 4.6119 speed: 0.0334s/iter; left time: 143.1628s
+2025-04-02 15:38:05,848 - INFO - 	 loss1: 0.7771, loss2: 5.3919; rec_loss: 0.7771, cl: 4.6149 speed: 0.0336s/iter; left time: 142.2595s
+2025-04-02 15:38:07,526 - INFO - 	 loss1: 0.6625, loss2: 5.3377; rec_loss: 0.6625, cl: 4.6752 speed: 0.0336s/iter; left time: 140.2809s
+2025-04-02 15:38:09,204 - INFO - 	 loss1: 0.7883, loss2: 5.3925; rec_loss: 0.7883, cl: 4.6042 speed: 0.0335s/iter; left time: 138.5381s
+2025-04-02 15:38:10,899 - INFO - 	 loss1: 0.6704, loss2: 5.3789; rec_loss: 0.6704, cl: 4.7085 speed: 0.0339s/iter; left time: 138.3017s
+2025-04-02 15:38:12,585 - INFO - 	 loss1: 0.7903, loss2: 5.4098; rec_loss: 0.7903, cl: 4.6195 speed: 0.0337s/iter; left time: 135.8833s
+2025-04-02 15:38:14,271 - INFO - 	 loss1: 0.6497, loss2: 5.3325; rec_loss: 0.6497, cl: 4.6828 speed: 0.0337s/iter; left time: 134.1808s
+2025-04-02 15:38:15,965 - INFO - 	 loss1: 0.7113, loss2: 5.3427; rec_loss: 0.7113, cl: 4.6314 speed: 0.0339s/iter; left time: 133.1495s
+2025-04-02 15:38:17,652 - INFO - 	 loss1: 0.7621, loss2: 5.4698; rec_loss: 0.7621, cl: 4.7077 speed: 0.0337s/iter; left time: 130.8548s
+2025-04-02 15:38:19,334 - INFO - 	 loss1: 0.7242, loss2: 5.3640; rec_loss: 0.7242, cl: 4.6398 speed: 0.0336s/iter; left time: 128.8444s
+2025-04-02 15:38:21,035 - INFO - 	 loss1: 0.6450, loss2: 5.3061; rec_loss: 0.6450, cl: 4.6611 speed: 0.0340s/iter; left time: 128.5538s
+2025-04-02 15:38:22,722 - INFO - 	 loss1: 0.6833, loss2: 5.3470; rec_loss: 0.6833, cl: 4.6637 speed: 0.0337s/iter; left time: 125.8063s
+2025-04-02 15:38:24,446 - INFO - 	 loss1: 0.8387, loss2: 5.4463; rec_loss: 0.8387, cl: 4.6076 speed: 0.0345s/iter; left time: 126.9306s
+2025-04-02 15:38:26,141 - INFO - 	 loss1: 0.6898, loss2: 5.2515; rec_loss: 0.6898, cl: 4.5618 speed: 0.0339s/iter; left time: 122.9760s
+2025-04-02 15:38:27,817 - INFO - 	 loss1: 0.7884, loss2: 5.2636; rec_loss: 0.7884, cl: 4.4752 speed: 0.0335s/iter; left time: 120.0392s
+2025-04-02 15:38:29,515 - INFO - 	 loss1: 0.7020, loss2: 5.1671; rec_loss: 0.7020, cl: 4.4651 speed: 0.0339s/iter; left time: 119.8219s
+2025-04-02 15:38:31,242 - INFO - 	 loss1: 0.7394, loss2: 5.2710; rec_loss: 0.7394, cl: 4.5316 speed: 0.0345s/iter; left time: 120.1915s
+2025-04-02 15:38:33,056 - INFO - 	 loss1: 0.7000, loss2: 5.0835; rec_loss: 0.7000, cl: 4.3835 speed: 0.0363s/iter; left time: 124.3824s
+2025-04-02 15:38:34,834 - INFO - 	 loss1: 0.7194, loss2: 5.2250; rec_loss: 0.7194, cl: 4.5056 speed: 0.0356s/iter; left time: 120.1924s
+2025-04-02 15:38:36,591 - INFO - 	 loss1: 0.6951, loss2: 5.1744; rec_loss: 0.6951, cl: 4.4793 speed: 0.0351s/iter; left time: 116.9853s
+2025-04-02 15:38:38,272 - INFO - 	 loss1: 0.7528, loss2: 5.1731; rec_loss: 0.7528, cl: 4.4203 speed: 0.0336s/iter; left time: 110.2919s
+2025-04-02 15:38:39,963 - INFO - 	 loss1: 0.6794, loss2: 5.1312; rec_loss: 0.6794, cl: 4.4519 speed: 0.0338s/iter; left time: 109.2139s
+2025-04-02 15:38:41,725 - INFO - 	 loss1: 0.7585, loss2: 5.1593; rec_loss: 0.7585, cl: 4.4008 speed: 0.0352s/iter; left time: 112.0059s
+2025-04-02 15:38:43,439 - INFO - 	 loss1: 0.6382, loss2: 5.0975; rec_loss: 0.6382, cl: 4.4593 speed: 0.0343s/iter; left time: 107.2942s
+2025-04-02 15:38:45,133 - INFO - 	 loss1: 0.6128, loss2: 5.1958; rec_loss: 0.6128, cl: 4.5831 speed: 0.0339s/iter; left time: 104.3269s
+2025-04-02 15:38:46,852 - INFO - 	 loss1: 0.7994, loss2: 5.2113; rec_loss: 0.7994, cl: 4.4119 speed: 0.0344s/iter; left time: 104.1931s
+2025-04-02 15:38:48,562 - INFO - 	 loss1: 0.6817, loss2: 5.1866; rec_loss: 0.6817, cl: 4.5049 speed: 0.0342s/iter; left time: 101.9012s
+2025-04-02 15:38:50,263 - INFO - 	 loss1: 0.7360, loss2: 5.2485; rec_loss: 0.7360, cl: 4.5125 speed: 0.0340s/iter; left time: 99.6506s
+2025-04-02 15:38:51,955 - INFO - 	 loss1: 0.5326, loss2: 5.0590; rec_loss: 0.5326, cl: 4.5263 speed: 0.0338s/iter; left time: 97.4261s
+2025-04-02 15:38:53,658 - INFO - 	 loss1: 0.7874, loss2: 5.2850; rec_loss: 0.7874, cl: 4.4976 speed: 0.0341s/iter; left time: 96.4028s
+2025-04-02 15:38:55,341 - INFO - 	 loss1: 0.6392, loss2: 5.3021; rec_loss: 0.6392, cl: 4.6629 speed: 0.0337s/iter; left time: 93.5644s
+2025-04-02 15:38:57,073 - INFO - 	 loss1: 0.6528, loss2: 5.3042; rec_loss: 0.6528, cl: 4.6514 speed: 0.0346s/iter; left time: 94.5551s
+2025-04-02 15:38:58,789 - INFO - 	 loss1: 0.6716, loss2: 5.3509; rec_loss: 0.6716, cl: 4.6792 speed: 0.0343s/iter; left time: 91.9453s
+2025-04-02 15:39:00,557 - INFO - 	 loss1: 0.5831, loss2: 5.3530; rec_loss: 0.5831, cl: 4.7699 speed: 0.0353s/iter; left time: 92.9651s
+2025-04-02 15:39:02,307 - INFO - 	 loss1: 0.6999, loss2: 5.4694; rec_loss: 0.6999, cl: 4.7695 speed: 0.0350s/iter; left time: 90.3008s
+2025-04-02 15:39:04,048 - INFO - 	 loss1: 0.6365, loss2: 5.3725; rec_loss: 0.6365, cl: 4.7359 speed: 0.0348s/iter; left time: 88.0593s
+2025-04-02 15:39:05,769 - INFO - 	 loss1: 0.6019, loss2: 5.3346; rec_loss: 0.6019, cl: 4.7326 speed: 0.0344s/iter; left time: 85.3709s
+2025-04-02 15:39:07,493 - INFO - 	 loss1: 0.5177, loss2: 5.2654; rec_loss: 0.5177, cl: 4.7477 speed: 0.0345s/iter; left time: 83.7370s
+2025-04-02 15:39:09,250 - INFO - 	 loss1: 0.6697, loss2: 5.4492; rec_loss: 0.6697, cl: 4.7795 speed: 0.0351s/iter; left time: 83.6447s
+2025-04-02 15:39:10,978 - INFO - 	 loss1: 0.7964, loss2: 5.5469; rec_loss: 0.7964, cl: 4.7505 speed: 0.0345s/iter; left time: 80.4970s
+2025-04-02 15:39:12,672 - INFO - 	 loss1: 0.8061, loss2: 5.5260; rec_loss: 0.8061, cl: 4.7199 speed: 0.0339s/iter; left time: 77.2472s
+2025-04-02 15:39:14,334 - INFO - 	 loss1: 0.6444, loss2: 5.3923; rec_loss: 0.6444, cl: 4.7480 speed: 0.0332s/iter; left time: 74.1107s
+2025-04-02 15:39:16,046 - INFO - 	 loss1: 0.6712, loss2: 5.4307; rec_loss: 0.6712, cl: 4.7595 speed: 0.0342s/iter; left time: 74.6055s
+2025-04-02 15:39:17,762 - INFO - 	 loss1: 0.6534, loss2: 5.3900; rec_loss: 0.6534, cl: 4.7367 speed: 0.0343s/iter; left time: 73.0954s
+2025-04-02 15:39:19,451 - INFO - 	 loss1: 0.8699, loss2: 5.5725; rec_loss: 0.8699, cl: 4.7026 speed: 0.0338s/iter; left time: 70.2765s
+2025-04-02 15:39:21,130 - INFO - 	 loss1: 0.7460, loss2: 5.4971; rec_loss: 0.7460, cl: 4.7512 speed: 0.0336s/iter; left time: 68.1283s
+2025-04-02 15:39:22,815 - INFO - 	 loss1: 0.7721, loss2: 5.4590; rec_loss: 0.7721, cl: 4.6869 speed: 0.0337s/iter; left time: 66.7264s
+2025-04-02 15:39:24,501 - INFO - 	 loss1: 0.7837, loss2: 5.5185; rec_loss: 0.7837, cl: 4.7348 speed: 0.0337s/iter; left time: 65.0734s
+2025-04-02 15:39:26,195 - INFO - 	 loss1: 0.6167, loss2: 5.3428; rec_loss: 0.6167, cl: 4.7261 speed: 0.0339s/iter; left time: 63.6822s
+2025-04-02 15:39:27,860 - INFO - 	 loss1: 0.6301, loss2: 5.3481; rec_loss: 0.6301, cl: 4.7180 speed: 0.0333s/iter; left time: 60.9257s
+2025-04-02 15:39:29,552 - INFO - 	 loss1: 0.6851, loss2: 5.3533; rec_loss: 0.6851, cl: 4.6682 speed: 0.0338s/iter; left time: 60.2135s
+2025-04-02 15:39:31,253 - INFO - 	 loss1: 0.5683, loss2: 5.2947; rec_loss: 0.5683, cl: 4.7264 speed: 0.0340s/iter; left time: 58.8582s
+2025-04-02 15:39:32,967 - INFO - 	 loss1: 0.6512, loss2: 5.3487; rec_loss: 0.6512, cl: 4.6975 speed: 0.0343s/iter; left time: 57.5796s
+2025-04-02 15:39:34,632 - INFO - 	 loss1: 0.7120, loss2: 5.4202; rec_loss: 0.7120, cl: 4.7082 speed: 0.0333s/iter; left time: 54.2602s
+2025-04-02 15:39:36,308 - INFO - 	 loss1: 0.6699, loss2: 5.3442; rec_loss: 0.6699, cl: 4.6742 speed: 0.0335s/iter; left time: 52.9676s
+2025-04-02 15:39:38,003 - INFO - 	 loss1: 0.6444, loss2: 5.2286; rec_loss: 0.6444, cl: 4.5842 speed: 0.0339s/iter; left time: 51.8451s
+2025-04-02 15:39:39,703 - INFO - 	 loss1: 0.5941, loss2: 5.1173; rec_loss: 0.5941, cl: 4.5232 speed: 0.0340s/iter; left time: 50.3080s
+2025-04-02 15:39:41,400 - INFO - 	 loss1: 0.5439, loss2: 5.0221; rec_loss: 0.5439, cl: 4.4782 speed: 0.0339s/iter; left time: 48.5464s
+2025-04-02 15:39:43,108 - INFO - 	 loss1: 0.5984, loss2: 5.0806; rec_loss: 0.5984, cl: 4.4822 speed: 0.0341s/iter; left time: 47.1174s
+2025-04-02 15:39:44,835 - INFO - 	 loss1: 0.6511, loss2: 5.0682; rec_loss: 0.6511, cl: 4.4171 speed: 0.0345s/iter; left time: 45.9433s
+2025-04-02 15:39:46,550 - INFO - 	 loss1: 0.5798, loss2: 5.0170; rec_loss: 0.5798, cl: 4.4372 speed: 0.0343s/iter; left time: 43.8896s
+2025-04-02 15:39:48,248 - INFO - 	 loss1: 0.6107, loss2: 4.9544; rec_loss: 0.6107, cl: 4.3437 speed: 0.0340s/iter; left time: 41.7596s
+2025-04-02 15:39:49,951 - INFO - 	 loss1: 0.5411, loss2: 4.9841; rec_loss: 0.5411, cl: 4.4430 speed: 0.0341s/iter; left time: 40.1904s
+2025-04-02 15:39:51,621 - INFO - 	 loss1: 0.5460, loss2: 4.9252; rec_loss: 0.5460, cl: 4.3792 speed: 0.0334s/iter; left time: 37.7441s
+2025-04-02 15:39:53,329 - INFO - 	 loss1: 0.6705, loss2: 5.0269; rec_loss: 0.6705, cl: 4.3564 speed: 0.0342s/iter; left time: 36.8882s
+2025-04-02 15:39:55,030 - INFO - 	 loss1: 0.6264, loss2: 5.0011; rec_loss: 0.6264, cl: 4.3747 speed: 0.0340s/iter; left time: 35.0367s
+2025-04-02 15:39:56,710 - INFO - 	 loss1: 0.6884, loss2: 5.0947; rec_loss: 0.6884, cl: 4.4063 speed: 0.0336s/iter; left time: 32.9111s
+2025-04-02 15:39:58,386 - INFO - 	 loss1: 0.7411, loss2: 5.1520; rec_loss: 0.7411, cl: 4.4108 speed: 0.0335s/iter; left time: 31.1752s
+2025-04-02 15:40:00,061 - INFO - 	 loss1: 0.4758, loss2: 4.9508; rec_loss: 0.4758, cl: 4.4749 speed: 0.0335s/iter; left time: 29.4729s
+2025-04-02 15:40:01,770 - INFO - 	 loss1: 0.5724, loss2: 5.0226; rec_loss: 0.5724, cl: 4.4502 speed: 0.0342s/iter; left time: 28.3585s
+2025-04-02 15:40:03,481 - INFO - 	 loss1: 0.6316, loss2: 5.0873; rec_loss: 0.6316, cl: 4.4556 speed: 0.0342s/iter; left time: 26.6870s
+2025-04-02 15:40:05,183 - INFO - 	 loss1: 0.6016, loss2: 5.0623; rec_loss: 0.6016, cl: 4.4607 speed: 0.0340s/iter; left time: 24.8426s
+2025-04-02 15:40:06,850 - INFO - 	 loss1: 0.6657, loss2: 5.1620; rec_loss: 0.6657, cl: 4.4963 speed: 0.0333s/iter; left time: 22.6733s
+2025-04-02 15:40:08,556 - INFO - 	 loss1: 0.5445, loss2: 5.0221; rec_loss: 0.5445, cl: 4.4776 speed: 0.0341s/iter; left time: 21.4896s
+2025-04-02 15:40:10,252 - INFO - 	 loss1: 0.4749, loss2: 5.0069; rec_loss: 0.4749, cl: 4.5321 speed: 0.0339s/iter; left time: 19.6671s
+2025-04-02 15:40:11,960 - INFO - 	 loss1: 0.7804, loss2: 5.3135; rec_loss: 0.7804, cl: 4.5331 speed: 0.0342s/iter; left time: 18.1059s
+2025-04-02 15:40:13,684 - INFO - 	 loss1: 0.5781, loss2: 5.1326; rec_loss: 0.5781, cl: 4.5545 speed: 0.0345s/iter; left time: 16.5446s
+2025-04-02 15:40:15,344 - INFO - 	 loss1: 0.5639, loss2: 5.0619; rec_loss: 0.5639, cl: 4.4980 speed: 0.0332s/iter; left time: 14.2781s
+2025-04-02 15:40:17,048 - INFO - 	 loss1: 0.6404, loss2: 5.1290; rec_loss: 0.6404, cl: 4.4886 speed: 0.0341s/iter; left time: 12.9453s
+2025-04-02 15:40:18,763 - INFO - 	 loss1: 0.6022, loss2: 5.0433; rec_loss: 0.6022, cl: 4.4411 speed: 0.0343s/iter; left time: 11.3159s
+2025-04-02 15:40:20,429 - INFO - 	 loss1: 0.6030, loss2: 5.0641; rec_loss: 0.6030, cl: 4.4611 speed: 0.0333s/iter; left time: 9.3325s
+2025-04-02 15:40:22,095 - INFO - 	 loss1: 0.5640, loss2: 4.9486; rec_loss: 0.5640, cl: 4.3846 speed: 0.0333s/iter; left time: 7.6608s
+2025-04-02 15:40:23,743 - INFO - 	 loss1: 0.5187, loss2: 4.9904; rec_loss: 0.5187, cl: 4.4717 speed: 0.0330s/iter; left time: 5.9314s
+2025-04-02 15:40:25,439 - INFO - 	 loss1: 0.6114, loss2: 5.0416; rec_loss: 0.6114, cl: 4.4302 speed: 0.0339s/iter; left time: 4.4087s
+2025-04-02 15:40:27,221 - INFO - 	 loss1: 0.6407, loss2: 5.0546; rec_loss: 0.6407, cl: 4.4139 speed: 0.0356s/iter; left time: 2.8517s
+2025-04-02 15:40:28,958 - INFO - 	 loss1: 0.5566, loss2: 4.9963; rec_loss: 0.5566, cl: 4.4397 speed: 0.0347s/iter; left time: 1.0416s
+2025-04-02 15:40:30,046 - INFO - Epoch: 1 cost time: 209.554194688797, memory: 2.95GB, flops: 0.5044997GFLOPS, params: 5.021044M
+2025-04-02 15:40:30,347 - INFO - ======================TEST MODE======================
+2025-04-02 15:40:31,158 - INFO - Threshold : 1.286351027689502
+2025-04-02 15:40:31,160 - INFO - Threshold for reconstruction loss: 5.988443374633789
+2025-04-02 15:40:58,581 - INFO - ------------ Options -------------
+2025-04-02 15:40:58,581 - INFO - anormly_ratio: 1.0
+2025-04-02 15:40:58,582 - INFO - anormly_ratio_span: [0.1, 1]
+2025-04-02 15:40:58,582 - INFO - anormly_ratio_step: 0.1
+2025-04-02 15:40:58,582 - INFO - attn_temp: 1
+2025-04-02 15:40:58,582 - INFO - attn_temp_range: [1, 1]
+2025-04-02 15:40:58,582 - INFO - attn_temp_step: 5
+2025-04-02 15:40:58,582 - INFO - batch_size: 128
+2025-04-02 15:40:58,582 - INFO - data_path: ./sub_adjacent_transformer-main/dataset/WADI
+2025-04-02 15:40:58,582 - INFO - dataset: wadi
+2025-04-02 15:40:58,582 - INFO - input_c: 93
+2025-04-02 15:40:58,582 - INFO - k: 10
+2025-04-02 15:40:58,582 - INFO - kernel_length: 100
+2025-04-02 15:40:58,582 - INFO - kernel_length_range: [0, 600]
+2025-04-02 15:40:58,582 - INFO - kernel_length_step: 10
+2025-04-02 15:40:58,582 - INFO - lr: 0.0001
+2025-04-02 15:40:58,582 - INFO - mapping_function: ours
+2025-04-02 15:40:58,582 - INFO - mode: find_best
+2025-04-02 15:40:58,582 - INFO - model_save_path: ./sub_adjacent_transformer-main/checkpoints
+2025-04-02 15:40:58,582 - INFO - monte_carlo: 1
+2025-04-02 15:40:58,582 - INFO - no_gauss_dynamic: False
+2025-04-02 15:40:58,582 - INFO - no_linear_attn: False
+2025-04-02 15:40:58,582 - INFO - no_point_adjustment: False
+2025-04-02 15:40:58,582 - INFO - num_epochs: 1
+2025-04-02 15:40:58,582 - INFO - oneside: False
+2025-04-02 15:40:58,582 - INFO - output_c: 93
+2025-04-02 15:40:58,582 - INFO - pretrained_model: None
+2025-04-02 15:40:58,582 - INFO - record_state: False
+2025-04-02 15:40:58,582 - INFO - softmax_span: 200
+2025-04-02 15:40:58,583 - INFO - softmax_span_range: [200, 200]
+2025-04-02 15:40:58,583 - INFO - softmax_span_step: 50
+2025-04-02 15:40:58,583 - INFO - span: [20, 30]
+2025-04-02 15:40:58,583 - INFO - temperature: 50
+2025-04-02 15:40:58,583 - INFO - temperature_range: [50, 50]
+2025-04-02 15:40:58,583 - INFO - temperature_step: 10
+2025-04-02 15:40:58,583 - INFO - train_data_ratio: 1.0
+2025-04-02 15:40:58,583 - INFO - train_data_step: 1
+2025-04-02 15:40:58,583 - INFO - win_size: 100
+2025-04-02 15:40:58,583 - INFO - ------------ End -------------
+2025-04-02 15:41:09,346 - INFO - ======================TEST MODE======================
+2025-04-02 15:41:10,831 - INFO - Threshold : 7.4965167505425
+2025-04-02 15:41:10,833 - INFO - Threshold for reconstruction loss: 10.019570246696478
+2025-04-02 15:41:11,244 - INFO - wadi Evaluation: cost time: 0.2887406349182129
+2025-04-02 15:41:11,375 - INFO - pred: (172800,)
+2025-04-02 15:41:11,375 - INFO - gt: (172800,)
+2025-04-02 15:41:11,387 - INFO - Accuracy : 96.33%, Precision : 96.10%, Recall : 38.05%, F-score : 54.51%
+2025-04-02 15:41:11,387 - INFO - -------------- End ----------------
+2025-04-02 15:41:11,462 - INFO - ======================TEST MODE======================
+2025-04-02 15:41:12,282 - INFO - Threshold : 4.843794156437603
+2025-04-02 15:41:12,284 - INFO - Threshold for reconstruction loss: 8.539745315551762
+2025-04-02 15:41:12,699 - INFO - wadi Evaluation: cost time: 0.28905153274536133
+2025-04-02 15:41:12,821 - INFO - pred: (172800,)
+2025-04-02 15:41:12,821 - INFO - gt: (172800,)
+2025-04-02 15:41:12,833 - INFO - Accuracy : 96.64%, Precision : 93.30%, Recall : 45.05%, F-score : 60.76%
+2025-04-02 15:41:12,833 - INFO - -------------- End ----------------
+2025-04-02 15:41:12,903 - INFO - ======================TEST MODE======================
+2025-04-02 15:41:13,709 - INFO - Threshold : 3.4953854882614492
+2025-04-02 15:41:13,712 - INFO - Threshold for reconstruction loss: 8.317398343086241
+2025-04-02 15:41:14,126 - INFO - wadi Evaluation: cost time: 0.28964877128601074
+2025-04-02 15:41:14,254 - INFO - pred: (172800,)
+2025-04-02 15:41:14,254 - INFO - gt: (172800,)
+2025-04-02 15:41:14,266 - INFO - Accuracy : 96.89%, Precision : 91.41%, Recall : 50.98%, F-score : 65.45%
+2025-04-02 15:41:14,266 - INFO - -------------- End ----------------
+2025-04-02 15:41:14,334 - INFO - ======================TEST MODE======================
+2025-04-02 15:41:15,153 - INFO - Threshold : 2.847065140654838
+2025-04-02 15:41:15,155 - INFO - Threshold for reconstruction loss: 8.04043471145628
+2025-04-02 15:41:15,569 - INFO - wadi Evaluation: cost time: 0.28900837898254395
+2025-04-02 15:41:15,691 - INFO - pred: (172800,)
+2025-04-02 15:41:15,692 - INFO - gt: (172800,)
+2025-04-02 15:41:15,703 - INFO - Accuracy : 97.66%, Precision : 91.02%, Recall : 66.02%, F-score : 76.53%
+2025-04-02 15:41:15,703 - INFO - -------------- End ----------------
+2025-04-02 15:41:15,775 - INFO - ======================TEST MODE======================
+2025-04-02 15:41:16,576 - INFO - Threshold : 2.2897814402669288
+2025-04-02 15:41:16,578 - INFO - Threshold for reconstruction loss: 6.805829761028291
+2025-04-02 15:41:16,991 - INFO - wadi Evaluation: cost time: 0.28960132598876953
+2025-04-02 15:41:17,116 - INFO - pred: (172800,)
+2025-04-02 15:41:17,116 - INFO - gt: (172800,)
+2025-04-02 15:41:17,129 - INFO - Accuracy : 97.93%, Precision : 89.79%, Recall : 72.35%, F-score : 80.13%
+2025-04-02 15:41:17,129 - INFO - -------------- End ----------------
+2025-04-02 15:41:17,201 - INFO - ======================TEST MODE======================
+2025-04-02 15:41:18,009 - INFO - Threshold : 1.978449138633862
+2025-04-02 15:41:18,011 - INFO - Threshold for reconstruction loss: 6.70811551666261
+2025-04-02 15:41:18,426 - INFO - wadi Evaluation: cost time: 0.29009294509887695
+2025-04-02 15:41:18,549 - INFO - pred: (172800,)
+2025-04-02 15:41:18,549 - INFO - gt: (172800,)
+2025-04-02 15:41:18,560 - INFO - Accuracy : 97.84%, Precision : 88.16%, Recall : 72.35%, F-score : 79.48%
+2025-04-02 15:41:18,561 - INFO - -------------- End ----------------
+2025-04-02 15:41:18,605 - INFO - ======================TEST MODE======================
+2025-04-02 15:41:19,415 - INFO - Threshold : 1.7339307853837764
+2025-04-02 15:41:19,417 - INFO - Threshold for reconstruction loss: 6.545489013671867
+2025-04-02 15:41:19,829 - INFO - wadi Evaluation: cost time: 0.2895815372467041
+2025-04-02 15:41:19,954 - INFO - pred: (172800,)
+2025-04-02 15:41:19,954 - INFO - gt: (172800,)
+2025-04-02 15:41:19,965 - INFO - Accuracy : 97.74%, Precision : 86.29%, Recall : 72.35%, F-score : 78.70%
+2025-04-02 15:41:19,965 - INFO - -------------- End ----------------
+2025-04-02 15:41:20,013 - INFO - ======================TEST MODE======================
+2025-04-02 15:41:20,813 - INFO - Threshold : 1.5314300551059226
+2025-04-02 15:41:20,816 - INFO - Threshold for reconstruction loss: 6.2876418342590075
+2025-04-02 15:41:21,224 - INFO - wadi Evaluation: cost time: 0.29053664207458496
+2025-04-02 15:41:21,356 - INFO - pred: (172800,)
+2025-04-02 15:41:21,356 - INFO - gt: (172800,)
+2025-04-02 15:41:21,368 - INFO - Accuracy : 97.65%, Precision : 84.67%, Recall : 72.35%, F-score : 78.02%
+2025-04-02 15:41:21,368 - INFO - -------------- End ----------------
+2025-04-02 15:41:21,415 - INFO - ======================TEST MODE======================
+2025-04-02 15:41:22,217 - INFO - Threshold : 1.4001317479225837
+2025-04-02 15:41:22,219 - INFO - Threshold for reconstruction loss: 6.21636845588684
+2025-04-02 15:41:22,617 - INFO - wadi Evaluation: cost time: 0.28856682777404785
+2025-04-02 15:41:22,741 - INFO - pred: (172800,)
+2025-04-02 15:41:22,742 - INFO - gt: (172800,)
+2025-04-02 15:41:22,752 - INFO - Accuracy : 97.56%, Precision : 83.15%, Recall : 72.35%, F-score : 77.37%
+2025-04-02 15:41:22,752 - INFO - -------------- End ----------------
+2025-04-02 15:41:22,796 - INFO - ======================TEST MODE======================
+2025-04-02 15:41:23,599 - INFO - Threshold : 1.2814577438878818
+2025-04-02 15:41:23,601 - INFO - Threshold for reconstruction loss: 5.998551321029665
+2025-04-02 15:41:24,011 - INFO - wadi Evaluation: cost time: 0.28911852836608887
+2025-04-02 15:41:24,143 - INFO - pred: (172800,)
+2025-04-02 15:41:24,143 - INFO - gt: (172800,)
+2025-04-02 15:41:24,154 - INFO - Accuracy : 97.46%, Precision : 81.51%, Recall : 72.35%, F-score : 76.66%
+2025-04-02 15:41:24,155 - INFO - -------------- End ----------------

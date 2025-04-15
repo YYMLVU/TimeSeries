@@ -1,0 +1,11 @@
+20250327 11:28:22 sub_adjacent
+	Accuracy : 99.54%, Precision : 94.33%, Recall : 97.97%, F-score : 96.12%
+
+20250327 14:22:33 原论文
+	Accuracy : 98.43%, Precision : 91.00%, Recall : 80.88%, F-score : 85.64%
+
+20250331 19:25:34 改Transformer
+	Accuracy : 98.53%, Precision : 92.67%, Recall : 80.88%, F-score : 86.37%
+
+20250402 15:41:17 改方案
+	Accuracy : 97.93%, Precision : 89.79%, Recall : 72.35%, F-score : 80.13%
