@@ -415,7 +415,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
                 # projection head
                 enc_intra_aug = self.proj_head_intra(enc_intra_aug).permute(0, 2, 1)
                 # contrastive loss
-                loss_intra_in = self.loss_cl_s_change(enc_intra, enc_intra_aug)
+                loss_intra_in = self.loss_cl_s(enc_intra, enc_intra_aug)
 
             if self.use_inter_graph:
                 # inter aug

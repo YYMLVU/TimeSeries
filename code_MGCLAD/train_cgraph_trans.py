@@ -93,6 +93,7 @@ if __name__ == "__main__":
     # train_loader, val_loader, test_loader = create_data_loaders(
     #     train_dataset, batch_size, val_split, shuffle_dataset, test_dataset=test_dataset
     # )
+
     train_loader, train_aug_loader, val_loader, test_loader = create_data_loaders(
         train_dataset, batch_size, val_split, shuffle_dataset, test_dataset=test_dataset, train_aug_dataset=train_aug_dataset
     )

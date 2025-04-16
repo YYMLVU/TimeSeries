@@ -14,7 +14,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 
-def SMD(args):
+def SMD1(args):
 
     id = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -181,7 +181,7 @@ def SMD(args):
         json.dump({"time": time, "tp": tp, "tn": tn, "fp": fp, "fn": fn, "precision": precision, "recall": recall, "f1": f1}, f, indent=2)
     return 
 
-def SMD1(args):
+def SMD(args):
 
     id = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -209,7 +209,7 @@ def SMD1(args):
     output_path = f'./code_MGCLAD/output/SMD/completed'
     # (x_train, _), (x_test, y_test) = get_data(f"machine-{group[i]}", normalize=normalize)
     prefix = "./code_MGCLAD/datasets"
-    prefix += "/ServerMachineDataset/processed"
+    prefix += "/ServerMachineDataset/processed_completed/"
 
     x_dim = get_data_dim(dataset)
     train_end = None
@@ -267,7 +267,7 @@ def SMD1(args):
     train_dataset = SlidingWindowDataset(x_train, window_size, target_dims)
     test_dataset = SlidingWindowDataset(x_test, window_size, target_dims)
 
-    train_loader, val_loader, test_loader = create_data_loaders(
+    train_loader, _,val_loader, test_loader = create_data_loaders(
         train_dataset, batch_size, val_split, shuffle_dataset, test_dataset=test_dataset
     )
 

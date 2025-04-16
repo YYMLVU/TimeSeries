@@ -106,26 +106,46 @@ class Trainer:
             cl_b_losses = []
 
             # Train on original data and augmented data
-            for (xy , xy_aug) in zip(train_loader, train_aug_loader):
-                x, y = xy
-                x = x.to(self.device)
-                y = y.to(self.device)
-                x_aug, _ = xy_aug
-                x_aug = x_aug.to(self.device)
-                self.optimizer.zero_grad()
+            if train_aug_loader is None:
+                for xy in train_loader:
+                    x, y = xy
+                    x = x.to(self.device)
+                    y = y.to(self.device)
+                    self.optimizer.zero_grad()
 
-                recons, cl = self.model(x)
+                    recons, cl = self.model(x)
 
-                if self.target_dims is not None:
-                    x = x[:, :, self.target_dims]
+                    if self.target_dims is not None:
+                        x = x[:, :, self.target_dims]
 
-                loss1 = torch.sqrt(self.recon_criterion(x, recons))
-                loss = loss1 + 0.1*cl
-                loss.backward()
-                self.optimizer.step()
+                    loss1 = torch.sqrt(self.recon_criterion(x, recons))
+                    loss = loss1 + 0.1*cl
+                    loss.backward()
+                    self.optimizer.step()
 
-                recon_b_losses.append(loss1.item())
-                cl_b_losses.append(cl.item())
+                    recon_b_losses.append(loss1.item())
+                    cl_b_losses.append(cl.item())
+            else:
+                for (xy , xy_aug) in zip(train_loader, train_aug_loader):
+                    x, y = xy
+                    x = x.to(self.device)
+                    y = y.to(self.device)
+                    x_aug, _ = xy_aug
+                    x_aug = x_aug.to(self.device)
+                    self.optimizer.zero_grad()
+
+                    recons, cl = self.model(x, x_aug)
+
+                    if self.target_dims is not None:
+                        x = x[:, :, self.target_dims]
+
+                    loss1 = torch.sqrt(self.recon_criterion(x, recons))
+                    loss = loss1 + 0.1*cl
+                    loss.backward()
+                    self.optimizer.step()
+
+                    recon_b_losses.append(loss1.item())
+                    cl_b_losses.append(cl.item())
 
             recon_b_losses = np.array(recon_b_losses)
             cl_b_losses = np.array(cl_b_losses)
