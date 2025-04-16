@@ -159,7 +159,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
 
         # intra embedding module based on GNN
         self.intra_module = GraphEmbedding(num_nodes=window_size, seq_len=n_features, num_levels=self.num_levels, device=torch.device(device))
-        self.intra_module = AnomalyTransformer(self.window_size, n_features, n_features)
+        self.intra_module = AnomalyTransformer(self.window_size, n_features, n_features, output_attention=False)
 
         # projection head
         #self.proj_head_inter = ProjectionLayer(n_feature=self.f_dim, num_heads=1, dropout=dropout)
@@ -216,7 +216,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
 
 
     def aug_feature(self, input_feat, drop_dim = 2, drop_percent = 0.1):
-        aug_input_feat = copy.deepcopy(input_feat)
+        aug_input_feat = copy.deepcopy(input_feat.detach())
         drop_dim = random.randint(1, 2)
         total_num = aug_input_feat.shape[drop_dim]
         drop_feat_num = int(total_num * drop_percent)
@@ -323,105 +323,104 @@ class MODEL_CGRAPH_TRANS(nn.Module):
     def forward(self, x, training=True):
         # x shape (b, n, k): b - batch size, n - window size, k - number of features
         # print('x:', x.shape)
-        #x = self.conv(x)
-
+        x = self.conv(x)
+        
         if training:
-            x_aug = self.aug_feature_change(x)
+            x_aug = self.aug_feature(x)
         else:
             x_aug = x
         
-        x_inter = self.inter_module(x)
-        x_inter = self.proj_head_inter(x_inter)
+        # x_inter = self.inter_module(x)
+        # x_inter = self.proj_head_inter(x_inter)
 
-        if training:
-            x_aug_inter = self.inter_module(x_aug)
-            x_aug_inter = self.proj_head_inter(x_inter)
-            loss_cl = self.loss_cl_s(x_inter, x_aug_inter)
-        else:
-            loss_cl = torch.zeros([1]).cuda()
-        out = self.linear(x_inter)
-
-        
-        # # inter graph
-        # if self.use_inter_graph:
-        #     enc_inter = self.inter_module(x)  # >> (b, n, k)
-        #     # projection head
-        #     # enc_inter = self.proj_head_inter(enc_inter) #TODO:change
-
-        # # intra graph
-        # if self.use_intra_graph:
-        #     # enc_intra = self.intra_module(x.permute(0, 2, 1))   # >> (b, k, n) #TODO:change
-        #     enc_intra = self.conv(x)
-        #     enc_intra = torch.cat([enc_intra, enc_inter], dim=-1)
-        #     enc_intra = self.fusion_linear(enc_intra)
-        #     enc_intra,series,_ = self.intra_module(enc_intra)#.permute(0, 2, 1)
-        #     # series_list = [ tensor.detach().cpu().numpy() if torch.is_tensor(tensor) else tensor for tensor in series] # ✅ 先 detach() 再转 NumPy
-        #     series = series[-1]
-        #     # series = np.array(series_list)
-        #     # series = torch.tensor(series).to('cuda:0')
-        #     # projection head
-        #     enc_intra = self.proj_head_intra(enc_intra).permute(0, 2, 1)
-
-        # if training and self.use_contrastive:
-        #     if self.use_inter_graph:
-        #         # inter aug
-        #         enc_inter_aug = self.inter_module(x_aug)
-        #         # projection head
-        #         # enc_inter_aug = self.proj_head_inter(enc_inter_aug) #TODO:change
-        #         # contrastive loss
-        #         loss_inter_in = self.loss_cl_s(enc_inter, enc_inter_aug) #TODO:change
-
-        #     if self.use_intra_graph:
-        #         # intra aug
-        #         # enc_intra_aug = self.intra_module(x_aug.permute(0, 2, 1))  # >> (b, k, n) #TODO:change
-        #         enc_intra_aug = self.conv(x_aug)
-        #         enc_intra_aug = torch.cat([enc_intra_aug, enc_inter_aug], dim=-1)
-        #         enc_intra_aug = self.fusion_linear(enc_intra_aug)
-        #         enc_intra_aug = self.intra_module(enc_intra_aug).permute(0, 2, 1)
-        #         # projection head
-        #         enc_intra_aug = self.proj_head_intra(enc_intra_aug).permute(0, 2, 1)
-        #         # contrastive loss
-        #         loss_intra_in = self.loss_cl_s(enc_intra, enc_intra_aug)
-
-        # # projection head 3
-        # # enc_intra = self.proj_head3(enc_intra)
-        # # enc_inter = self.proj_head3(enc_inter)
-
-        # # contrastive loss
-        # if training and self.use_contrastive:
-        #     loss_cl = 0
-        #     if self.use_intra_graph:
-        #         loss_cl += loss_intra_in
-        #     # if self.use_inter_graph:
-        #     #     loss_cl += loss_inter_in
-        #     # if self.use_cross_loss and self.use_intra_graph and self.use_inter_graph:
-        #     #     loss_cross = self.loss_cl(enc_intra, enc_inter)
-        #     #     loss_cl += loss_cross
+        # if training:
+        #     x_aug_inter = self.inter_module(x_aug)
+        #     x_aug_inter = self.proj_head_inter(x_inter)
+        #     loss_cl = self.loss_cl_s(x_inter, x_aug_inter)
         # else:
         #     loss_cl = torch.zeros([1]).cuda()
+        # out = self.linear(x_inter)
 
-        # # # fuse #TODO:change
-        # # if self.use_intra_graph and self.use_inter_graph:
-        # #     enc = torch.cat([enc_inter, enc_intra], dim=-1)
-        # #     enc = self.fusion_linear(enc)
-        # #     # =============
-        # #     self.inter_latent = enc_inter
-        # #     self.intra_latent = enc_intra
-        # #     self.fused_latent = enc 
-        # #     # =============
-        # # elif self.use_intra_graph:
-        # #     enc = enc_intra
-        # # elif self.use_inter_graph:
-        # #     enc = enc_inter
-        # enc = enc_intra
+        
+        # inter graph
+        if self.use_inter_graph:
+            enc_inter = self.inter_module(x)  # >> (b, n, k)
+            # projection head
+            enc_inter = self.proj_head_inter(enc_inter) #TODO:change
 
-        # # # decoder #TODO:change
-        # # if self.decoder_type == 0:
-        # #     dec, _ = self.decoder(enc)
-        # # elif self.decoder_type == 1:
-        # #     dec = self.decoder(enc)
-        # # out = self.linear(dec)
-        # out = self.linear(enc)
+        # intra graph
+        if self.use_intra_graph:
+            # enc_intra = self.intra_module(x.permute(0, 2, 1))   # >> (b, k, n) #TODO:change
+            # enc_intra = self.conv(x)
+            # enc_intra = torch.cat([enc_intra, enc_inter], dim=-1)
+            # enc_intra = self.fusion_linear(enc_intra)
+            enc_intra = self.intra_module(x)#.permute(0, 2, 1)
+            enc_intra = enc_intra.permute(0, 2, 1)
+            # series_list = [ tensor.detach().cpu().numpy() if torch.is_tensor(tensor) else tensor for tensor in series] # ✅ 先 detach() 再转 NumPy
+            # series = series[-1]
+            # series = np.array(series_list)
+            # series = torch.tensor(series).to('cuda:0')
+            # projection head
+            enc_intra = self.proj_head_intra(enc_intra).permute(0, 2, 1)
+
+        if training and self.use_contrastive:
+            if self.use_inter_graph:
+                # inter aug
+                enc_inter_aug = self.inter_module(x_aug)
+                # projection head
+                enc_inter_aug = self.proj_head_inter(enc_inter_aug) #TODO:change
+                # contrastive loss
+                loss_inter_in = self.loss_cl_s(enc_inter, enc_inter_aug) #TODO:change
+
+            if self.use_intra_graph:
+                # intra aug
+                # enc_intra_aug = self.intra_module(x_aug.permute(0, 2, 1))  # >> (b, k, n) #TODO:change
+                # enc_intra_aug = self.conv(x_aug)
+                # enc_intra_aug = torch.cat([enc_intra_aug, enc_inter_aug], dim=-1)
+                # enc_intra_aug = self.fusion_linear(enc_intra_aug)
+                enc_intra_aug = self.intra_module(x_aug).permute(0, 2, 1)
+                # projection head
+                enc_intra_aug = self.proj_head_intra(enc_intra_aug).permute(0, 2, 1)
+                # contrastive loss
+                loss_intra_in = self.loss_cl_s(enc_intra, enc_intra_aug)
+
+        # projection head 3
+        # enc_intra = self.proj_head3(enc_intra)
+        # enc_inter = self.proj_head3(enc_inter)
+
+        # contrastive loss
+        if training and self.use_contrastive:
+            loss_cl = 0
+            if self.use_intra_graph:
+                loss_cl += loss_intra_in
+            if self.use_inter_graph:
+                loss_cl += loss_inter_in
+            if self.use_cross_loss and self.use_intra_graph and self.use_inter_graph:
+                loss_cross = self.loss_cl(enc_intra, enc_inter)
+                loss_cl += loss_cross
+        else:
+            loss_cl = torch.zeros([1]).cuda()
+
+        # fuse #TODO:change
+        if self.use_intra_graph and self.use_inter_graph:
+            enc = torch.cat([enc_inter, enc_intra], dim=-1)
+            enc = self.fusion_linear(enc)
+            # =============
+            self.inter_latent = enc_inter
+            self.intra_latent = enc_intra
+            self.fused_latent = enc 
+            # =============
+        elif self.use_intra_graph:
+            enc = enc_intra
+        elif self.use_inter_graph:
+            enc = enc_inter
+
+        # decoder #TODO:change
+        if self.decoder_type == 0:
+            dec, _ = self.decoder(enc)
+        elif self.decoder_type == 1:
+            dec = self.decoder(enc)
+        out = self.linear(dec)
 
         return out, loss_cl
 
