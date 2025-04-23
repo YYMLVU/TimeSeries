@@ -8,7 +8,7 @@ import torch.nn.functional as F
 
 from models.modules import ConvLayer, ReconstructionModel
 from models.transformer import EncoderLayer, MultiHeadAttention
-from models.graph import GraphEmbedding, GATEmbedding
+from models.graph import GraphEmbedding, GATEmbedding, DynamicGraphEmbedding
 from transformer_models.AnomalyTransformer import AnomalyTransformer
 
 
@@ -158,7 +158,8 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         self.num_levels = 1
         # inter embedding module based on GNN
         # self.inter_module = GraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device))
-        self.inter_module = GATEmbedding(num_nodes=n_features, seq_len=window_size).to(device)
+        self.inter_module = DynamicGraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device))
+        # self.inter_module = GATEmbedding(num_nodes=n_features, seq_len=window_size).to(device)
 
         # intra embedding module based on GNN
         # self.intra_module = GraphEmbedding(num_nodes=window_size, seq_len=n_features, num_levels=self.num_levels, device=torch.device(device))
