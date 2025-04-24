@@ -67,8 +67,8 @@ def swat():
     df = df.drop(columns=['Timestamp'])
     train = df.to_numpy()
     print(train.shape)
-    # train = train[4320:, :]
-    # print(train.shape)
+    train = train[4320:, :]
+    print(train.shape)
     #assert train.shape == (496800, 51)
     pkl.dump(train, open('./code_MGCLAD/datasets/swat/processed/SWAT_train.pkl', 'wb'))
     print('SWaT_train saved')
@@ -85,11 +85,13 @@ def swat_10():
             'P602','P603','Normal/Attack']
 
     # preprocess for SWaT. SWaT.A2_Dec2015, version 0
-    df = pd.read_csv('./code_MGCLAD/datasets/swat/SWaT_Dataset_Attack_v0.csv', sep=';')
-    y = df['Normal/Attack'].to_numpy()  # 449919
+    # df = pd.read_csv('./code_MGCLAD/datasets/swat/SWaT_Dataset_Attack_v0.csv', sep=';')
+    # y = df['Normal/Attack'].to_numpy()  # 449919
+    df = pd.read_csv('./code_MGCLAD/datasets/swat/SWaT_test.csv', sep=',')
+    y = df['label'].to_numpy()
     labels = []
     for i in y:
-        if i == 'Attack':
+        if i == 1: # 'Attack':
             labels.append(1)
         else:
             labels.append(0)
@@ -209,9 +211,9 @@ def wadi():
             labels.append(0)
     labels = np.array(labels)
     print('labels:', labels.shape)
-    # labels = labels[::2]
+    labels = labels[::2]
     print('labels:', labels.shape)
-    #assert len(labels) == 449919
+    # assert len(labels) == 449919
     os.makedirs('./code_MGCLAD/datasets/wadi/processed', exist_ok=True)
     pkl.dump(labels, open('./code_MGCLAD/datasets/wadi/processed/WADI_test_label.pkl', 'wb'))
     print('WADI_test_label saved')
@@ -220,9 +222,9 @@ def wadi():
     df = df[metrics]
     test = df.to_numpy()
     print('test:', test.shape)
-    # test = test[::2, :]
+    test = test[::2, :]
     print('test:', test.shape)
-    #assert test.shape == (449919, 51)
+    # assert test.shape == (449919, 51)
     pkl.dump(test, open('./code_MGCLAD/datasets/wadi/processed/WADI_test.pkl', 'wb'))
     print('WADI_test saved')
 
@@ -231,9 +233,9 @@ def wadi():
     df = df[metrics]
     train = df.to_numpy()
     print('train:', train.shape)
-    # train = train[::2, :]
+    train = train[::2, :]
     print('train:', train.shape)
-    #assert train.shape == (496800, 51)
+    # assert train.shape == (496800, 51)
     pkl.dump(train, open('./code_MGCLAD/datasets/wadi/processed/WADI_train.pkl', 'wb'))
     print('WADI_train saved')
 
@@ -242,7 +244,7 @@ if __name__ == '__main__':
     # swat_10()
     #psm()
     swat()
-    # wadi()
+    wadi()
 
 '''
 # preprocess for WADI. WADI.A1

@@ -54,10 +54,11 @@ if __name__ == "__main__":
     elif dataset in ['SWAT', 'WADI', 'PSM']:
         output_path = f'./code_MGCLAD/output/{dataset}'
         (x_train, _), (x_test, y_test) = get_data(dataset, normalize=normalize)
-        dataset_lower = dataset.lower()
-        # with open(f'./code_MGCLAD/datasets/{dataset_lower}/processed/{dataset}_train_aug.pkl', 'rb') as f:
+        # dataset_lower = dataset.lower()
+        # with open(f'./code_MGCLAD/datasets/{dataset_lower}/processed/{dataset}_train_aug_neg.pkl', 'rb') as f:
         #     x_train_aug = pickle.load(f)
         # x_train_aug, _ = normalize_data(x_train_aug, scaler=None)
+        x_train_aug = None
     else:
         raise Exception(f'Dataset "{dataset}" not available.')
 
@@ -72,7 +73,10 @@ if __name__ == "__main__":
 
     x_train = torch.from_numpy(x_train).float()
     x_test = torch.from_numpy(x_test).float()
-    x_train_aug = torch.from_numpy(x_train_aug).float()
+    if x_train_aug is not None:
+        x_train_aug = torch.from_numpy(x_train_aug).float()
+    else:
+        x_train_aug = None
     n_features = x_train.shape[1]
 
     target_dims = get_target_dims(dataset)
@@ -88,7 +92,10 @@ if __name__ == "__main__":
 
     train_dataset = SlidingWindowDataset(x_train, window_size, target_dims)
     test_dataset = SlidingWindowDataset(x_test, window_size, target_dims)
-    train_aug_dataset = SlidingWindowDataset(x_train_aug, window_size, target_dims)
+    if x_train_aug is not None:
+        train_aug_dataset = SlidingWindowDataset(x_train_aug, window_size, target_dims)
+    else:
+        train_aug_dataset = None
 
     # train_loader, val_loader, test_loader = create_data_loaders(
     #     train_dataset, batch_size, val_split, shuffle_dataset, test_dataset=test_dataset
