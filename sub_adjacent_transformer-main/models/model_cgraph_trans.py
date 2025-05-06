@@ -8,8 +8,9 @@ import torch.nn.functional as F
 
 from models.modules import ConvLayer, ReconstructionModel
 from models.transformer import EncoderLayer, MultiHeadAttention
-from models.graph import GraphEmbedding
+from models.graph import DynamicGraphEmbedding
 from model.AnomalyTransformer import AnomalyTransformer
+
 
 '''
 
@@ -146,6 +147,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         self.use_contrastive = True
         self.use_intra_graph = True  
         self.use_inter_graph = True
+        self.device = device
 
         # preprocessing
         self.conv = ConvLayer(n_features, 7)
@@ -155,11 +157,13 @@ class MODEL_CGRAPH_TRANS(nn.Module):
 
         self.num_levels = 1
         # inter embedding module based on GNN
-        self.inter_module = GraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device))
+        # self.inter_module = GraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device))
+        self.inter_module = DynamicGraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device))
+        # self.inter_module = GATEmbedding(num_nodes=n_features, seq_len=window_size).to(device)
 
         # intra embedding module based on GNN
-        self.intra_module = GraphEmbedding(num_nodes=window_size, seq_len=n_features, num_levels=self.num_levels, device=torch.device(device))
-        self.intra_module = AnomalyTransformer(self.window_size, n_features, n_features, output_attention=False)
+        # self.intra_module = GraphEmbedding(num_nodes=window_size, seq_len=n_features, num_levels=self.num_levels, device=torch.device(device))
+        self.intra_module = AnomalyTransformer(win_size=self.window_size, enc_in=n_features, c_out=n_features, output_attention=False, attn_mode=0).to(device)
 
         # projection head
         #self.proj_head_inter = ProjectionLayer(n_feature=self.f_dim, num_heads=1, dropout=dropout)
@@ -185,7 +189,6 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         )
 
         self.fusion_linear = nn.Linear(self.f_dim*2, self.f_dim)
-        self.aug_linear = nn.Linear(self.f_dim*8, self.f_dim)
 
         self.inter_latent = None 
         self.intra_latent = None
@@ -197,6 +200,9 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         elif self.decoder_type == 1:
             self.decoder = ReconstructionModel(in_dim=self.f_dim, hid_dim=100, out_dim=self.f_dim, n_layers=1, dropout=dropout)
         self.linear = nn.Linear(self.f_dim, self.out_dim)
+
+        # TODO: ADD!
+        
 
 
     def aug_feature1(self, input_feat, drop_dim = 2, drop_percent = 0.1):
@@ -249,7 +255,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
 
     def aug_feature3(self, input_feat, drop_dim = 2, drop_percent = 0.1):
         aug_input_feat = copy.deepcopy(input_feat)
-        drop_dim = random.randint(1, 2)
+        drop_dim = 1#random.randint(1, 2)
         total_num = aug_input_feat.shape[drop_dim]
         drop_feat_num = int(total_num * drop_percent)
         # mask 
@@ -262,22 +268,58 @@ class MODEL_CGRAPH_TRANS(nn.Module):
             aug_input_feat = sp*input_feat
 
         return aug_input_feat
-    
-    def aug_feature_change(self, input_feat):
-        _, queries, keys = self.intra_module(input_feat)
-        attnMatrix = torch.einsum("b l h e, b s h e -> b h l s", queries[-1], keys[-1])
-        series_aug = attnMatrix / attnMatrix.sum(dim=-1, keepdim=True)
-        # series_aug = series_aug[-1]
+
+
+    # def loss_cl_s(self, z1, z2):
+    #     batch_size, w, k = z1.size()
+    #     T = 0.5
+    #     x1 = z1.contiguous().view(batch_size, -1)
+    #     x2 = z2.contiguous().view(batch_size, -1).detach()
         
-        x_feat = copy.deepcopy(input_feat)
-        x_feat = x_feat.unsqueeze(1) # [B, 1, W, F]
-        x_aug = torch.matmul(series_aug, x_feat)
-        B, H, W, F = x_aug.shape
-        x_aug = x_aug.permute(0,2,1,3).reshape(B,W,-1) # [B,W,H*F]
-        return self.aug_linear(x_aug) # [B, W, F]
+    #     x1_abs = x1.norm(dim=1)
+    #     x2_abs = x2.norm(dim=1)
 
+    #     sim_matrix = torch.einsum('ik,jk->ij', x1, x2) / torch.einsum('i,j->ij', x1_abs, x2_abs)
+    #     sim_matrix = torch.exp(sim_matrix / T)
+    #     pos_sim = sim_matrix[range(batch_size), range(batch_size)]
+    #     loss = pos_sim / (sim_matrix.sum(dim=1) - pos_sim)
+    #     loss = - torch.log(loss).mean()
 
-    def loss_cl_s(self, z1, z2):
+    #     return loss
+
+    def timelag_sigmoid(self, T, sigma=1):
+        dist = np.arange(T)
+        dist = np.abs(dist - dist[:, np.newaxis])
+        matrix = 2 / (1 + np.exp(sigma * dist))
+        matrix = np.where(matrix < 1e-6, 0, matrix)
+        return matrix
+    
+    def dup_matrix(self, matrix):
+        mat0 = torch.tril(matrix, diagonal=-1)[:,:-1]
+        mat0 += torch.triu(matrix, diagonal=1)[:,1:]
+        mat1 = torch.cat([mat0, matrix], dim=1)
+        mat2 = torch.cat([matrix, mat0], dim=1)
+        return mat1, mat2
+
+    def loss_cl_s_change(self, z1, z2):
+        timelag = self.timelag_sigmoid(z1.shape[1])
+        timelag = torch.tensor(timelag, device=self.device)
+        timelag_L, timelag_R = self.dup_matrix(timelag)
+        B, T = z1.size(0), z1.size(1)
+        if T == 1:
+            return z1.new_tensor(0.)
+        z = torch.cat([z1, z2], dim=1)
+        sim = torch.matmul(z, z.transpose(1, 2))
+        logits = torch.tril(sim, diagonal=-1)[:, :, :-1]
+        logits += torch.triu(sim, diagonal=1)[:, :, 1:]
+        logits = -F.log_softmax(logits, dim=-1)
+        t = torch.arange(T, device=self.device)
+        loss = torch.sum(logits[:, t]*timelag_L)
+        loss += torch.sum(logits[:, T + t]*timelag_R)
+        loss /= (2*B*T)
+        return loss
+
+    def loss_cl_s(self, z1, z2, z_neg=None):
         batch_size, w, k = z1.size()
         T = 0.5
         x1 = z1.contiguous().view(batch_size, -1)
@@ -285,13 +327,29 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         
         x1_abs = x1.norm(dim=1)
         x2_abs = x2.norm(dim=1)
-
+        
+        # Calculate positive similarity
         sim_matrix = torch.einsum('ik,jk->ij', x1, x2) / torch.einsum('i,j->ij', x1_abs, x2_abs)
         sim_matrix = torch.exp(sim_matrix / T)
         pos_sim = sim_matrix[range(batch_size), range(batch_size)]
-        loss = pos_sim / (sim_matrix.sum(dim=1) - pos_sim)
+        
+        # If negative samples are provided, incorporate them
+        if z_neg is not None:
+            x_neg = z_neg.contiguous().view(batch_size, -1).detach()
+            x_neg_abs = x_neg.norm(dim=1)
+            
+            # Calculate negative similarity
+            neg_sim_matrix = torch.einsum('ik,jk->ij', x1, x_neg) / torch.einsum('i,j->ij', x1_abs, x_neg_abs)
+            neg_sim_matrix = torch.exp(neg_sim_matrix / T)
+            
+            # Total similarity is positive + negative
+            denominator = sim_matrix.sum(dim=1) + neg_sim_matrix.sum(dim=1) - pos_sim
+        else:
+            denominator = sim_matrix.sum(dim=1) - pos_sim
+        
+        loss = pos_sim / denominator
         loss = - torch.log(loss).mean()
-
+        
         return loss
 
 
@@ -320,69 +378,66 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         return loss
 
 
-    def forward(self, x, training=True):
+    def forward(self, x, x_aug_neg=None, training=True):
         # x shape (b, n, k): b - batch size, n - window size, k - number of features
         # print('x:', x.shape)
         x = self.conv(x)
-        
+        # if training and x_aug is not None:
+        #     x_aug = self.conv(x_aug)
+        # else:
+        #     x_aug = x
+
         if training:
             x_aug = self.aug_feature(x)
         else:
             x_aug = x
         
-        # x_inter = self.inter_module(x)
-        # x_inter = self.proj_head_inter(x_inter)
-
-        # if training:
-        #     x_aug_inter = self.inter_module(x_aug)
-        #     x_aug_inter = self.proj_head_inter(x_inter)
-        #     loss_cl = self.loss_cl_s(x_inter, x_aug_inter)
-        # else:
-        #     loss_cl = torch.zeros([1]).cuda()
-        # out = self.linear(x_inter)
-
-        
-        # inter graph
-        if self.use_inter_graph:
-            enc_inter = self.inter_module(x)  # >> (b, n, k)
-            # projection head
-            enc_inter = self.proj_head_inter(enc_inter) #TODO:change
-
         # intra graph
         if self.use_intra_graph:
-            # enc_intra = self.intra_module(x.permute(0, 2, 1))   # >> (b, k, n) #TODO:change
-            # enc_intra = self.conv(x)
-            # enc_intra = torch.cat([enc_intra, enc_inter], dim=-1)
-            # enc_intra = self.fusion_linear(enc_intra)
-            enc_intra = self.intra_module(x)#.permute(0, 2, 1)
-            enc_intra = enc_intra.permute(0, 2, 1)
-            # series_list = [ tensor.detach().cpu().numpy() if torch.is_tensor(tensor) else tensor for tensor in series] # ✅ 先 detach() 再转 NumPy
-            # series = series[-1]
-            # series = np.array(series_list)
-            # series = torch.tensor(series).to('cuda:0')
+            # enc_intra = self.intra_module(x.permute(0, 2, 1))   # >> (b, k, n)
+            enc_intra = self.intra_module(x).permute(0, 2, 1)   # >> (b, k, n)
+
             # projection head
             enc_intra = self.proj_head_intra(enc_intra).permute(0, 2, 1)
 
-        if training and self.use_contrastive:
-            if self.use_inter_graph:
-                # inter aug
-                enc_inter_aug = self.inter_module(x_aug)
-                # projection head
-                enc_inter_aug = self.proj_head_inter(enc_inter_aug) #TODO:change
-                # contrastive loss
-                loss_inter_in = self.loss_cl_s(enc_inter, enc_inter_aug) #TODO:change
+        # inter graph
+        if self.use_inter_graph:
+            enc_inter = self.inter_module(x)  # >> (b, n, k)
 
+            # projection head
+            enc_inter = self.proj_head_inter(enc_inter)
+
+        if training and self.use_contrastive:
+    
             if self.use_intra_graph:
                 # intra aug
-                # enc_intra_aug = self.intra_module(x_aug.permute(0, 2, 1))  # >> (b, k, n) #TODO:change
-                # enc_intra_aug = self.conv(x_aug)
-                # enc_intra_aug = torch.cat([enc_intra_aug, enc_inter_aug], dim=-1)
-                # enc_intra_aug = self.fusion_linear(enc_intra_aug)
+                # enc_intra_aug = self.intra_module(x_aug.permute(0, 2, 1))  # >> (b, k, n)
                 enc_intra_aug = self.intra_module(x_aug).permute(0, 2, 1)
                 # projection head
                 enc_intra_aug = self.proj_head_intra(enc_intra_aug).permute(0, 2, 1)
                 # contrastive loss
-                loss_intra_in = self.loss_cl_s(enc_intra, enc_intra_aug)
+                loss_intra_in = self.loss_cl_s_change(enc_intra, enc_intra_aug)
+
+            if self.use_inter_graph:
+                # inter aug
+                enc_inter_aug = self.inter_module(x_aug)
+                # projection head
+                enc_inter_aug = self.proj_head_inter(enc_inter_aug)
+                # contrastive loss
+                loss_inter_in = self.loss_cl_s(enc_inter, enc_inter_aug)
+
+            # if x_aug_neg is not None:
+            #     x_aug_neg = self.conv(x_aug_neg)
+            #     enc_inter_aug_neg = self.inter_module(x_aug_neg)
+            #     enc_inter_aug_neg = self.proj_head_inter(enc_inter_aug_neg)
+
+            #     enc_intra_aug_neg = self.intra_module(x_aug_neg).permute(0, 2, 1)
+            #     enc_intra_aug_neg = self.proj_head_intra(enc_intra_aug_neg).permute(0, 2, 1)
+            #     loss_intra_in = self.loss_cl_s(enc_intra, enc_intra_aug, enc_intra_aug_neg)
+            #     loss_inter_in = self.loss_cl_s(enc_inter, enc_inter_aug, enc_inter_aug_neg)
+            # else:
+            #     loss_intra_in = self.loss_cl_s(enc_intra, enc_intra_aug)
+            #     loss_inter_in = self.loss_cl_s(enc_inter, enc_inter_aug)
 
         # projection head 3
         # enc_intra = self.proj_head3(enc_intra)
@@ -401,7 +456,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         else:
             loss_cl = torch.zeros([1]).cuda()
 
-        # fuse #TODO:change
+        # fuse
         if self.use_intra_graph and self.use_inter_graph:
             enc = torch.cat([enc_inter, enc_intra], dim=-1)
             enc = self.fusion_linear(enc)
@@ -415,7 +470,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         elif self.use_inter_graph:
             enc = enc_inter
 
-        # decoder #TODO:change
+        # decoder
         if self.decoder_type == 0:
             dec, _ = self.decoder(enc)
         elif self.decoder_type == 1:

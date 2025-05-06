@@ -8,7 +8,7 @@ import torch.nn.functional as F
 
 from models.modules import ConvLayer, ReconstructionModel
 from models.transformer import EncoderLayer, MultiHeadAttention
-from models.graph import GraphEmbedding, DynamicGraphEmbedding
+from models.graph import DynamicGraphEmbedding
 from transformer_models.AnomalyTransformer import AnomalyTransformer
 
 

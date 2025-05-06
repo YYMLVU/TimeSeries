@@ -42,15 +42,23 @@ class AdaGCNConv(MessagePassing):
         # edge_index形状: [2, num_edges]
         
         # 1. 计算特征相似度作为边权重
-        x_norm = F.normalize(x, p=2, dim=-1)  # 归一化特征
-        similarity = torch.matmul(x_norm, x_norm.transpose(-1, -2))  # [num_nodes, batch_size, num_nodes]
+        x_norm = F.normalize(x, p=2, dim=-1)  # 归一化特征 [num_nodes, batch_size, feature_dim]
+
+        # Reshape x_norm to [num_nodes, batch_size * feature_dim] if you want cross-node similarities
+        # Or better, permute dimensions to get [batch_size, num_nodes, feature_dim]
+        x_norm_permuted = x_norm.permute(1, 0, 2)  # [batch_size, num_nodes, feature_dim]
+
+        # Compute similarity matrix
+        similarity = torch.matmul(x_norm_permuted, x_norm_permuted.transpose(-1, -2))  # [batch_size, num_nodes, num_nodes]
+        # Permute back if needed to get [num_nodes, batch_size, num_nodes]
+        similarity = similarity.permute(1, 0, 2)  # Now matches comment shape [num_nodes, batch_size, num_nodes]
         mean_similarity = similarity.mean(dim=1)  # [num_nodes, num_nodes]
         
         # 2. 为每个节点选择前30%的边
         num_edges_per_node = int(self.num_nodes * 0.3)  # 30%的边
         if num_edges_per_node < 1:
             num_edges_per_node = 1  # 至少保留1条边
-            
+
         # 获取每个节点的topk相似邻居(不包括自己)
         topk_values, topk_indices = torch.topk(mean_similarity, num_edges_per_node+1, dim=-1)
         
@@ -118,33 +126,33 @@ class DynamicGraphEmbedding(torch.nn.Module):
         x = x.permute(1, 2, 0)  # >> (bsz, seq_len, num_nodes)
         return x
 
-class GraphEmbedding(torch.nn.Module):
-    def __init__(self, num_nodes, seq_len, num_levels=1, device=torch.device('cuda:0')):
-        super(GraphEmbedding, self).__init__()
-        self.num_nodes = num_nodes
-        self.seq_len = seq_len
-        self.device = device
-        self.num_levels = num_levels
+# class GraphEmbedding(torch.nn.Module):
+#     def __init__(self, num_nodes, seq_len, num_levels=1, device=torch.device('cuda:0')):
+#         super(GraphEmbedding, self).__init__()
+#         self.num_nodes = num_nodes
+#         self.seq_len = seq_len
+#         self.device = device
+#         self.num_levels = num_levels
         
-        self.gc_module = AdaGCNConv(num_nodes, seq_len, seq_len)
+#         self.gc_module = AdaGCNConv(num_nodes, seq_len, seq_len)
         
-        source_nodes, target_nodes = [], []
-        for i in range(num_nodes):
-            for j in range(num_nodes):
-                source_nodes.append(j)
-                target_nodes.append(i)
-        self.edge_index = torch.tensor([source_nodes, target_nodes], dtype=torch.long, device=self.device)
+#         source_nodes, target_nodes = [], []
+#         for i in range(num_nodes):
+#             for j in range(num_nodes):
+#                 source_nodes.append(j)
+#                 target_nodes.append(i)
+#         self.edge_index = torch.tensor([source_nodes, target_nodes], dtype=torch.long, device=self.device)
 
-    def forward(self, x):
-        # x: >> (bsz, seq_len, num_nodes)
-        # x = x.permute(0, 2, 1) # >> (bsz, num_nodes, seq_len)
-        # x = self.gc_module(x.transpose(0, 1), self.edge_index).transpose(0, 1) # >> (bsz, num_nodes, seq_len)
+#     def forward(self, x):
+#         # x: >> (bsz, seq_len, num_nodes)
+#         # x = x.permute(0, 2, 1) # >> (bsz, num_nodes, seq_len)
+#         # x = self.gc_module(x.transpose(0, 1), self.edge_index).transpose(0, 1) # >> (bsz, num_nodes, seq_len)
 
-        x = x.permute(2, 0, 1) # >> (num_nodes, bsz, seq_len)
-        for i in range(self.num_levels):
-            x = self.gc_module(x, self.edge_index) # >> (num_nodes, bsz, seq_len)
-        x = x.permute(1, 2, 0)  # >> (bsz, seq_len, num_nodes)
-        return x
+#         x = x.permute(2, 0, 1) # >> (num_nodes, bsz, seq_len)
+#         for i in range(self.num_levels):
+#             x = self.gc_module(x, self.edge_index) # >> (num_nodes, bsz, seq_len)
+#         x = x.permute(1, 2, 0)  # >> (bsz, seq_len, num_nodes)
+#         return x
             
 # class AdaGCNConv(MessagePassing):
 #     def __init__(self, num_nodes, in_channels, out_channels, improved=False, 
