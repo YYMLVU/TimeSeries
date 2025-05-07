@@ -1,7 +1,7 @@
 {
-  "dataset": "MSL",
+  "dataset": "SMAP",
   "group": "1-1",
-  "lookback": 16,
+  "lookback": 32,
   "normalize": true,
   "spec_res": false,
   "kernel_size": 7,
@@ -30,5 +30,6 @@
   "level": null,
   "q": null,
   "dynamic_pot": false,
+  "is_adjust": true,
   "comment": ""
 }

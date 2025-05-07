@@ -30,5 +30,5 @@
   "level": null,
   "q": null,
   "dynamic_pot": false,
-  "comment": ""
+  "comment": "only transformer"
 }
