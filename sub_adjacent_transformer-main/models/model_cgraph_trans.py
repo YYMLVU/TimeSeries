@@ -125,6 +125,203 @@ class ProjectionLayer(nn.Module):
         context, _ = self.attention(inputs, inputs, inputs, attn_mask)
         return context
 
+# 改进的 MaskGenerator 类
+class MaskGenerator(nn.Module):
+    """更先进的生成器网络，创建用于特征和时序维度的增强掩码"""
+    
+    def __init__(self, window_size, n_features, hidden_dim=128):
+        super(MaskGenerator, self).__init__()
+        self.window_size = window_size
+        self.n_features = n_features
+        
+        # 更强大的编码器，使用残差连接
+        self.encoder = nn.Sequential(
+            nn.Linear(window_size * n_features, hidden_dim * 2),
+            nn.LeakyReLU(0.2),
+            nn.Dropout(0.2),
+            nn.Linear(hidden_dim * 2, hidden_dim),
+            nn.LeakyReLU(0.2),
+            nn.Dropout(0.2),
+            nn.BatchNorm1d(hidden_dim)
+        )
+        
+        # 特征掩码解码器
+        self.feature_mask_decoder = nn.Sequential(
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.LeakyReLU(0.2),
+            nn.Linear(hidden_dim, n_features),
+            nn.Sigmoid()
+        )
+        
+        # 时序掩码解码器
+        self.temporal_mask_decoder = nn.Sequential(
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.LeakyReLU(0.2),
+            nn.Linear(hidden_dim, window_size),
+            nn.Sigmoid()
+        )
+        
+        # 注意力掩码解码器 (一种更细粒度的掩码)
+        self.attention_mask_decoder = nn.Sequential(
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.LeakyReLU(0.2),
+            nn.Linear(hidden_dim, window_size * n_features),
+            nn.Sigmoid()
+        )
+        
+    def forward(self, x):
+        batch_size = x.shape[0]
+        
+        # 将输入展平
+        x_flat = x.reshape(batch_size, -1)
+        
+        # 编码
+        encoded = self.encoder(x_flat)
+        
+        # 生成三种不同的掩码
+        feature_mask = self.feature_mask_decoder(encoded)  # [batch_size, n_features]
+        temporal_mask = self.temporal_mask_decoder(encoded)  # [batch_size, window_size]
+        attention_mask = self.attention_mask_decoder(encoded)  # [batch_size, window_size * n_features]
+        attention_mask = attention_mask.view(batch_size, self.window_size, self.n_features)
+        
+        # 扩展维度以便应用掩码
+        feature_mask = feature_mask.unsqueeze(1).expand(-1, self.window_size, -1)  # [batch_size, window_size, n_features]
+        temporal_mask = temporal_mask.unsqueeze(2).expand(-1, -1, self.n_features)  # [batch_size, window_size, n_features]
+        
+        # 随机混合不同的掩码类型
+        mask_weights = torch.rand(batch_size, 1, 1, device=x.device)
+        final_mask = (mask_weights < 0.33).float() * feature_mask + \
+                     ((mask_weights >= 0.33) & (mask_weights < 0.66)).float() * temporal_mask + \
+                     (mask_weights >= 0.66).float() * attention_mask
+        
+        # 应用掩码
+        masked_x = x * final_mask
+        
+        return masked_x, final_mask
+    
+class GANFeatureAugmenter(nn.Module):
+    def __init__(self, window_size, num_features, lr=0.0002, device='cuda'):
+        super(GANFeatureAugmenter, self).__init__()
+        self.generator = MaskGenerator(window_size=window_size, n_features=num_features)
+        self.device = device
+        self.generator.to(device)
+        
+        # 优化器
+        self.g_optimizer = torch.optim.Adam(self.generator.parameters(), lr=lr, betas=(0.5, 0.999))
+        
+        # 增强策略
+        self.augmentation_types = ['mask', 'noise', 'mixup', 'cutout']
+        self.current_strategy = 'mask'
+        
+        # 超参数
+        self.mask_ratio = 0.3  # 要掩码的特征比例
+        self.noise_scale = 0.2  # 添加噪声的尺度
+        self.mixup_alpha = 0.4  # mixup的alpha参数
+        self.temperature = 0.1  # 对比损失温度
+        
+        # 运行统计
+        self.running_loss = 0.0
+        self.updates = 0
+        self.augmentation_stats = {strategy: 0 for strategy in self.augmentation_types}
+        
+    def manual_augment(self, x, strategy=None):
+        """手动应用特定的增强策略"""
+        batch_size = x.shape[0]
+        window_size = x.shape[1]
+        num_features = x.shape[2]
+        
+        if strategy is None:
+            strategy = random.choice(self.augmentation_types)
+        
+        self.augmentation_stats[strategy] += 1
+        self.current_strategy = strategy
+        
+        if strategy == 'mask':
+            # 随机掩码一些特征
+            mask = torch.ones_like(x)
+            for b in range(batch_size):
+                # 每个批次随机掩码不同的特征
+                feature_idx = random.sample(range(num_features), 
+                                          int(num_features * self.mask_ratio))
+                mask[b, :, feature_idx] = 0.0
+            return x * mask
+            
+        elif strategy == 'noise':
+            # 添加高斯噪声
+            noise = torch.randn_like(x) * self.noise_scale * x.std(dim=1, keepdim=True)
+            return x + noise
+            
+        elif strategy == 'mixup':
+            # Mixup批次内的样本
+            perm = torch.randperm(batch_size)
+            mixed_x = self.mixup_alpha * x + (1 - self.mixup_alpha) * x[perm]
+            return mixed_x
+            
+        elif strategy == 'cutout':
+            # 时间序列的Cutout (删除连续的时间步长)
+            x_aug = x.clone()
+            for b in range(batch_size):
+                length = random.randint(5, max(6, int(window_size * 0.2)))
+                start = random.randint(0, window_size - length)
+                x_aug[b, start:start+length, :] = 0
+            return x_aug
+            
+        return x
+    
+    def aug_feature(self, x, training=True):
+        """使用GAN网络增强输入特征"""
+        if not training:
+            return x
+        
+        # 有50%的概率使用手动增强，50%的概率使用GAN生成的增强
+        if random.random() < 0.5:
+            return self.manual_augment(x)
+        else:
+            masked_x, _ = self.generator(x)
+            return masked_x
+    
+    def train_gan(self, x, output, rec_loss):
+        """训练生成器创建能最大化重构损失的增强"""
+        self.g_optimizer.zero_grad()
+        
+        # 使用detach创建新的计算图
+        x_detached = x.detach()
+        output_detached = output.detach()
+        
+        # 生成掩码版本并得到掩码
+        masked_x, mask = self.generator(x_detached)
+        
+        # 计算重构误差 (对生成器而言，误差越大越好)
+        criterion = nn.MSELoss()
+        aug_loss = criterion(masked_x, output_detached)
+        
+        # 添加正则化项，使掩码更加稀疏
+        sparsity_loss = torch.mean(mask)  # 鼓励更多的零（更多掩码）
+        diversity_loss = -torch.mean(torch.std(mask, dim=0))  # 鼓励不同样本有不同的掩码
+        
+        # 综合损失 (我们希望最大化重构误差，同时保持稀疏和多样性)
+        g_loss = -aug_loss + 0.1 * sparsity_loss + 0.05 * diversity_loss
+        
+        g_loss.backward()
+        self.g_optimizer.step()
+        
+        self.running_loss += aug_loss.item()
+        self.updates += 1
+        
+        return aug_loss.item()
+    
+    def get_stats(self):
+        """返回训练统计信息"""
+        avg_loss = self.running_loss / max(1, self.updates)
+        stats = {
+            'avg_loss': avg_loss,
+            'updates': self.updates,
+            'augmentation_counts': self.augmentation_stats
+        }
+        return stats
+    
+    def forward(self, x, training=True):
+        return self.aug_feature(x, training)
 
 class MODEL_CGRAPH_TRANS(nn.Module):
     """ MODEL_CGRAPH_TRANS model class.
@@ -202,7 +399,18 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         self.linear = nn.Linear(self.f_dim, self.out_dim)
 
         # TODO: ADD!
+        # GAN特征增强器
+        self.gan_augment = GANFeatureAugmenter(
+            window_size=window_size,
+            num_features=n_features,
+            lr=0.0002,
+            device=device
+        )
         
+        # GAN控制参数
+        self.use_gan = True  # 是否使用GAN增强
+        self.gan_train_freq = 5  # 每n批次训练一次GAN
+        self.gan_warmup_epochs = 0  # GAN训练前的预热轮数
 
 
     def aug_feature1(self, input_feat, drop_dim = 2, drop_percent = 0.1):
@@ -388,7 +596,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         #     x_aug = x
 
         if training:
-            x_aug = self.aug_feature(x)
+            x_aug = self.gan_augment(x, training=True)
         else:
             x_aug = x
         

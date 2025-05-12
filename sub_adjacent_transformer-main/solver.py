@@ -249,20 +249,7 @@ class Solver(object):
                 # loss3 = 2*rec_loss - self.k * loss_attn
 
                 loss1_list.append(loss1.item())
-                loss2_list.append(loss2.item())
-                if (i + 1) % 50 == 0:
-                    speed = (time.time() - time_now) / iter_count
-                    left_time = speed * ((self.num_epochs - epoch) * train_steps - i)
-
-                    info = (
-                        # f'\t loss1: {loss1:.4f}, loss2: {loss2:.4f}; rec_loss: {rec_loss:.4f}, loss_attn: {loss_attn:.4f}'
-                        f'\t loss1: {loss1:.4f}, loss2: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}'
-                        f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
-                    print(info)
-                    logging.info(info)
-
-                    iter_count = 0
-                    time_now = time.time()
+                loss2_list.append(loss2.item())                                     
 
                 if not self.no_point_adjustment:
                     # using point adjustment
@@ -275,6 +262,27 @@ class Solver(object):
                     loss2.backward()
 
                 self.optimizer.step()
+                if epoch >= self.model.gan_warmup_epochs and hasattr(self.model, 'gan_augment') and self.model.use_gan:
+                    if i % self.model.gan_train_freq == 0:
+                        gan_loss = self.model.gan_augment.train_gan(input_, output, loss1)
+                        # 每50批次输出一次GAN统计信息
+                        if i % 50 == 0:
+                            gan_stats = self.model.gan_augment.get_stats()
+                            gan_info = f'gan_loss: {gan_loss:.4f}, ' \
+                                    f'strategy: {self.model.gan_augment.current_strategy}'
+                            print(gan_info)
+                            # logging.info(gan_info)
+                
+                if (i + 1) % 50 == 0:
+                    # 输出信息
+                    speed = (time.time() - time_now) / iter_count
+                    left_time = speed * ((self.num_epochs - epoch) * train_steps - i)
+                    info = (f'\t loss1: {loss1:.4f}, loss2: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}'
+                            f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
+                    print(info)
+                    logging.info(info)
+                    iter_count = 0
+                    time_now = time.time()
 
             memory_used = torch.cuda.max_memory_allocated() / (1024.0 * 1024.0 * 1024.0)
             epoch_time = time.time() - epoch_start_time

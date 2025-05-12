@@ -1,3 +1,4 @@
+python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 1 --batch_size 256 --mode monte_carlo_search --dataset SWaT --data_path ./sub_adjacent_transformer-main/dataset/SWAT/ --input_c 51 --output_c 51 --span 20 25 --monte_carlo 1
 20250326 19:07:15  sub_adjacent
 	Accuracy : 99.47%, Precision : 95.74%, Recall : 100.00%, F-score : 97.82%
 
@@ -7,5 +8,30 @@
 20250327 14:54:32  改transformer
 	Accuracy : 98.38%, Precision : 96.13%, Recall : 90.28%, F-score : 93.12%
 
-20250402 15:28:20 方案改进
-	Accuracy : 97.54%, Precision : 96.26%, Recall : 82.94%, F-score : 89.11%
+20250427 13:32:27 改transformer_1+图连接改动+时间步损失函数
+	Accuracy : 98.37%, Precision : 94.11%, Recall : 92.09%, F-score : 93.09%
+
+20250427 13:44:55 原论文
+	Accuracy : 97.98%, Precision : 91.46%, Recall : 91.70%, F-score : 91.58%
+
+20250427 14:20:48 改transformer
+	Accuracy : 98.11%, Precision : 92.51%, Recall : 91.61%, F-score : 92.06%
+
+20250427 14:46:55 改transformer+图连接改动
+	Accuracy : 98.17%, Precision : 91.69%, Recall : 93.13%, F-score : 92.40%
+
+20250427 15:08:33 改transformer+图连接改动+时间步损失函数
+	Accuracy : 98.21%, Precision : 93.35%, Recall : 91.55%, F-score : 92.44%
+
+20250509 13:54:50 改transformer+图连接改动+时间步损失函数+训练两轮
+	Accuracy : 98.29%, Precision : 92.83%, Recall : 92.90%, F-score : 92.86%
+
+20250509 18:47:01 改transformer+图连接改动+时间步损失函数+GAN掩码_1
+	Accuracy : 98.14%, Precision : 92.79%, Recall : 91.59%, F-score : 92.18%
+
+20250509 19:31:24 改transformer+图连接改动+时间步损失函数+GAN掩码_2
+	Accuracy : 98.17%, Precision : 92.38%, Recall : 92.30%, F-score : 92.34%
+
+20250512 11:14:52 改transformer+图连接改动+时间步损失函数+GAN掩码_3
+	Accuracy : 98.26%, Precision : 91.56%, Recall : 94.13%, F-score : 92.83%
+
