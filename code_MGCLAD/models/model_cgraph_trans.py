@@ -125,6 +125,90 @@ class ProjectionLayer(nn.Module):
         context, _ = self.attention(inputs, inputs, inputs, attn_mask)
         return context
 
+# Enhanced MaskGenerator for Wasserstein GAN-GP
+class MaskGenerator(nn.Module):
+    """Wasserstein GAN-GP based mask generator for feature augmentation"""
+    
+    def __init__(self, window_size, n_features, hidden_dim=128, noise_dim=64):
+        super(MaskGenerator, self).__init__()
+        self.window_size = window_size
+        self.n_features = n_features
+        self.noise_dim = noise_dim
+        
+        # Generator architecture
+        self.generator = nn.Sequential(
+            nn.Linear(noise_dim, hidden_dim),
+            nn.LeakyReLU(0.2),
+            nn.Linear(hidden_dim, hidden_dim * 2),
+            nn.LeakyReLU(0.2),
+            nn.Linear(hidden_dim * 2, window_size * n_features),
+            nn.Sigmoid()  # Output range [0, 1] for multiplicative masking
+        )
+        
+    def forward(self, batch_size, device):
+        # Generate random noise
+        z = torch.randn(batch_size, self.noise_dim, device=device)
+        
+        # Generate mask
+        mask = self.generator(z)
+        mask = mask.view(batch_size, self.window_size, self.n_features)
+        
+        # Apply threshold to create binary mask with some randomness
+        # We don't use hard threshold to keep gradients flowing
+        return mask
+
+
+class Discriminator(nn.Module):
+    """Wasserstein GAN-GP discriminator for evaluating augmented samples"""
+
+    def __init__(self, window_size, n_features, hidden_dim=128):
+        super(Discriminator, self).__init__()
+        
+        self.model = nn.Sequential(
+            nn.Linear(window_size * n_features, hidden_dim * 2),
+            nn.LeakyReLU(0.2),
+            nn.Linear(hidden_dim * 2, hidden_dim),
+            nn.LeakyReLU(0.2),
+            nn.Linear(hidden_dim, 1)  # No sigmoid for Wasserstein GAN
+        )
+    
+    def forward(self, x):
+        batch_size = x.size(0)
+        x_flat = x.view(batch_size, -1)
+        return self.model(x_flat)
+
+
+# Gradient penalty function for WGAN-GP
+def compute_gradient_penalty(discriminator, real_samples, fake_samples, device):
+    """Compute gradient penalty for WGAN-GP"""
+    # Random weight term for interpolation
+    alpha = torch.rand(real_samples.size(0), 1, 1, device=device)
+    alpha = alpha.expand_as(real_samples)
+    
+    # Interpolated samples
+    interpolated = alpha * real_samples + (1 - alpha) * fake_samples
+    interpolated.requires_grad_(True)
+    
+    # Calculate discriminator output for interpolated samples
+    d_interpolated = discriminator(interpolated)
+    
+    # Calculate gradients
+    gradients = torch.autograd.grad(
+        outputs=d_interpolated,
+        inputs=interpolated,
+        grad_outputs=torch.ones_like(d_interpolated, device=device),
+        create_graph=True,
+        retain_graph=True,
+        only_inputs=True
+    )[0]
+    
+    # Calculate gradient penalty
+    gradients = gradients.view(gradients.size(0), -1)
+    gradient_norm = gradients.norm(2, dim=1)
+    gradient_penalty = ((gradient_norm - 1) ** 2).mean()
+    
+    return gradient_penalty
+
 
 class MODEL_CGRAPH_TRANS(nn.Module):
     """ MODEL_CGRAPH_TRANS model class.
@@ -202,8 +286,17 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         self.linear = nn.Linear(self.f_dim, self.out_dim)
 
         # TODO: ADD!
+        # WGAN-GP components for augmentation
+        self.mask_generator = MaskGenerator(window_size, n_features)
+        self.discriminator = Discriminator(window_size, n_features)
+        self.lambda_gp = 10  # Gradient penalty coefficient
         
-
+        # WGAN-GP training params
+        self.n_critic = 5  # Number of discriminator updates per generator update
+        self.generator_optimizer = None
+        self.discriminator_optimizer = None
+        self.wgan_initialized = False
+        
 
     def aug_feature1(self, input_feat, drop_dim = 2, drop_percent = 0.1):
         aug_input_feat = copy.deepcopy(input_feat)
@@ -267,6 +360,98 @@ class MODEL_CGRAPH_TRANS(nn.Module):
             sp = F.gumbel_softmax(p, hard=True)
             aug_input_feat = sp*input_feat
 
+        return aug_input_feat
+    
+    def init_wgan_optimizers(self):
+        """Initialize optimizers for WGAN-GP"""
+        if not self.wgan_initialized:
+            # Using RMSprop as recommended for WGAN
+            self.generator_optimizer = torch.optim.RMSprop(
+                self.mask_generator.parameters(), 
+                lr=0.0001
+            )
+            self.discriminator_optimizer = torch.optim.RMSprop(
+                self.discriminator.parameters(),
+                lr=0.00005
+            )
+            self.wgan_initialized = True
+
+    def update_wgan(self, x):
+        """Train WGAN-GP for one step"""
+        if not self.wgan_initialized:
+            self.init_wgan_optimizers()
+        
+        batch_size = x.size(0)
+        real_data = x.detach()
+        
+        # Generate masks and apply them to create augmentations
+        for _ in range(self.n_critic):
+            self.discriminator_optimizer.zero_grad()
+            
+            # Generate masks
+            masks = self.mask_generator(batch_size, self.device)
+            
+            # Apply masks to input data to create fake samples
+            fake_samples = x * masks
+            
+            # Discriminator predictions
+            real_validity = self.discriminator(real_data)
+            fake_validity = self.discriminator(fake_samples.detach())
+            
+            # Compute gradient penalty
+            gradient_penalty = compute_gradient_penalty(
+                self.discriminator, real_data, fake_samples, self.device
+            )
+            
+            # Wasserstein loss for discriminator
+            d_loss = torch.mean(fake_validity) - torch.mean(real_validity) + self.lambda_gp * gradient_penalty
+            
+            d_loss.backward()
+            self.discriminator_optimizer.step()
+            
+            # Clip weights for Lipschitz constraint (alternative to gradient penalty)
+            # Comment this out if using gradient penalty
+            # for p in self.discriminator.parameters():
+            #     p.data.clamp_(-0.01, 0.01)
+        
+        # Train Generator
+        self.generator_optimizer.zero_grad()
+        
+        # Generate new masks and apply them
+        masks = self.mask_generator(batch_size, self.device)
+        fake_samples = x * masks
+        
+        # Try to fool discriminator
+        fake_validity = self.discriminator(fake_samples)
+        
+        # Wasserstein loss for generator (maximize discriminator prediction)
+        g_loss = -torch.mean(fake_validity)
+        
+        g_loss.backward()
+        self.generator_optimizer.step()
+        
+        # Return both losses for monitoring
+        return {
+            'discriminator_loss': d_loss.item(),
+            'generator_loss': g_loss.item()
+        }
+
+    def aug_feature_wgan(self, input_feat, drop_percent=0.1, epoch=0):
+        """Generate augmented feature using WGAN-GP with progressive training"""
+        batch_size = input_feat.size(0)
+        
+        with torch.no_grad():
+            # Generate binary mask
+            masks = self.mask_generator(batch_size, self.device)
+            
+            # Progressive training - gradually decrease dropout 
+            effective_dropout = max(0.05, drop_percent - (epoch * 0.01))
+            dropout_mask = (torch.rand_like(masks) > effective_dropout).float()
+            masks = masks * dropout_mask
+            
+            # Apply mask to input
+            aug_input_feat = input_feat * masks
+        
         return aug_input_feat
 
 
@@ -388,10 +573,10 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         #     x_aug = x
 
         if training:
-            x_aug = self.aug_feature(x)
+            x_aug = self.aug_feature_wgan(x)
         else:
             x_aug = x
-        
+
         # intra graph
         if self.use_intra_graph:
             # enc_intra = self.intra_module(x.permute(0, 2, 1))   # >> (b, k, n)
@@ -416,7 +601,8 @@ class MODEL_CGRAPH_TRANS(nn.Module):
                 # projection head
                 enc_intra_aug = self.proj_head_intra(enc_intra_aug).permute(0, 2, 1)
                 # contrastive loss
-                loss_intra_in = self.loss_cl_s(enc_intra, enc_intra_aug)
+                loss_intra_in = self.loss_cl_s_change(enc_intra, enc_intra_aug)
+                # print(loss_intra_in)
 
             if self.use_inter_graph:
                 # inter aug
@@ -425,6 +611,18 @@ class MODEL_CGRAPH_TRANS(nn.Module):
                 enc_inter_aug = self.proj_head_inter(enc_inter_aug)
                 # contrastive loss
                 loss_inter_in = self.loss_cl_s(enc_inter, enc_inter_aug)
+                # print(loss_inter_in)
+                # if torch.isnan(loss_inter_in):
+                #     with open('./output.txt', 'w') as f:
+                #         f.write("enc_inter:"+str(enc_inter))
+                #         f.write('\n')
+                #         f.write("enc_inter_aug:"+str(enc_inter_aug))
+                #         f.write('\n')
+                #         f.write("x_aug:"+str(x_aug))
+                #         f.write('\n')
+                #         f.write("enc_intra_aug:"+str(enc_intra_aug))
+                #     exit()
+
 
             # if x_aug_neg is not None:
             #     x_aug_neg = self.conv(x_aug_neg)

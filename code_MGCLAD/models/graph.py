@@ -42,11 +42,11 @@ class AdaGCNConv(MessagePassing):
         # edge_index形状: [2, num_edges]
         
         # 1. 计算特征相似度作为边权重
-        x_norm = F.normalize(x, p=2, dim=-1)  # 归一化特征 [num_nodes, batch_size, feature_dim]
+        x_norm = F.normalize(x, p=2, dim=-1)  # 归一化特征 [num_nodes, batch_size, seq_len]
 
-        # Reshape x_norm to [num_nodes, batch_size * feature_dim] if you want cross-node similarities
-        # Or better, permute dimensions to get [batch_size, num_nodes, feature_dim]
-        x_norm_permuted = x_norm.permute(1, 0, 2)  # [batch_size, num_nodes, feature_dim]
+        # Reshape x_norm to [num_nodes, batch_size * seq_len] if you want cross-node similarities
+        # Or better, permute dimensions to get [batch_size, num_nodes, seq_len]
+        x_norm_permuted = x_norm.permute(1, 0, 2)  # [batch_size, num_nodes, seq_len]
 
         # Compute similarity matrix
         similarity = torch.matmul(x_norm_permuted, x_norm_permuted.transpose(-1, -2))  # [batch_size, num_nodes, num_nodes]
