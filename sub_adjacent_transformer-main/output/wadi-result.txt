@@ -1,3 +1,5 @@
+python ./sub_adjacent_transformer-main/main.py  --record_state  --anormly_ratio 1 --num_epochs 1  --batch_size 128  --mode monte_carlo_search --dataset wadi --data_path ./sub_adjacent_transformer-main/dataset/WADI  --input_c  93   --output_c  93  --monte_carlo 1
+python ./sub_adjacent_transformer-main/main.py --anormly_ratio 1 --num_epochs 1  --batch_size 128  --mode find_best --dataset wadi --data_path ./sub_adjacent_transformer-main/dataset/WADI --input_c 93 --output_c 93 --monte_carlo 1
 20250327 11:28:22 sub_adjacent
 	Accuracy : 99.54%, Precision : 94.33%, Recall : 97.97%, F-score : 96.12%
 
@@ -7,5 +9,15 @@
 20250331 19:25:34 改Transformer
 	Accuracy : 98.53%, Precision : 92.67%, Recall : 80.88%, F-score : 86.37%
 
-20250402 15:41:17 改方案
-	Accuracy : 97.93%, Precision : 89.79%, Recall : 72.35%, F-score : 80.13%
+20250512 17:08:43 next:
+	Accuracy : 99.04%, Precision : 87.05%, Recall : 97.97%, F-score : 92.19%
+
+20250512 18:14:31
+	Accuracy : 99.27%, Precision : 88.74%, Recall : 100.00%, F-score : 94.04%
+
+20250514 17:35:13
+	Accuracy : 97.18%, Precision : 81.62%, Recall : 66.04%, F-score : 73.01%
+
+20250524 13:43:28
+	Accuracy : 99.13%, Precision : 92.71%, Recall : 92.15%, F-score : 92.43%
+

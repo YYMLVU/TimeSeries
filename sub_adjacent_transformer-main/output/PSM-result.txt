@@ -1,0 +1,5 @@
+python ./sub_adjacent_transformer-main/main.py --anormly_ratio 1 --num_epochs 1  --batch_size 128  --mode monte_carlo_search --dataset PSM  --data_path ./sub_adjacent_transformer-main/dataset/PSM --input_c 25   --output_c 25 --monte_carlo 3 --win_size 100 --softmax_span_range 100 500 --softmax_span_step 50 --span 10 20
+
+20250526 16:51:22
+	Accuracy : 99.09%, Precision : 97.97%, Recall : 98.75%, F-score : 98.36%
+

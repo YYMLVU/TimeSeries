@@ -216,12 +216,12 @@ def myplot(test_labels, test_data, cri_loss, rec_loss, att_loss, dataset_name='d
 
     # 保存图像为png格式，文件名为当前时间戳
     timestamp = time.strftime("%Y%m%d_%H_%M_%S", time.localtime())
-    os.makedirs('output', exist_ok=True)
-    fig.savefig(os.path.join('output', f'{dataset_name}-{timestamp}.png'))
+    os.makedirs('./sub_adjacent_transformer-main/output', exist_ok=True)
+    fig.savefig(os.path.join('./sub_adjacent_transformer-main/output', f'{dataset_name}-{timestamp}.png'))
 
     # save to excel
     if len(test_data) < 1000:
-        excel_name = os.path.join('output', f'{dataset_name}-{timestamp}-rec-attn-score-energy.xlsx')
+        excel_name = os.path.join('./sub_adjacent_transformer-main/output', f'{dataset_name}-{timestamp}-rec-attn-score-energy.xlsx')
         if anomaly_score is not None:
             att_matrix = np.concatenate((test_data, rec_loss.reshape(-1, 1), att_loss.reshape(-1, 1),
                                          anomaly_score.reshape(-1, 1), cri_loss.reshape(-1, 1),
@@ -261,10 +261,10 @@ def plot_mat(att_matrix, str0='tmp'):
     plt.imshow(att_matrix, cmap='hot', interpolation='nearest')
     plt.colorbar()
     timestamp = time.strftime("%Y%m%d_%H_%M_%S", time.localtime())
-    plt.savefig(os.path.join('output', f'attn_mat_{str0}-{timestamp}.png'))
+    plt.savefig(os.path.join('./sub_adjacent_transformer-main/output', f'attn_mat_{str0}-{timestamp}.png'))
     plt.show()
     # save to excel
-    excel_name = os.path.join('output', f'attn_mat_{str0}-{timestamp}.xlsx')
+    excel_name = os.path.join('./sub_adjacent_transformer-main/output', f'attn_mat_{str0}-{timestamp}.xlsx')
     write_into_xls(att_matrix, excel_name)
 
 
@@ -316,7 +316,7 @@ def myLossNew(queries, keys, span=None, one_side=True):
 
     # compute attention matrix
     attnMatrix = torch.einsum("b l h e, b s h e -> b h l s", queries, keys)
-    attnMatrix = attnMatrix / attnMatrix.sum(dim=-1, keepdim=True)
+    attnMatrix = attnMatrix / attnMatrix.sum(dim=-1, keepdim=True) # L1归一化
 
     lossMat = None
     for k in range(-span[1], span[1] + 1):  # range(-span[1], -span[0]+1)

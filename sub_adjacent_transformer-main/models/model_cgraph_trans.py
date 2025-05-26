@@ -10,7 +10,7 @@ from models.modules import ConvLayer, ReconstructionModel
 from models.transformer import EncoderLayer, MultiHeadAttention
 from models.graph import DynamicGraphEmbedding
 from model.AnomalyTransformer import AnomalyTransformer
-
+from models.contrastive_loss import local_infoNCE, global_infoNCE
 
 '''
 
@@ -246,7 +246,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
 
         # intra embedding module based on GNN
         # self.intra_module = GraphEmbedding(num_nodes=window_size, seq_len=n_features, num_levels=self.num_levels, device=torch.device(device))
-        self.intra_module = AnomalyTransformer(win_size=self.window_size, enc_in=n_features, c_out=n_features, output_attention=False, attn_mode=0).to(device)
+        self.intra_module = AnomalyTransformer(win_size=self.window_size, enc_in=n_features, c_out=n_features, output_attention=True, attn_mode=0).to(device)
 
         # projection head
         #self.proj_head_inter = ProjectionLayer(n_feature=self.f_dim, num_heads=1, dropout=dropout)
@@ -578,7 +578,8 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         # intra graph
         if self.use_intra_graph:
             # enc_intra = self.intra_module(x.permute(0, 2, 1))   # >> (b, k, n)
-            enc_intra = self.intra_module(x).permute(0, 2, 1)   # >> (b, k, n)
+            enc_intra, queries_list, keys_list = self.intra_module(x)   # >> (b, k, n)
+            enc_intra = enc_intra.permute(0, 2, 1)   # >> (b, n, k)
 
             # projection head
             enc_intra = self.proj_head_intra(enc_intra).permute(0, 2, 1)
@@ -595,7 +596,8 @@ class MODEL_CGRAPH_TRANS(nn.Module):
             if self.use_intra_graph:
                 # intra aug
                 # enc_intra_aug = self.intra_module(x_aug.permute(0, 2, 1))  # >> (b, k, n)
-                enc_intra_aug = self.intra_module(x_aug).permute(0, 2, 1)
+                enc_intra_aug, queries_list_aug, keys_list_aug = self.intra_module(x_aug)
+                enc_intra_aug = enc_intra_aug.permute(0, 2, 1)   # >> (b, n, k)
                 # projection head
                 enc_intra_aug = self.proj_head_intra(enc_intra_aug).permute(0, 2, 1)
                 # contrastive loss
@@ -607,7 +609,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
                 # projection head
                 enc_inter_aug = self.proj_head_inter(enc_inter_aug)
                 # contrastive loss
-                loss_inter_in = self.loss_cl_s(enc_inter, enc_inter_aug)
+                loss_inter_in = local_infoNCE(enc_inter, enc_inter_aug, k=16)*0.5 + global_infoNCE(enc_inter, enc_inter_aug)
 
             # if x_aug_neg is not None:
             #     x_aug_neg = self.conv(x_aug_neg)
@@ -660,6 +662,6 @@ class MODEL_CGRAPH_TRANS(nn.Module):
             dec = self.decoder(enc)
         out = self.linear(dec)
 
-        return out, loss_cl
+        return out, loss_cl, queries_list, keys_list
 
 

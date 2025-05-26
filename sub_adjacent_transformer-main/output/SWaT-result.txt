@@ -1,5 +1,6 @@
 python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 1 --batch_size 256 --mode monte_carlo_search --dataset SWaT --data_path ./sub_adjacent_transformer-main/dataset/SWAT/ --input_c 51 --output_c 51 --span 20 25 --monte_carlo 1
-20250326 19:07:15  sub_adjacent
+
+20250326 19:07:15  next
 	Accuracy : 99.47%, Precision : 95.74%, Recall : 100.00%, F-score : 97.82%
 
 20250327 14:12:10  原论文
@@ -34,4 +35,13 @@ python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 
 
 20250512 11:14:52 改transformer+图连接改动+时间步损失函数+GAN掩码_3
 	Accuracy : 98.26%, Precision : 91.56%, Recall : 94.13%, F-score : 92.83%
+
+20250514 17:15:37 改transformer+图连接改动+时间步损失函数+WGAN-GP掩码
+	Accuracy : 98.32%, Precision : 92.18%, Recall : 93.91%, F-score : 93.04%
+
+20250521 23:07:24 改transformer+图连接改动+时间步损失函数+WGAN-GP掩码+局部对比损失
+	Accuracy : 98.70%, Precision : 93.45%, Recall : 95.85%, F-score : 94.63%
+
+20250523 20:32:21
+	Accuracy : 99.47%, Precision : 97.12%, Recall : 98.52%, F-score : 97.82%
 

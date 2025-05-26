@@ -1,0 +1,8 @@
+python ./sub_adjacent_transformer-main/main.py --anormly_ratio 1 --num_epochs 3   --batch_size 256  --mode monte_carlo_search --dataset SMAP  --data_path ./sub_adjacent_transformer-main/dataset/SMAP --input_c 25 --output_c 25 --span 20 25 --monte_carlo 1
+
+20250512 16:27:07 next:
+	Accuracy : 98.83%, Precision : 93.43%, Recall : 97.70%, F-score : 95.52%
+
+20250512 19:18:49
+	Accuracy : 98.04%, Precision : 92.99%, Recall : 91.55%, F-score : 92.27%
+
