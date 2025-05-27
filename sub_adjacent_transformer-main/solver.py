@@ -168,29 +168,29 @@ class Solver(object):
         loss_2 = []
         for i, (input_data, _) in enumerate(vali_loader):
             input_ = input_data.float().to(self.device)
-            output, cl, queries_list, keys_list = self.model(input_)
-            len_list = len(queries_list)
-            loss_attn = 0.0
+            # output, cl, queries_list, keys_list = self.model(input_)
+            # len_list = len(queries_list)
+            # loss_attn = 0.0
 
-            for u in range(len_list):
-                loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside).mean()
+            # for u in range(len_list):
+            #     loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside).mean()
 
-            loss_attn = loss_attn / len_list
+            # loss_attn = loss_attn / len_list
 
-            rec_loss = self.criterion(output, input_)
+            # rec_loss = self.criterion(output, input_)
 
-            thisLoss1 = rec_loss + cl
-            thisLoss2 = rec_loss + cl - self.k * loss_attn
+            # thisLoss1 = rec_loss + cl
+            # thisLoss2 = rec_loss + cl - self.k * loss_attn
 
-            loss_1.append(thisLoss1.item())
-            loss_2.append(thisLoss2.item())
+            # loss_1.append(thisLoss1.item())
+            # loss_2.append(thisLoss2.item())
 
             # Add_2
-            # output, cl = self.model(input_)
-            # recon_loss = torch.sqrt(self.criterion(input_, output))
-            # loss_1.append(recon_loss.item())
-            # total_loss = recon_loss + cl
-            # loss_2.append(total_loss.item())
+            output, cl = self.model(input_)
+            recon_loss = self.criterion(input_, output)
+            loss_1.append(recon_loss.item())
+            total_loss = recon_loss + cl
+            loss_2.append(total_loss.item())
 
         return np.average(loss_1), np.average(loss_2)
 
@@ -237,24 +237,24 @@ class Solver(object):
                 if i % 5 == 0:
                     self.model.update_wgan(input_)
 
-                output, cl, queries_list, keys_list = self.model(input_) # Add_2
-                len_list = len(queries_list)
+                output, cl = self.model(input_) # Add_2
+                # len_list = len(queries_list)
 
-                # calculate Association discrepancy
-                loss_attn = 0.0
-                if not self.no_point_adjustment:
-                    for u in range(len_list):
-                        # b,l,h,d
-                        loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside).mean()
-                else:
-                    loss_attn = 0
-                loss_attn = loss_attn / len_list
+                # # calculate Association discrepancy
+                # loss_attn = 0.0
+                # if not self.no_point_adjustment:
+                #     for u in range(len_list):
+                #         # b,l,h,d
+                #         loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside).mean()
+                # else:
+                #     loss_attn = 0
+                # loss_attn = loss_attn / len_list
 
                 rec_loss = self.criterion(output, input_)
 
                 loss1 = rec_loss + cl
-                loss2 = 2*rec_loss + cl - self.k * loss_attn  # loss_attn is used to distinguish normals and anomalies
-                # loss2 = rec_loss + cl
+                # loss2 = 2*rec_loss + cl - self.k * loss_attn  # loss_attn is used to distinguish normals and anomalies
+                loss2 = 2*rec_loss + cl
                 # test Equivalence
                 # loss3 = 2*rec_loss - self.k * loss_attn
 
@@ -272,16 +272,7 @@ class Solver(object):
                     loss2.backward()
 
                 self.optimizer.step()
-                # if epoch >= self.model.gan_warmup_epochs and hasattr(self.model, 'gan_augment') and self.model.use_gan:
-                #     if i % self.model.gan_train_freq == 0:
-                #         gan_loss = self.model.gan_augment.train_gan(input_, output, loss1)
-                #         # 每50批次输出一次GAN统计信息
-                #         if i % 50 == 0:
-                #             gan_stats = self.model.gan_augment.get_stats()
-                #             gan_info = f'gan_loss: {gan_loss:.4f}, ' \
-                #                     f'strategy: {self.model.gan_augment.current_strategy}'
-                #             print(gan_info)
-                #             # logging.info(gan_info)
+
                 
                 if (i + 1) % 50 == 0:
                     # 输出信息
@@ -319,82 +310,82 @@ class Solver(object):
         criterion = nn.MSELoss(reduce=False)
 
         # (1) stastic on the train set
-        attens_energy = []
+        # attens_energy = []
         loss_list = []
         for i, (input_data, labels) in enumerate(self.train_nolap_loader):
             input = input_data.float().to(self.device)
             # output, queries_list, keys_list = self.model(input)
-            output, cl, queries_list, keys_list = self.model(input) # Add_2
-            len_list = len(queries_list)
+            output, cl = self.model(input)
+            # len_list = len(queries_list)
             # loss [B, L]  [256, 100]
             loss = torch.mean(criterion(input, output), dim=-1)
-            loss_attn = 0.0
-            for u in range(len_list):
-                if u == 0:
-                    # b,l
-                    loss_attn = self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside)  # * temperature
-                else:
-                    loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside)  # * temperature
+            # loss_attn = 0.0
+            # for u in range(len_list):
+            #     if u == 0:
+            #         # b,l
+            #         loss_attn = self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside)  # * temperature
+            #     else:
+            #         loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside)  # * temperature
 
             # metric = torch.softmax(-loss_attn / len_list, dim=-1)
-            loss_attn = loss_attn / len_list
+            # loss_attn = loss_attn / len_list
 
-            loss_attn = loss_attn.detach().cpu().numpy()
-            attens_energy.append(loss_attn)
+            # loss_attn = loss_attn.detach().cpu().numpy()
+            # attens_energy.append(loss_attn)
             loss_list.append(loss.detach().cpu().numpy())
 
-        train_attn_array = np.concatenate(attens_energy, axis=0).reshape(-1)
+        # train_attn_array = np.concatenate(attens_energy, axis=0).reshape(-1)
         train_loss_array = np.concatenate(loss_list, axis=0).reshape(-1)
 
         # aggregation
-        if not self.no_point_adjustment:
-            train_energy = softmax(-train_attn_array, temperature=temperature, window=softmax_span) * train_loss_array
-        else:
-            # no point adjustment
-            train_energy = train_loss_array  # / np.maximum(train_attn_array, 1e-6)
-        # train_energy = train_loss_array
+        # if not self.no_point_adjustment:
+        #     train_energy = softmax(-train_attn_array, temperature=temperature, window=softmax_span) * train_loss_array
+        # else:
+        #     # no point adjustment
+        #     train_energy = train_loss_array  # / np.maximum(train_attn_array, 1e-6)
+        train_energy = train_loss_array
 
         # (2) find the threshold
-        attens_energy = []
+        # attens_energy = []
         loss_list = []
         for i, (input_data, labels) in enumerate(self.thre_loader):
             input = input_data.float().to(self.device)
             # output, queries_list, keys_list = self.model(input)
-            output, cl, queries_list, keys_list = self.model(input) # Add_2
-            len_list = len(queries_list)
+            output, cl = self.model(input)
+            # len_list = len(queries_list)
 
             loss = torch.mean(criterion(input, output), dim=-1)
 
-            loss_attn = 0.0
-            for u in range(len_list):
-                if u == 0:
-                    # b,l
-                    loss_attn = self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside)
-                else:
-                    loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside)
+            # loss_attn = 0.0
+            # for u in range(len_list):
+            #     if u == 0:
+            #         # b,l
+            #         loss_attn = self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside)
+            #     else:
+            #         loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside)
 
             # Metric
-            loss_attn = loss_attn / len_list
+            # loss_attn = loss_attn / len_list
 
-            loss_attn = loss_attn.detach().cpu().numpy()
-            attens_energy.append(loss_attn)
+            # loss_attn = loss_attn.detach().cpu().numpy()
+            # attens_energy.append(loss_attn)
             loss_list.append(loss.detach().cpu().numpy())
 
-        test_attn_array = np.concatenate(attens_energy, axis=0).reshape(-1)
+        # test_attn_array = np.concatenate(attens_energy, axis=0).reshape(-1)
         test_loss_array = np.concatenate(loss_list, axis=0).reshape(-1)
 
         # aggregation
-        if not self.no_point_adjustment:
-            test_energy = softmax(-test_attn_array, temperature=temperature, window=softmax_span) * test_loss_array
-        else:
-            # no point adjustment
-            # test_energy = test_loss_array / np.maximum(test_attn_array, 1e-6)
-            # test_energy = test_loss_array * np.exp(-test_attn_array * self.attn_temp)
-            test_energy = test_loss_array
+        # if not self.no_point_adjustment:
+        #     test_energy = softmax(-test_attn_array, temperature=temperature, window=softmax_span) * test_loss_array
+        # else:
+        #     # no point adjustment
+        #     # test_energy = test_loss_array / np.maximum(test_attn_array, 1e-6)
+        #     # test_energy = test_loss_array * np.exp(-test_attn_array * self.attn_temp)
+        #     test_energy = test_loss_array
             # test_energy = test_loss_array * -np.log(test_attn_array)
             # test_energy = np.maximum(softmax(-test_attn_array, temperature=temperature, window=softmax_span),
             #                          1 / np.maximum(test_attn_array, 1e-6)) * test_loss_array
-        # test_energy = test_loss_array
+        test_energy = test_loss_array
 
         # probs
         if not self.no_gauss_dynamic and not self.no_point_adjustment:
@@ -425,7 +416,7 @@ class Solver(object):
         # (3) evaluation on the test set
         test_labels = []
         test_data = []
-        attens_energy = []
+        # attens_energy = []
 
         loss_list = []
 
@@ -435,26 +426,26 @@ class Solver(object):
 
             start_time = time.time()
             # output, queries_list, keys_list = self.model(input_)
-            output, cl, queries_list, keys_list = self.model(input_)
+            output, cl = self.model(input_)
             eval_time += time.time() - start_time
 
-            len_list = len(queries_list)
+            # len_list = len(queries_list)
 
             loss = torch.mean(criterion(input_, output), dim=-1)
 
-            loss_attn = []
-            for u in range(len_list):
-                if u == 0:
-                    # b,l
-                    loss_attn = self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside)
-                else:
-                    loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside)
+            # loss_attn = []
+            # for u in range(len_list):
+            #     if u == 0:
+            #         # b,l
+            #         loss_attn = self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside)
+            #     else:
+            #         loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside)
 
             # # Metric
-            loss_attn = loss_attn / len_list
+            # loss_attn = loss_attn / len_list
 
-            loss_attn = loss_attn.detach().cpu().numpy()
-            attens_energy.append(loss_attn)
+            # loss_attn = loss_attn.detach().cpu().numpy()
+            # attens_energy.append(loss_attn)
 
             loss_list.append(loss.detach().cpu().numpy())
 
@@ -467,8 +458,8 @@ class Solver(object):
             # just for recording state
             return eval_time
 
-        test_attn_array = np.concatenate(attens_energy, axis=0).reshape(-1)
-        test_att_loss2 = test_attn_array
+        # test_attn_array = np.concatenate(attens_energy, axis=0).reshape(-1)
+        # test_att_loss2 = test_attn_array
         test_rec_loss = np.concatenate(loss_list, axis=0).reshape(-1)
 
         # time
@@ -479,9 +470,9 @@ class Solver(object):
         # aggregation
         anomaly_score = None
         if not self.no_point_adjustment:
-            test_att_loss2 = softmax(-test_attn_array, temperature=temperature, window=softmax_span)
-            test_energy = test_att_loss2 * test_rec_loss
-            # test_energy = test_rec_loss
+            # test_att_loss2 = softmax(-test_attn_array, temperature=temperature, window=softmax_span)
+            # test_energy = test_att_loss2 * test_rec_loss
+            test_energy = test_rec_loss
             anomaly_score = test_energy
         else:
             # no point adjustment
