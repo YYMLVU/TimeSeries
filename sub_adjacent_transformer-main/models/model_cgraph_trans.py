@@ -8,7 +8,8 @@ import torch.nn.functional as F
 
 from models.modules import ConvLayer, ReconstructionModel
 from models.transformer import EncoderLayer, MultiHeadAttention
-from models.graph import DynamicGraphEmbedding
+# from models.graph import DynamicGraphEmbedding
+from models.AnomalyGraph import DynamicGraphEmbedding
 from model.AnomalyTransformer import AnomalyTransformer
 from models.contrastive_loss import local_infoNCE, global_infoNCE
 
@@ -241,12 +242,13 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         self.num_levels = 1
         # inter embedding module based on GNN
         # self.inter_module = GraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device))
-        self.inter_module = DynamicGraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device))
+        self.inter_module = DynamicGraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device), lambda_val=1.0).to(device)
+        # self.inter_module = DynamicGraphEmbedding(in_channels=self.window_size, out_channels=self.window_size, num_nodes=n_features, topk=20, heads=2, concat=False, dropout=0.1, lambda_val=1.0).to('cuda')
         # self.inter_module = GATEmbedding(num_nodes=n_features, seq_len=window_size).to(device)
 
         # intra embedding module based on GNN
         # self.intra_module = GraphEmbedding(num_nodes=window_size, seq_len=n_features, num_levels=self.num_levels, device=torch.device(device))
-        self.intra_module = AnomalyTransformer(win_size=self.window_size, enc_in=n_features, c_out=n_features, output_attention=True, attn_mode=0).to(device)
+        self.intra_module = AnomalyTransformer(win_size=self.window_size, enc_in=n_features, c_out=n_features, e_layers=3, linear_attn=True).to(device)
 
         # projection head
         #self.proj_head_inter = ProjectionLayer(n_feature=self.f_dim, num_heads=1, dropout=dropout)

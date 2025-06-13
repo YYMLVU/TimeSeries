@@ -1,8 +1,21 @@
 python ./sub_adjacent_transformer-main/main.py --anormly_ratio 1 --num_epochs 3   --batch_size 256  --mode monte_carlo_search --dataset SMAP  --data_path ./sub_adjacent_transformer-main/dataset/SMAP --input_c 25 --output_c 25 --span 20 25 --monte_carlo 1
 
-20250512 16:27:07 next:
-	Accuracy : 98.83%, Precision : 93.43%, Recall : 97.70%, F-score : 95.52%
+-----------------------------------------------------分割-本研究
 
-20250512 19:18:49
-	Accuracy : 98.04%, Precision : 92.99%, Recall : 91.55%, F-score : 92.27%
+20250603 20:10:03
+	Accuracy : 99.15%, Precision : 94.93%, Recall : 98.62%, F-score : 96.74%
+
+-----------------------------------------------------分割_2-消融
+
+20250603 20:56:34
+	Accuracy : 99.09%, Precision : 94.29%, Recall : 98.88%, F-score : 96.53%
+
+-----------------------------------------------------分割_3-复现论文
+
+20250604 00:44:02
+	Accuracy : 99.11%, Precision : 94.46%, Recall : 98.87%, F-score : 96.62%
+
+-----------------------------------------------------分割_4-原论文
+
+F-score : 98.2%
 

@@ -351,10 +351,9 @@ def myLossNew(queries, keys, span=None, one_side=True):
             p1d = (0, abs(offset_k))
         diag1 = F.pad(diag1, p1d)
 
-        lossMat += diag1
+        lossMat += diag1 # b,h,l
 
-    # b,h,l
-    lossMat = torch.mean(lossMat, dim=-2)
+    lossMat = torch.mean(lossMat, dim=-2) # 沿注意力头的维度求平均
 
     return lossMat  # B,L
 

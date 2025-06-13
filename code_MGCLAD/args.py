@@ -59,6 +59,7 @@ def get_parser():
     parser.add_argument("--level", type=float, default=None)
     parser.add_argument("--q", type=float, default=None)
     parser.add_argument("--dynamic_pot", type=str2bool, default=False)
+    parser.add_argument("--is_adjust", type=str2bool, default=True)
 
     # --- Other ---
     parser.add_argument("--comment", type=str, default="") # comment for the tensorboard log

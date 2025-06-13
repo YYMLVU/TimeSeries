@@ -119,51 +119,10 @@ class LinearAnomalyAttention(nn.Module):
         else:
             return V.contiguous(), None
 
-# class FusionGraphAttention(nn.Module):
-#     def __init__(self, win_size, enc_in, mask_flag=False, scale=None, attention_dropout=0.0, output_attention=False, dim_per_head=64):
-#         super(FusionGraphAttention, self).__init__()
-#         self.scale = scale
-#         self.mask_flag = mask_flag
-#         self.output_attention = output_attention
-#         self.dropout = nn.Dropout(attention_dropout)
-#         self.window_size = win_size
-#         self.softmax = nn.Softmax(dim=-1)
-#         self.enc_in = enc_in
 
-#         # 图特征转换层
-#         self.graph_proj = nn.Linear(enc_in, dim_per_head)
-#         self.fusion_layer = nn.Linear(dim_per_head + 8, dim_per_head) # dim_per_head // n_heads
-
-#     def forward(self, queries, keys, values, graph_embed):
-#         B, L, H, E = queries.shape
-#         _, S, _, D = values.shape
-#         assert L == S, "L!=S"
-        
-#         # 处理图嵌入特征
-#         graph_feat = self.graph_proj(graph_embed)
-#         graph_feat = graph_feat.view(B, L, H, -1)
-
-#         # 特征融合
-#         queries = torch.cat([queries, graph_feat], dim=-1)
-#         keys = torch.cat([keys, graph_feat], dim=-1)
-
-#         queries = self.fusion_layer(queries)
-#         keys = self.fusion_layer(keys)
-
-#         scores = torch.einsum("blhe,bshe->bhls", queries, keys)
-
-#         series = self.dropout(torch.softmax(scores, dim=-1))
-#         output = torch.einsum("b h l s, b s h d -> b l h d", series, values) # V == output
-
-#         if self.output_attention:
-#             return output.contiguous(), series, None
-#         else:
-#             return output.contiguous(), None
-
-
-class AttentionLayer(nn.Module): # 多头注意力机制
+class AttentionLayer(nn.Module):
     def __init__(self, attention, d_model, n_heads, d_keys=None,
-                 d_values=None, output_attention=False):
+                 d_values=None):
         super(AttentionLayer, self).__init__()
 
         d_keys = d_keys or (d_model // n_heads)
@@ -181,9 +140,8 @@ class AttentionLayer(nn.Module): # 多头注意力机制
         self.out_projection = nn.Linear(d_values * n_heads, d_model)
 
         self.n_heads = n_heads
-        self.output_attention = output_attention
 
-    def forward(self, queries, keys, values, graph_embed=None):
+    def forward(self, queries, keys, values):
         B, L, _ = queries.shape
         _, S, _ = keys.shape
         H = self.n_heads
@@ -191,35 +149,12 @@ class AttentionLayer(nn.Module): # 多头注意力机制
         queries = self.query_projection(queries).view(B, L, H, -1)
         keys = self.key_projection(keys).view(B, S, H, -1)
         values = self.value_projection(values).view(B, S, H, -1)
-        if self.output_attention:
-            if graph_embed == None:
-                out, queries, keys = self.inner_attention(
-                    queries,
-                    keys,
-                    values
-                )
-            else:
-                out, queries, keys = self.inner_attention(
-                    queries,
-                    keys,
-                    values,
-                    graph_embed=graph_embed
-                )
-            out = out.view(B, L, -1)
-            return self.out_projection(out), queries, keys
-        else:
-            if graph_embed == None:
-                out, _ = self.inner_attention(
-                    queries,
-                    keys,
-                    values
-                )
-            else:
-                out, _ = self.inner_attention(
-                    queries,
-                    keys,
-                    values,
-                    graph_embed=graph_embed
-                )
-            out = out.view(B, L, -1)
-            return self.out_projection(out)
+
+        out, queries, keys = self.inner_attention(
+            queries,
+            keys,
+            values
+        )
+        out = out.view(B, L, -1)
+
+        return self.out_projection(out), queries, keys

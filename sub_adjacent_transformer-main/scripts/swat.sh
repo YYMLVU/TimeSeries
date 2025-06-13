@@ -1,4 +1,19 @@
 export CUDA_VISIBLE_DEVICES=0
-python main.py --anormly_ratio 0.7 --num_epochs 1   --batch_size 256  \
---mode monte_carlo_search --dataset SWaT  --data_path dataset/Swat --input_c 51    --output_c 51 \
---span 20 25 --monte_carlo 1
+python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 1   --batch_size 256  \
+--mode monte_carlo_search --dataset SWaT  --data_path ./sub_adjacent_transformer-main/dataset/SWAT --input_c 51    --output_c 51 \
+--span 20 25 --monte_carlo 2
+
+python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 1   --batch_size 256  \
+--mode monte_carlo_search --dataset SWaT  --data_path ./sub_adjacent_transformer-main/dataset/SWAT --input_c 51    --output_c 51 \
+--monte_carlo 2
+
+python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 2   --batch_size 256  \
+--mode monte_carlo_search --dataset SWaT  --data_path ./sub_adjacent_transformer-main/dataset/SWAT --input_c 51    --output_c 51 \
+--monte_carlo 2
+
+python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 1 --batch_size 256 --mode monte_carlo_search --dataset SWaT --data_path ./sub_adjacent_transformer-main/dataset/SWAT/ --input_c 51 --output_c 51 --span 20 30 --monte_carlo 1 --win_size 100
+python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 2 --batch_size 256 --mode monte_carlo_search --dataset SWaT --data_path ./sub_adjacent_transformer-main/dataset/SWAT/ --input_c 51 --output_c 51 --span 20 30 --monte_carlo 1 --win_size 100
+
+# train and search:
+python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 1  --batch_size 256  --mode monte_carlo --dataset SWat  --data_path ./sub_adjacent_transformer-main/dataset/SWAT --input_c 51   --output_c 51 --monte_carlo 1 --win_size 100 --softmax_span_range 100 400 --softmax_span_step 20 --k 10
+python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 1  --batch_size 256  --mode monte_carlo_search --dataset SWat  --data_path ./sub_adjacent_transformer-main/dataset/SWAT --input_c 51   --output_c 51 --monte_carlo 1 --win_size 100 --softmax_span_range 100 400 --softmax_span_step 20 --k 12 ; python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 1  --batch_size 256  --mode monte_carlo_search --dataset SWat  --data_path ./sub_adjacent_transformer-main/dataset/SWAT --input_c 51   --output_c 51 --monte_carlo 1 --win_size 100 --softmax_span_range 100 400 --softmax_span_step 20 --k 14 ; python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 1  --batch_size 256  --mode monte_carlo_search --dataset SWat  --data_path ./sub_adjacent_transformer-main/dataset/SWAT --input_c 51   --output_c 51 --monte_carlo 1 --win_size 50 --softmax_span_range 40 400 --softmax_span_step 20 ;  python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 1  --batch_size 256  --mode monte_carlo_search --dataset SWat  --data_path ./sub_adjacent_transformer-main/dataset/SWAT --input_c 51   --output_c 51 --monte_carlo 1 --win_size 150 --softmax_span_range 100 400 --softmax_span_step 20 ;python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 1  --batch_size 256  --mode monte_carlo_search --dataset SWat  --data_path ./sub_adjacent_transformer-main/dataset/SWAT --input_c 51   --output_c 51 --monte_carlo 1 --win_size 200 --softmax_span_range 100 500 --softmax_span_step 20  ; python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 1  --batch_size 256  --mode monte_carlo_search --dataset SWat  --data_path ./sub_adjacent_transformer-main/dataset/SWAT --input_c 51   --output_c 51 --monte_carlo 1 --win_size 250 --softmax_span_range 100 500 --softmax_span_step 20  ; python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 1  --batch_size 256  --mode monte_carlo_search --dataset SWat  --data_path ./sub_adjacent_transformer-main/dataset/SWAT --input_c 51   --output_c 51 --monte_carlo 1 --win_size 300 --softmax_span_range 100 500 --softmax_span_step 20  ;

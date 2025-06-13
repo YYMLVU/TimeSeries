@@ -10,7 +10,7 @@ from models.modules import ConvLayer, ReconstructionModel
 from models.transformer import EncoderLayer, MultiHeadAttention
 from models.graph import DynamicGraphEmbedding
 from transformer_models.AnomalyTransformer import AnomalyTransformer
-
+from models.contrastive_loss import *
 
 '''
 
@@ -610,7 +610,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
                 # projection head
                 enc_inter_aug = self.proj_head_inter(enc_inter_aug)
                 # contrastive loss
-                loss_inter_in = self.loss_cl_s(enc_inter, enc_inter_aug)
+                loss_inter_in = local_infoNCE(enc_inter, enc_inter_aug, k=8)*0.5 + global_infoNCE(enc_inter, enc_inter_aug)
                 # print(loss_inter_in)
                 # if torch.isnan(loss_inter_in):
                 #     with open('./output.txt', 'w') as f:

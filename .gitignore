@@ -4,6 +4,7 @@
 .dotnet/
 .local/
 .nv/
+.ssh/
 .vscode-server/
 weight/
 .bash_history
@@ -39,5 +40,8 @@ sub_adjacent_transformer-main/README.md
 sub_adjacent_transformer-main/requirements.txt
 sub_adjacent_transformer-main/LICENSE
 
-# GDN-main
-GDN-main/
+# other
+dataset_analyze/*/
+dataset_analyze/*/**
+!dataset_analyze/*
+dataset_analyze/TimeSeries.png

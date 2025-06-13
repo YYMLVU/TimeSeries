@@ -3,7 +3,7 @@ import more_itertools as mit
 from spot import SPOT, dSPOT
 
 
-def adjust_predicts(score, label, threshold, pred=None, calc_latency=False):
+def adjust_predicts(score, label, threshold, pred=None, calc_latency=False, is_adjust=True):
     """
     Calculate adjusted predict labels using given `score`, `threshold` (or given `pred`) and `label`.
     Args:
@@ -34,21 +34,22 @@ def adjust_predicts(score, label, threshold, pred=None, calc_latency=False):
     anomaly_count = 0
     latency = 0
 
-    for i in range(len(predict)):
-        if any(actual[max(i, 0) : i + 1]) and predict[i] and not anomaly_state:
-            anomaly_state = True
-            anomaly_count += 1
-            for j in range(i, 0, -1):
-                if not actual[j]:
-                    break
-                else:
-                    if not predict[j]:
-                        predict[j] = True
-                        latency += 1
-        elif not actual[i]:
-            anomaly_state = False
-        if anomaly_state:
-            predict[i] = True
+    if is_adjust:
+        for i in range(len(predict)):
+            if any(actual[max(i, 0) : i + 1]) and predict[i] and not anomaly_state:
+                anomaly_state = True
+                anomaly_count += 1
+                for j in range(i, 0, -1):
+                    if not actual[j]:
+                        break
+                    else:
+                        if not predict[j]:
+                            predict[j] = True
+                            latency += 1
+            elif not actual[i]:
+                anomaly_state = False
+            if anomaly_state:
+                predict[i] = True
     if calc_latency:
         return predict, latency / (anomaly_count + 1e-4)
     else:
@@ -73,7 +74,7 @@ def calc_point2point(predict, actual):
     return f1, precision, recall, TP, TN, FP, FN
 
 
-def pot_eval(init_score, score, label, q=1e-3, level=0.99, dynamic=False):
+def pot_eval(init_score, score, label, q=1e-3, level=0.99, dynamic=False, is_adjust=True):
     """
     Run POT method on given score.
     :param init_score (np.ndarray): The data to get init threshold.
@@ -97,7 +98,7 @@ def pot_eval(init_score, score, label, q=1e-3, level=0.99, dynamic=False):
     print(len(ret["thresholds"]))
 
     pot_th = np.mean(ret["thresholds"])
-    pred, p_latency = adjust_predicts(score, label, pot_th, calc_latency=True)
+    pred, p_latency = adjust_predicts(score, label, pot_th, calc_latency=True, is_adjust=is_adjust)
     if label is not None:
         p_t = calc_point2point(pred, label)
         return {
@@ -117,7 +118,7 @@ def pot_eval(init_score, score, label, q=1e-3, level=0.99, dynamic=False):
         }
 
 
-def bf_search(score, label, start, end=None, step_num=100, display_freq=1, verbose=True):
+def bf_search(score, label, start, end=None, step_num=100, display_freq=1, verbose=True, is_adjust=True):
     """
     Find the best-f1 score by searching best `threshold` in [`start`, `end`).
     Method from OmniAnomaly (https://github.com/NetManAIOps/OmniAnomaly)
@@ -136,7 +137,7 @@ def bf_search(score, label, start, end=None, step_num=100, display_freq=1, verbo
     m_l = 0
     for i in range(search_step):
         threshold += search_range / float(search_step)
-        target, latency = calc_seq(score, label, threshold)
+        target, latency = calc_seq(score, label, threshold, is_adjust)
         if target[0] > m[0]:
             m_t = threshold
             m = target
@@ -157,14 +158,14 @@ def bf_search(score, label, start, end=None, step_num=100, display_freq=1, verbo
     }
 
 
-def calc_seq(score, label, threshold):
-    predict, latency = adjust_predicts(score, label, threshold, calc_latency=True)
+def calc_seq(score, label, threshold, is_adjust=True):
+    predict, latency = adjust_predicts(score, label, threshold, calc_latency=True, is_adjust=is_adjust)
     return calc_point2point(predict, label), latency
 
 
-def epsilon_eval(train_scores, test_scores, test_labels, reg_level=1):
+def epsilon_eval(train_scores, test_scores, test_labels, reg_level=1, is_adjust=True):
     best_epsilon = find_epsilon(train_scores, reg_level)
-    pred, p_latency = adjust_predicts(test_scores, test_labels, best_epsilon, calc_latency=True)
+    pred, p_latency = adjust_predicts(test_scores, test_labels, best_epsilon, calc_latency=True, is_adjust=is_adjust)
     if test_labels is not None:
         p_t = calc_point2point(pred, test_labels)
         return {

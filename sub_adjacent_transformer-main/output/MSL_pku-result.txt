@@ -1,0 +1,2642 @@
+------------ Options -------------
+	anormly_ratio:	1.0
+	anormly_ratio_span:	[np.float64(0.9400000000000004), np.float64(0.9400000000000004)]
+	anormly_ratio_step:	0.01
+	attn_temp:	1
+	attn_temp_range:	[1, 1]
+	attn_temp_step:	5
+	batch_size:	128
+	data_path:	./sub_adjacent_transformer-main/dataset/MSL_pku
+	dataset:	MSL_pku
+	input_c:	55
+	k:	10
+	kernel_length:	100
+	kernel_length_range:	[0, 600]
+	kernel_length_step:	10
+	lr:	0.0001
+	mapping_function:	ours
+	mode:	find_best
+	model_save_path:	./sub_adjacent_transformer-main/checkpoints
+	monte_carlo:	1
+	no_gauss_dynamic:	False
+	no_linear_attn:	False
+	no_point_adjustment:	False
+	num_epochs:	1
+	oneside:	False
+	output_c:	55
+	pretrained_model:	None
+	record_state:	False
+	softmax_span:	200
+	softmax_span_range:	[np.float64(70.0), np.float64(170.0)]
+	softmax_span_step:	10
+	span:	[20, 30]
+	temperature:	50
+	temperature_range:	[np.float64(50.0), np.float64(50.0)]
+	temperature_step:	10
+	train_data_ratio:	1.0
+	train_data_step:	1
+	win_size:	250
+	max_f : 95.61%, best_span : 170.0, best_temp : 50.0, best_ratio : 0.9400
+------------ Ends -------------
+
+------------ Options -------------
+	anormly_ratio:	1.0
+	anormly_ratio_span:	[np.float64(1.0400000000000005), np.float64(1.0400000000000005)]
+	anormly_ratio_step:	0.01
+	attn_temp:	1
+	attn_temp_range:	[1, 1]
+	attn_temp_step:	5
+	batch_size:	128
+	data_path:	./sub_adjacent_transformer-main/dataset/MSL_pku
+	dataset:	MSL_pku
+	input_c:	55
+	k:	10
+	kernel_length:	100
+	kernel_length_range:	[0, 600]
+	kernel_length_step:	10
+	lr:	0.0001
+	mapping_function:	ours
+	mode:	find_best
+	model_save_path:	./sub_adjacent_transformer-main/checkpoints
+	monte_carlo:	1
+	no_gauss_dynamic:	False
+	no_linear_attn:	False
+	no_point_adjustment:	False
+	num_epochs:	1
+	oneside:	False
+	output_c:	55
+	pretrained_model:	None
+	record_state:	False
+	softmax_span:	200
+	softmax_span_range:	[np.float64(290.0), np.float64(390.0)]
+	softmax_span_step:	10
+	span:	[20, 30]
+	temperature:	50
+	temperature_range:	[np.float64(50.0), np.float64(50.0)]
+	temperature_step:	10
+	train_data_ratio:	1.0
+	train_data_step:	1
+	win_size:	200
+	max_f : 95.12%, best_span : 340.0, best_temp : 50.0, best_ratio : 1.0400
+------------ Ends -------------
+
+
+20250612 04:26:31
+	Accuracy : 96.49%, Precision : 94.68%, Recall : 70.64%, F-score : 80.91%
+
+20250612 04:26:37
+	Accuracy : 96.32%, Precision : 94.52%, Recall : 69.08%, F-score : 79.82%
+
+20250612 04:26:44
+	Accuracy : 96.14%, Precision : 94.38%, Recall : 67.41%, F-score : 78.64%
+
+20250612 04:26:50
+	Accuracy : 96.34%, Precision : 94.48%, Recall : 69.26%, F-score : 79.93%
+
+20250612 04:26:56
+	Accuracy : 96.15%, Precision : 94.43%, Recall : 67.41%, F-score : 78.66%
+
+20250612 04:27:01
+	Accuracy : 96.34%, Precision : 94.57%, Recall : 69.26%, F-score : 79.96%
+
+20250612 04:27:07
+	Accuracy : 96.50%, Precision : 94.63%, Recall : 70.82%, F-score : 81.01%
+
+20250612 04:27:13
+	Accuracy : 96.34%, Precision : 94.53%, Recall : 69.26%, F-score : 79.95%
+
+20250612 04:27:19
+	Accuracy : 96.49%, Precision : 94.72%, Recall : 70.64%, F-score : 80.93%
+
+20250612 04:27:25
+	Accuracy : 96.49%, Precision : 94.68%, Recall : 70.64%, F-score : 80.91%
+
+20250612 04:27:31
+	Accuracy : 96.49%, Precision : 94.67%, Recall : 70.64%, F-score : 80.91%
+
+20250612 04:31:44
+	Accuracy : 96.87%, Precision : 94.77%, Recall : 74.43%, F-score : 83.38%
+
+20250612 04:31:51
+	Accuracy : 96.87%, Precision : 94.79%, Recall : 74.43%, F-score : 83.38%
+
+20250612 04:31:57
+	Accuracy : 96.70%, Precision : 94.69%, Recall : 72.74%, F-score : 82.27%
+
+20250612 04:32:04
+	Accuracy : 96.87%, Precision : 94.79%, Recall : 74.43%, F-score : 83.38%
+
+20250612 04:32:09
+	Accuracy : 96.70%, Precision : 94.69%, Recall : 72.74%, F-score : 82.27%
+
+20250612 04:32:15
+	Accuracy : 96.53%, Precision : 94.54%, Recall : 71.18%, F-score : 81.22%
+
+20250612 04:32:22
+	Accuracy : 96.69%, Precision : 94.64%, Recall : 72.74%, F-score : 82.26%
+
+20250612 04:32:27
+	Accuracy : 96.53%, Precision : 94.56%, Recall : 71.18%, F-score : 81.22%
+
+20250612 04:32:34
+	Accuracy : 96.53%, Precision : 94.56%, Recall : 71.18%, F-score : 81.22%
+
+20250612 04:32:40
+	Accuracy : 96.53%, Precision : 94.53%, Recall : 71.18%, F-score : 81.21%
+
+20250612 04:32:45
+	Accuracy : 96.87%, Precision : 94.75%, Recall : 74.43%, F-score : 83.37%
+
+20250612 04:37:00
+	Accuracy : 96.46%, Precision : 94.62%, Recall : 70.37%, F-score : 80.71%
+
+20250612 04:37:07
+	Accuracy : 96.46%, Precision : 94.63%, Recall : 70.37%, F-score : 80.72%
+
+20250612 04:37:13
+	Accuracy : 96.04%, Precision : 94.25%, Recall : 66.49%, F-score : 77.98%
+
+20250612 04:37:19
+	Accuracy : 96.51%, Precision : 94.59%, Recall : 70.90%, F-score : 81.05%
+
+20250612 04:37:26
+	Accuracy : 96.73%, Precision : 94.89%, Recall : 72.86%, F-score : 82.42%
+
+20250612 04:37:33
+	Accuracy : 96.63%, Precision : 94.87%, Recall : 71.93%, F-score : 81.82%
+
+20250612 04:37:39
+	Accuracy : 96.70%, Precision : 94.87%, Recall : 72.57%, F-score : 82.24%
+
+20250612 04:37:44
+	Accuracy : 96.78%, Precision : 94.92%, Recall : 73.40%, F-score : 82.78%
+
+20250612 04:37:50
+	Accuracy : 96.73%, Precision : 94.95%, Recall : 72.84%, F-score : 82.44%
+
+20250612 04:37:57
+	Accuracy : 97.19%, Precision : 95.12%, Recall : 77.29%, F-score : 85.28%
+
+20250612 04:38:04
+	Accuracy : 96.45%, Precision : 94.60%, Recall : 70.37%, F-score : 80.71%
+
+20250612 04:42:18
+	Accuracy : 97.19%, Precision : 95.29%, Recall : 77.18%, F-score : 85.29%
+
+20250612 04:42:25
+	Accuracy : 96.78%, Precision : 94.99%, Recall : 73.29%, F-score : 82.74%
+
+20250612 04:42:33
+	Accuracy : 96.63%, Precision : 95.02%, Recall : 71.81%, F-score : 81.80%
+
+20250612 04:42:39
+	Accuracy : 97.59%, Precision : 95.36%, Recall : 81.05%, F-score : 87.62%
+
+20250612 04:42:44
+	Accuracy : 97.46%, Precision : 95.41%, Recall : 79.77%, F-score : 86.89%
+
+20250612 04:42:51
+	Accuracy : 97.35%, Precision : 95.32%, Recall : 78.74%, F-score : 86.24%
+
+20250612 04:42:57
+	Accuracy : 97.63%, Precision : 95.51%, Recall : 81.33%, F-score : 87.85%
+
+20250612 04:43:03
+	Accuracy : 97.18%, Precision : 95.19%, Recall : 77.18%, F-score : 85.24%
+
+20250612 04:43:10
+	Accuracy : 97.20%, Precision : 95.32%, Recall : 77.18%, F-score : 85.30%
+
+20250612 04:43:15
+	Accuracy : 97.18%, Precision : 95.19%, Recall : 77.18%, F-score : 85.24%
+
+20250612 04:43:22
+	Accuracy : 97.19%, Precision : 95.20%, Recall : 77.18%, F-score : 85.25%
+
+20250612 04:47:42
+	Accuracy : 97.86%, Precision : 95.49%, Recall : 83.65%, F-score : 89.18%
+
+20250612 04:47:48
+	Accuracy : 98.24%, Precision : 95.72%, Recall : 87.16%, F-score : 91.24%
+
+20250612 04:47:54
+	Accuracy : 97.95%, Precision : 95.60%, Recall : 84.39%, F-score : 89.65%
+
+20250612 04:48:01
+	Accuracy : 98.55%, Precision : 95.84%, Recall : 90.12%, F-score : 92.89%
+
+20250612 04:48:07
+	Accuracy : 98.06%, Precision : 95.62%, Recall : 85.48%, F-score : 90.26%
+
+20250612 04:48:14
+	Accuracy : 97.87%, Precision : 95.54%, Recall : 83.65%, F-score : 89.20%
+
+20250612 04:48:19
+	Accuracy : 98.02%, Precision : 95.55%, Recall : 85.20%, F-score : 90.08%
+
+20250612 04:48:24
+	Accuracy : 98.20%, Precision : 95.65%, Recall : 86.88%, F-score : 91.05%
+
+20250612 04:48:30
+	Accuracy : 97.86%, Precision : 95.49%, Recall : 83.65%, F-score : 89.18%
+
+20250612 04:48:36
+	Accuracy : 97.86%, Precision : 95.45%, Recall : 83.65%, F-score : 89.16%
+
+20250612 04:48:42
+	Accuracy : 97.86%, Precision : 95.47%, Recall : 83.65%, F-score : 89.17%
+
+20250612 04:53:00
+	Accuracy : 97.04%, Precision : 95.08%, Recall : 75.87%, F-score : 84.39%
+
+20250612 04:53:07
+	Accuracy : 97.48%, Precision : 95.32%, Recall : 80.02%, F-score : 87.00%
+
+20250612 04:53:14
+	Accuracy : 97.26%, Precision : 95.32%, Recall : 77.81%, F-score : 85.68%
+
+20250612 04:53:19
+	Accuracy : 97.94%, Precision : 95.60%, Recall : 84.29%, F-score : 89.59%
+
+20250612 04:53:25
+	Accuracy : 96.80%, Precision : 95.05%, Recall : 73.50%, F-score : 82.90%
+
+20250612 04:53:33
+	Accuracy : 96.77%, Precision : 95.02%, Recall : 73.23%, F-score : 82.71%
+
+20250612 04:53:39
+	Accuracy : 97.42%, Precision : 95.33%, Recall : 79.37%, F-score : 86.62%
+
+20250612 04:53:44
+	Accuracy : 97.05%, Precision : 95.11%, Recall : 75.87%, F-score : 84.41%
+
+20250612 04:53:50
+	Accuracy : 97.04%, Precision : 95.08%, Recall : 75.87%, F-score : 84.39%
+
+20250612 04:53:57
+	Accuracy : 97.04%, Precision : 95.08%, Recall : 75.87%, F-score : 84.39%
+
+20250612 04:54:03
+	Accuracy : 97.04%, Precision : 95.02%, Recall : 75.87%, F-score : 84.37%
+
+20250612 04:58:21
+	Accuracy : 97.47%, Precision : 95.31%, Recall : 79.90%, F-score : 86.93%
+
+20250612 04:58:28
+	Accuracy : 97.96%, Precision : 95.54%, Recall : 84.64%, F-score : 89.76%
+
+20250612 04:58:34
+	Accuracy : 97.63%, Precision : 95.47%, Recall : 81.41%, F-score : 87.88%
+
+20250612 04:58:41
+	Accuracy : 97.96%, Precision : 95.63%, Recall : 84.51%, F-score : 89.73%
+
+20250612 04:58:46
+	Accuracy : 97.80%, Precision : 95.43%, Recall : 83.13%, F-score : 88.86%
+
+20250612 04:58:52
+	Accuracy : 97.79%, Precision : 95.45%, Recall : 82.95%, F-score : 88.76%
+
+20250612 04:58:59
+	Accuracy : 97.46%, Precision : 95.20%, Recall : 79.90%, F-score : 86.88%
+
+20250612 04:59:06
+	Accuracy : 97.65%, Precision : 95.42%, Recall : 81.57%, F-score : 87.96%
+
+20250612 04:59:12
+	Accuracy : 97.46%, Precision : 95.26%, Recall : 79.90%, F-score : 86.90%
+
+20250612 04:59:17
+	Accuracy : 97.30%, Precision : 95.21%, Recall : 78.34%, F-score : 85.96%
+
+20250612 04:59:24
+	Accuracy : 97.64%, Precision : 95.31%, Recall : 81.59%, F-score : 87.91%
+
+20250612 05:03:36
+	Accuracy : 97.86%, Precision : 95.53%, Recall : 83.65%, F-score : 89.19%
+
+20250612 05:03:43
+	Accuracy : 98.23%, Precision : 95.63%, Recall : 87.16%, F-score : 91.20%
+
+20250612 05:03:48
+	Accuracy : 98.08%, Precision : 95.70%, Recall : 85.60%, F-score : 90.37%
+
+20250612 05:03:55
+	Accuracy : 98.20%, Precision : 95.62%, Recall : 86.89%, F-score : 91.05%
+
+20250612 05:04:01
+	Accuracy : 98.06%, Precision : 95.61%, Recall : 85.48%, F-score : 90.26%
+
+20250612 05:04:08
+	Accuracy : 97.86%, Precision : 95.49%, Recall : 83.65%, F-score : 89.18%
+
+20250612 05:04:14
+	Accuracy : 98.02%, Precision : 95.48%, Recall : 85.20%, F-score : 90.05%
+
+20250612 05:04:19
+	Accuracy : 97.86%, Precision : 95.46%, Recall : 83.65%, F-score : 89.16%
+
+20250612 05:04:25
+	Accuracy : 97.86%, Precision : 95.45%, Recall : 83.65%, F-score : 89.16%
+
+20250612 05:04:32
+	Accuracy : 97.86%, Precision : 95.45%, Recall : 83.65%, F-score : 89.16%
+
+20250612 05:04:39
+	Accuracy : 97.85%, Precision : 95.38%, Recall : 83.65%, F-score : 89.13%
+
+20250612 05:09:00
+	Accuracy : 97.18%, Precision : 95.27%, Recall : 77.04%, F-score : 85.19%
+
+20250612 05:09:08
+	Accuracy : 97.44%, Precision : 95.30%, Recall : 79.63%, F-score : 86.76%
+
+20250612 05:09:14
+	Accuracy : 96.92%, Precision : 94.99%, Recall : 74.72%, F-score : 83.65%
+
+20250612 05:09:20
+	Accuracy : 97.16%, Precision : 95.04%, Recall : 77.04%, F-score : 85.10%
+
+20250612 05:09:26
+	Accuracy : 97.60%, Precision : 95.31%, Recall : 81.19%, F-score : 87.69%
+
+20250612 05:09:32
+	Accuracy : 97.39%, Precision : 95.16%, Recall : 79.24%, F-score : 86.48%
+
+20250612 05:09:38
+	Accuracy : 97.16%, Precision : 95.10%, Recall : 77.04%, F-score : 85.12%
+
+20250612 05:09:44
+	Accuracy : 97.42%, Precision : 95.23%, Recall : 79.51%, F-score : 86.67%
+
+20250612 05:09:50
+	Accuracy : 97.33%, Precision : 95.24%, Recall : 78.60%, F-score : 86.12%
+
+20250612 05:09:56
+	Accuracy : 97.17%, Precision : 95.18%, Recall : 77.04%, F-score : 85.16%
+
+20250612 05:10:02
+	Accuracy : 97.18%, Precision : 95.29%, Recall : 77.04%, F-score : 85.20%
+
+20250612 05:14:27
+	Accuracy : 97.32%, Precision : 95.17%, Recall : 78.60%, F-score : 86.09%
+
+20250612 05:14:33
+	Accuracy : 97.67%, Precision : 95.38%, Recall : 81.84%, F-score : 88.09%
+
+20250612 05:14:40
+	Accuracy : 97.67%, Precision : 95.41%, Recall : 81.84%, F-score : 88.11%
+
+20250612 05:14:46
+	Accuracy : 98.01%, Precision : 95.53%, Recall : 85.08%, F-score : 90.00%
+
+20250612 05:14:50
+	Accuracy : 97.83%, Precision : 95.45%, Recall : 83.39%, F-score : 89.01%
+
+20250612 05:14:57
+	Accuracy : 97.47%, Precision : 95.30%, Recall : 79.89%, F-score : 86.92%
+
+20250612 05:15:03
+	Accuracy : 97.48%, Precision : 95.17%, Recall : 80.16%, F-score : 87.02%
+
+20250612 05:15:10
+	Accuracy : 97.46%, Precision : 95.28%, Recall : 79.89%, F-score : 86.91%
+
+20250612 05:15:16
+	Accuracy : 97.33%, Precision : 95.18%, Recall : 78.60%, F-score : 86.10%
+
+20250612 05:15:22
+	Accuracy : 97.33%, Precision : 95.18%, Recall : 78.60%, F-score : 86.10%
+
+20250612 05:15:28
+	Accuracy : 97.32%, Precision : 95.08%, Recall : 78.60%, F-score : 86.06%
+
+20250612 05:16:11
+	Accuracy : 97.35%, Precision : 95.98%, Recall : 78.10%, F-score : 86.12%
+
+20250612 05:16:18
+	Accuracy : 97.35%, Precision : 95.98%, Recall : 78.10%, F-score : 86.12%
+
+20250612 05:16:24
+	Accuracy : 97.35%, Precision : 95.98%, Recall : 78.10%, F-score : 86.12%
+
+20250612 05:16:31
+	Accuracy : 97.35%, Precision : 95.98%, Recall : 78.10%, F-score : 86.12%
+
+20250612 05:16:37
+	Accuracy : 97.35%, Precision : 95.98%, Recall : 78.10%, F-score : 86.12%
+
+20250612 05:16:42
+	Accuracy : 97.35%, Precision : 95.98%, Recall : 78.10%, F-score : 86.12%
+
+20250612 05:16:47
+	Accuracy : 97.35%, Precision : 95.98%, Recall : 78.10%, F-score : 86.12%
+
+20250612 05:16:53
+	Accuracy : 97.35%, Precision : 95.97%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:17:00
+	Accuracy : 97.35%, Precision : 95.97%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:17:06
+	Accuracy : 97.35%, Precision : 95.97%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:17:10
+	Accuracy : 97.35%, Precision : 95.97%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:17:16
+	Accuracy : 97.35%, Precision : 95.97%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:17:21
+	Accuracy : 97.35%, Precision : 95.97%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:17:27
+	Accuracy : 97.35%, Precision : 95.97%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:17:34
+	Accuracy : 97.34%, Precision : 95.95%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:17:40
+	Accuracy : 97.34%, Precision : 95.95%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:17:46
+	Accuracy : 97.34%, Precision : 95.95%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:17:53
+	Accuracy : 97.34%, Precision : 95.95%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:18:00
+	Accuracy : 97.34%, Precision : 95.95%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:18:06
+	Accuracy : 97.34%, Precision : 95.95%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:18:12
+	Accuracy : 97.34%, Precision : 95.95%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:18:19
+	Accuracy : 97.34%, Precision : 95.95%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:18:26
+	Accuracy : 97.34%, Precision : 95.95%, Recall : 78.10%, F-score : 86.11%
+
+20250612 05:18:32
+	Accuracy : 97.34%, Precision : 95.93%, Recall : 78.10%, F-score : 86.10%
+
+20250612 05:18:37
+	Accuracy : 97.34%, Precision : 95.93%, Recall : 78.10%, F-score : 86.10%
+
+20250612 05:18:43
+	Accuracy : 97.34%, Precision : 95.92%, Recall : 78.10%, F-score : 86.10%
+
+20250612 05:18:50
+	Accuracy : 97.34%, Precision : 95.92%, Recall : 78.10%, F-score : 86.10%
+
+20250612 05:18:58
+	Accuracy : 97.34%, Precision : 95.90%, Recall : 78.10%, F-score : 86.09%
+
+20250612 05:19:04
+	Accuracy : 97.34%, Precision : 95.89%, Recall : 78.10%, F-score : 86.08%
+
+20250612 05:19:10
+	Accuracy : 97.34%, Precision : 95.89%, Recall : 78.10%, F-score : 86.08%
+
+20250612 05:19:17
+	Accuracy : 97.34%, Precision : 95.89%, Recall : 78.10%, F-score : 86.08%
+
+20250612 05:24:06
+	Accuracy : 98.12%, Precision : 91.62%, Recall : 90.39%, F-score : 91.00%
+
+20250612 05:28:36
+	Accuracy : 98.77%, Precision : 92.00%, Recall : 96.69%, F-score : 94.29%
+
+20250612 05:28:42
+	Accuracy : 98.77%, Precision : 92.08%, Recall : 96.69%, F-score : 94.33%
+
+20250612 05:28:47
+	Accuracy : 98.63%, Precision : 91.91%, Recall : 95.39%, F-score : 93.62%
+
+20250612 05:28:53
+	Accuracy : 98.77%, Precision : 92.02%, Recall : 96.69%, F-score : 94.30%
+
+20250612 05:29:00
+	Accuracy : 98.77%, Precision : 92.02%, Recall : 96.69%, F-score : 94.30%
+
+20250612 05:29:06
+	Accuracy : 98.77%, Precision : 92.01%, Recall : 96.69%, F-score : 94.29%
+
+20250612 05:29:12
+	Accuracy : 98.76%, Precision : 91.99%, Recall : 96.69%, F-score : 94.28%
+
+20250612 05:29:18
+	Accuracy : 98.77%, Precision : 92.03%, Recall : 96.69%, F-score : 94.30%
+
+20250612 05:29:24
+	Accuracy : 98.77%, Precision : 92.00%, Recall : 96.69%, F-score : 94.29%
+
+20250612 05:29:30
+	Accuracy : 98.77%, Precision : 92.02%, Recall : 96.69%, F-score : 94.30%
+
+20250612 05:29:37
+	Accuracy : 98.77%, Precision : 92.01%, Recall : 96.69%, F-score : 94.29%
+
+20250612 05:29:43
+	Accuracy : 98.63%, Precision : 91.90%, Recall : 95.39%, F-score : 93.61%
+
+20250612 05:29:47
+	Accuracy : 98.63%, Precision : 91.89%, Recall : 95.39%, F-score : 93.61%
+
+20250612 05:29:53
+	Accuracy : 98.77%, Precision : 92.03%, Recall : 96.69%, F-score : 94.30%
+
+20250612 05:29:59
+	Accuracy : 98.77%, Precision : 92.02%, Recall : 96.69%, F-score : 94.30%
+
+20250612 05:30:06
+	Accuracy : 98.77%, Precision : 92.01%, Recall : 96.69%, F-score : 94.29%
+
+20250612 05:30:14
+	Accuracy : 96.83%, Precision : 94.82%, Recall : 73.94%, F-score : 83.08%
+
+20250612 05:30:20
+	Accuracy : 96.82%, Precision : 94.71%, Recall : 73.94%, F-score : 83.04%
+
+20250612 05:30:26
+	Accuracy : 96.81%, Precision : 94.60%, Recall : 73.94%, F-score : 83.00%
+
+20250612 05:30:31
+	Accuracy : 96.80%, Precision : 94.52%, Recall : 73.94%, F-score : 82.97%
+
+20250612 05:30:38
+	Accuracy : 96.79%, Precision : 94.41%, Recall : 73.94%, F-score : 82.93%
+
+20250612 05:30:43
+	Accuracy : 97.27%, Precision : 94.65%, Recall : 78.55%, F-score : 85.85%
+
+20250612 05:30:49
+	Accuracy : 97.44%, Precision : 94.65%, Recall : 80.23%, F-score : 86.85%
+
+20250612 05:30:57
+	Accuracy : 97.54%, Precision : 94.63%, Recall : 81.28%, F-score : 87.45%
+
+20250612 05:31:03
+	Accuracy : 97.53%, Precision : 94.53%, Recall : 81.28%, F-score : 87.41%
+
+20250612 05:31:08
+	Accuracy : 97.52%, Precision : 94.43%, Recall : 81.28%, F-score : 87.36%
+
+20250612 05:31:14
+	Accuracy : 97.51%, Precision : 94.34%, Recall : 81.28%, F-score : 87.32%
+
+20250612 05:31:20
+	Accuracy : 97.50%, Precision : 94.22%, Recall : 81.28%, F-score : 87.27%
+
+20250612 05:31:29
+	Accuracy : 97.90%, Precision : 94.39%, Recall : 85.15%, F-score : 89.53%
+
+20250612 05:31:34
+	Accuracy : 97.89%, Precision : 94.28%, Recall : 85.15%, F-score : 89.49%
+
+20250612 05:31:40
+	Accuracy : 97.88%, Precision : 94.19%, Recall : 85.15%, F-score : 89.44%
+
+20250612 05:31:45
+	Accuracy : 97.87%, Precision : 94.08%, Recall : 85.15%, F-score : 89.40%
+
+20250612 05:31:52
+	Accuracy : 97.86%, Precision : 94.01%, Recall : 85.15%, F-score : 89.36%
+
+20250612 05:31:59
+	Accuracy : 97.88%, Precision : 93.94%, Recall : 85.42%, F-score : 89.48%
+
+20250612 05:32:04
+	Accuracy : 97.97%, Precision : 93.92%, Recall : 86.31%, F-score : 89.96%
+
+20250612 05:32:11
+	Accuracy : 97.96%, Precision : 93.81%, Recall : 86.31%, F-score : 89.91%
+
+20250612 05:32:18
+	Accuracy : 98.09%, Precision : 93.82%, Recall : 87.61%, F-score : 90.61%
+
+20250612 05:32:25
+	Accuracy : 98.08%, Precision : 93.73%, Recall : 87.61%, F-score : 90.57%
+
+20250612 05:32:30
+	Accuracy : 98.07%, Precision : 93.63%, Recall : 87.61%, F-score : 90.52%
+
+20250612 05:32:37
+	Accuracy : 98.06%, Precision : 93.54%, Recall : 87.61%, F-score : 90.48%
+
+20250612 05:32:43
+	Accuracy : 98.05%, Precision : 93.45%, Recall : 87.61%, F-score : 90.44%
+
+20250612 05:32:49
+	Accuracy : 98.04%, Precision : 93.36%, Recall : 87.61%, F-score : 90.39%
+
+20250612 05:32:54
+	Accuracy : 98.03%, Precision : 93.27%, Recall : 87.61%, F-score : 90.35%
+
+20250612 05:33:00
+	Accuracy : 98.02%, Precision : 93.18%, Recall : 87.61%, F-score : 90.31%
+
+20250612 05:33:06
+	Accuracy : 98.01%, Precision : 93.08%, Recall : 87.61%, F-score : 90.26%
+
+20250612 05:33:12
+	Accuracy : 98.00%, Precision : 93.00%, Recall : 87.61%, F-score : 90.23%
+
+20250612 05:33:19
+	Accuracy : 98.24%, Precision : 93.08%, Recall : 89.94%, F-score : 91.49%
+
+20250612 05:33:24
+	Accuracy : 98.23%, Precision : 93.01%, Recall : 89.94%, F-score : 91.45%
+
+20250612 05:33:31
+	Accuracy : 98.66%, Precision : 93.25%, Recall : 94.09%, F-score : 93.67%
+
+20250612 05:33:38
+	Accuracy : 98.65%, Precision : 93.18%, Recall : 94.09%, F-score : 93.63%
+
+20250612 05:33:44
+	Accuracy : 98.64%, Precision : 93.09%, Recall : 94.09%, F-score : 93.59%
+
+20250612 05:33:50
+	Accuracy : 98.77%, Precision : 93.10%, Recall : 95.39%, F-score : 94.23%
+
+20250612 05:33:56
+	Accuracy : 98.76%, Precision : 93.02%, Recall : 95.39%, F-score : 94.19%
+
+20250612 05:34:02
+	Accuracy : 98.75%, Precision : 92.94%, Recall : 95.39%, F-score : 94.15%
+
+20250612 05:34:09
+	Accuracy : 98.74%, Precision : 92.87%, Recall : 95.39%, F-score : 94.11%
+
+20250612 05:34:15
+	Accuracy : 98.74%, Precision : 92.82%, Recall : 95.39%, F-score : 94.09%
+
+20250612 05:34:20
+	Accuracy : 98.73%, Precision : 92.74%, Recall : 95.39%, F-score : 94.05%
+
+20250612 05:34:26
+	Accuracy : 98.72%, Precision : 92.65%, Recall : 95.39%, F-score : 94.00%
+
+20250612 05:34:33
+	Accuracy : 98.71%, Precision : 92.57%, Recall : 95.39%, F-score : 93.96%
+
+20250612 05:34:39
+	Accuracy : 98.70%, Precision : 92.51%, Recall : 95.39%, F-score : 93.93%
+
+20250612 05:34:45
+	Accuracy : 98.69%, Precision : 92.43%, Recall : 95.39%, F-score : 93.89%
+
+20250612 05:34:52
+	Accuracy : 98.68%, Precision : 92.36%, Recall : 95.39%, F-score : 93.85%
+
+20250612 05:34:59
+	Accuracy : 98.67%, Precision : 92.27%, Recall : 95.39%, F-score : 93.80%
+
+20250612 05:35:06
+	Accuracy : 98.66%, Precision : 92.19%, Recall : 95.39%, F-score : 93.76%
+
+20250612 05:35:12
+	Accuracy : 98.65%, Precision : 92.12%, Recall : 95.39%, F-score : 93.72%
+
+20250612 05:35:18
+	Accuracy : 98.78%, Precision : 92.15%, Recall : 96.69%, F-score : 94.36%
+
+20250612 05:35:24
+	Accuracy : 98.77%, Precision : 92.08%, Recall : 96.69%, F-score : 94.33%
+
+20250612 05:35:30
+	Accuracy : 98.76%, Precision : 91.99%, Recall : 96.69%, F-score : 94.28%
+
+20250612 05:35:36
+	Accuracy : 98.75%, Precision : 91.91%, Recall : 96.69%, F-score : 94.24%
+
+20250612 05:35:42
+	Accuracy : 98.75%, Precision : 91.84%, Recall : 96.69%, F-score : 94.20%
+
+20250612 05:35:49
+	Accuracy : 98.74%, Precision : 91.75%, Recall : 96.69%, F-score : 94.16%
+
+20250612 05:35:55
+	Accuracy : 98.73%, Precision : 91.67%, Recall : 96.69%, F-score : 94.12%
+
+20250612 05:36:01
+	Accuracy : 98.72%, Precision : 91.61%, Recall : 96.69%, F-score : 94.08%
+
+20250612 05:36:07
+	Accuracy : 98.71%, Precision : 91.55%, Recall : 96.69%, F-score : 94.05%
+
+20250612 05:36:11
+	Accuracy : 98.70%, Precision : 91.47%, Recall : 96.69%, F-score : 94.01%
+
+20250612 05:36:18
+	Accuracy : 98.69%, Precision : 91.38%, Recall : 96.69%, F-score : 93.96%
+
+20250612 05:36:24
+	Accuracy : 98.68%, Precision : 91.31%, Recall : 96.69%, F-score : 93.92%
+
+20250612 05:36:33
+	Accuracy : 97.58%, Precision : 92.04%, Recall : 84.38%, F-score : 88.04%
+
+20250612 05:36:39
+	Accuracy : 97.22%, Precision : 91.32%, Recall : 81.32%, F-score : 86.03%
+
+20250612 05:36:45
+	Accuracy : 98.14%, Precision : 92.01%, Recall : 90.20%, F-score : 91.10%
+
+20250612 05:36:51
+	Accuracy : 98.36%, Precision : 91.95%, Recall : 92.53%, F-score : 92.24%
+
+20250612 05:36:57
+	Accuracy : 98.66%, Precision : 92.15%, Recall : 95.39%, F-score : 93.74%
+
+20250612 05:37:03
+	Accuracy : 98.78%, Precision : 92.15%, Recall : 96.69%, F-score : 94.36%
+
+20250612 05:37:09
+	Accuracy : 98.78%, Precision : 92.10%, Recall : 96.69%, F-score : 94.34%
+
+20250612 05:37:15
+	Accuracy : 98.78%, Precision : 92.09%, Recall : 96.69%, F-score : 94.33%
+
+20250612 05:37:22
+	Accuracy : 98.77%, Precision : 92.08%, Recall : 96.69%, F-score : 94.33%
+
+20250612 05:37:28
+	Accuracy : 98.77%, Precision : 92.06%, Recall : 96.69%, F-score : 94.32%
+
+20250612 05:37:33
+	Accuracy : 98.77%, Precision : 92.06%, Recall : 96.69%, F-score : 94.32%
+
+20250612 05:37:43
+	Accuracy : 98.40%, Precision : 92.00%, Recall : 92.94%, F-score : 92.47%
+
+20250612 05:37:49
+	Accuracy : 97.69%, Precision : 91.32%, Recall : 86.31%, F-score : 88.75%
+
+20250612 05:37:54
+	Accuracy : 98.47%, Precision : 91.87%, Recall : 93.83%, F-score : 92.84%
+
+20250612 05:37:59
+	Accuracy : 98.77%, Precision : 92.08%, Recall : 96.69%, F-score : 94.33%
+
+20250612 05:38:04
+	Accuracy : 98.30%, Precision : 91.72%, Recall : 92.17%, F-score : 91.95%
+
+20250612 05:38:11
+	Accuracy : 98.78%, Precision : 92.15%, Recall : 96.69%, F-score : 94.36%
+
+20250612 05:38:18
+	Accuracy : 98.77%, Precision : 92.06%, Recall : 96.69%, F-score : 94.32%
+
+20250612 05:38:24
+	Accuracy : 98.47%, Precision : 91.85%, Recall : 93.83%, F-score : 92.83%
+
+20250612 05:38:29
+	Accuracy : 98.64%, Precision : 91.98%, Recall : 95.39%, F-score : 93.65%
+
+20250612 05:38:36
+	Accuracy : 98.64%, Precision : 91.99%, Recall : 95.39%, F-score : 93.66%
+
+20250612 05:38:42
+	Accuracy : 98.78%, Precision : 92.09%, Recall : 96.69%, F-score : 94.33%
+
+20250612 05:43:07
+	Accuracy : 98.00%, Precision : 91.59%, Recall : 89.24%, F-score : 90.40%
+
+20250612 05:43:13
+	Accuracy : 97.80%, Precision : 91.45%, Recall : 87.29%, F-score : 89.32%
+
+20250612 05:43:20
+	Accuracy : 98.19%, Precision : 91.97%, Recall : 90.79%, F-score : 91.38%
+
+20250612 05:43:25
+	Accuracy : 98.16%, Precision : 91.68%, Recall : 90.79%, F-score : 91.23%
+
+20250612 05:43:31
+	Accuracy : 98.01%, Precision : 91.67%, Recall : 89.24%, F-score : 90.43%
+
+20250612 05:43:36
+	Accuracy : 97.99%, Precision : 91.49%, Recall : 89.24%, F-score : 90.35%
+
+20250612 05:43:42
+	Accuracy : 98.14%, Precision : 91.68%, Recall : 90.54%, F-score : 91.10%
+
+20250612 05:43:49
+	Accuracy : 97.94%, Precision : 91.61%, Recall : 88.59%, F-score : 90.08%
+
+20250612 05:43:55
+	Accuracy : 97.99%, Precision : 91.49%, Recall : 89.24%, F-score : 90.35%
+
+20250612 05:44:01
+	Accuracy : 98.13%, Precision : 91.59%, Recall : 90.54%, F-score : 91.06%
+
+20250612 05:44:06
+	Accuracy : 97.99%, Precision : 91.47%, Recall : 89.24%, F-score : 90.34%
+
+20250612 05:44:13
+	Accuracy : 97.99%, Precision : 91.47%, Recall : 89.24%, F-score : 90.34%
+
+20250612 05:44:20
+	Accuracy : 98.00%, Precision : 91.59%, Recall : 89.24%, F-score : 90.40%
+
+20250612 05:44:26
+	Accuracy : 97.99%, Precision : 91.47%, Recall : 89.24%, F-score : 90.34%
+
+20250612 05:44:31
+	Accuracy : 98.00%, Precision : 91.59%, Recall : 89.24%, F-score : 90.40%
+
+20250612 05:44:37
+	Accuracy : 97.99%, Precision : 91.51%, Recall : 89.24%, F-score : 90.36%
+
+20250612 05:44:47
+	Accuracy : 98.28%, Precision : 92.78%, Recall : 90.79%, F-score : 91.77%
+
+20250612 05:44:53
+	Accuracy : 98.28%, Precision : 92.69%, Recall : 90.79%, F-score : 91.73%
+
+20250612 05:44:58
+	Accuracy : 98.27%, Precision : 92.61%, Recall : 90.79%, F-score : 91.69%
+
+20250612 05:45:04
+	Accuracy : 98.26%, Precision : 92.52%, Recall : 90.79%, F-score : 91.65%
+
+20250612 05:45:10
+	Accuracy : 98.25%, Precision : 92.44%, Recall : 90.79%, F-score : 91.61%
+
+20250612 05:45:15
+	Accuracy : 98.24%, Precision : 92.35%, Recall : 90.79%, F-score : 91.57%
+
+20250612 05:45:22
+	Accuracy : 98.23%, Precision : 92.27%, Recall : 90.79%, F-score : 91.52%
+
+20250612 05:45:27
+	Accuracy : 98.22%, Precision : 92.18%, Recall : 90.79%, F-score : 91.48%
+
+20250612 05:45:33
+	Accuracy : 98.21%, Precision : 92.11%, Recall : 90.79%, F-score : 91.45%
+
+20250612 05:45:40
+	Accuracy : 98.20%, Precision : 92.04%, Recall : 90.79%, F-score : 91.41%
+
+20250612 05:45:47
+	Accuracy : 98.19%, Precision : 91.97%, Recall : 90.79%, F-score : 91.38%
+
+20250612 05:45:51
+	Accuracy : 98.18%, Precision : 91.88%, Recall : 90.79%, F-score : 91.33%
+
+20250612 05:45:57
+	Accuracy : 98.17%, Precision : 91.79%, Recall : 90.79%, F-score : 91.29%
+
+20250612 05:46:04
+	Accuracy : 98.16%, Precision : 91.70%, Recall : 90.79%, F-score : 91.25%
+
+20250612 05:46:10
+	Accuracy : 98.15%, Precision : 91.62%, Recall : 90.79%, F-score : 91.20%
+
+20250612 05:46:15
+	Accuracy : 98.15%, Precision : 91.54%, Recall : 90.79%, F-score : 91.16%
+
+20250612 05:46:20
+	Accuracy : 98.14%, Precision : 91.45%, Recall : 90.79%, F-score : 91.12%
+
+20250612 05:46:26
+	Accuracy : 98.13%, Precision : 91.39%, Recall : 90.79%, F-score : 91.09%
+
+20250612 05:46:32
+	Accuracy : 98.12%, Precision : 91.31%, Recall : 90.79%, F-score : 91.05%
+
+20250612 05:46:38
+	Accuracy : 98.11%, Precision : 91.24%, Recall : 90.79%, F-score : 91.02%
+
+20250612 05:46:44
+	Accuracy : 98.10%, Precision : 91.17%, Recall : 90.79%, F-score : 90.98%
+
+20250612 05:46:48
+	Accuracy : 98.09%, Precision : 91.09%, Recall : 90.79%, F-score : 90.94%
+
+20250612 05:46:54
+	Accuracy : 98.09%, Precision : 91.02%, Recall : 90.79%, F-score : 90.90%
+
+20250612 05:47:00
+	Accuracy : 98.08%, Precision : 90.93%, Recall : 90.79%, F-score : 90.86%
+
+20250612 05:47:06
+	Accuracy : 98.07%, Precision : 90.85%, Recall : 90.79%, F-score : 90.82%
+
+20250612 05:47:12
+	Accuracy : 98.06%, Precision : 90.76%, Recall : 90.79%, F-score : 90.78%
+
+20250612 05:47:17
+	Accuracy : 98.05%, Precision : 90.68%, Recall : 90.79%, F-score : 90.73%
+
+20250612 05:47:23
+	Accuracy : 98.04%, Precision : 90.59%, Recall : 90.79%, F-score : 90.69%
+
+20250612 05:47:30
+	Accuracy : 98.03%, Precision : 90.51%, Recall : 90.79%, F-score : 90.65%
+
+20250612 05:47:36
+	Accuracy : 98.02%, Precision : 90.43%, Recall : 90.79%, F-score : 90.61%
+
+20250612 05:47:42
+	Accuracy : 98.01%, Precision : 90.35%, Recall : 90.79%, F-score : 90.57%
+
+20250612 05:47:48
+	Accuracy : 98.00%, Precision : 90.27%, Recall : 90.79%, F-score : 90.53%
+
+20250612 05:47:55
+	Accuracy : 97.99%, Precision : 90.20%, Recall : 90.79%, F-score : 90.50%
+
+20250612 05:48:02
+	Accuracy : 97.98%, Precision : 90.12%, Recall : 90.79%, F-score : 90.46%
+
+20250612 05:48:08
+	Accuracy : 97.97%, Precision : 90.04%, Recall : 90.79%, F-score : 90.41%
+
+20250612 05:48:15
+	Accuracy : 97.96%, Precision : 89.96%, Recall : 90.79%, F-score : 90.37%
+
+20250612 05:48:22
+	Accuracy : 97.95%, Precision : 89.88%, Recall : 90.79%, F-score : 90.33%
+
+20250612 05:48:28
+	Accuracy : 97.94%, Precision : 89.81%, Recall : 90.79%, F-score : 90.30%
+
+20250612 05:48:33
+	Accuracy : 98.07%, Precision : 89.86%, Recall : 92.09%, F-score : 90.96%
+
+20250612 05:48:38
+	Accuracy : 98.07%, Precision : 89.80%, Recall : 92.09%, F-score : 90.93%
+
+20250612 05:48:44
+	Accuracy : 98.06%, Precision : 89.74%, Recall : 92.09%, F-score : 90.90%
+
+20250612 05:48:50
+	Accuracy : 98.05%, Precision : 89.68%, Recall : 92.09%, F-score : 90.87%
+
+20250612 05:48:56
+	Accuracy : 98.04%, Precision : 89.60%, Recall : 92.09%, F-score : 90.83%
+
+20250612 05:49:02
+	Accuracy : 98.03%, Precision : 89.52%, Recall : 92.09%, F-score : 90.79%
+
+20250612 05:49:07
+	Accuracy : 98.02%, Precision : 89.46%, Recall : 92.09%, F-score : 90.76%
+
+20250612 05:49:12
+	Accuracy : 98.01%, Precision : 89.38%, Recall : 92.09%, F-score : 90.72%
+
+20250612 05:49:18
+	Accuracy : 98.01%, Precision : 89.31%, Recall : 92.09%, F-score : 90.68%
+
+20250612 05:49:26
+	Accuracy : 97.99%, Precision : 89.22%, Recall : 92.09%, F-score : 90.63%
+
+20250612 05:49:32
+	Accuracy : 97.99%, Precision : 89.15%, Recall : 92.09%, F-score : 90.60%
+
+20250612 05:49:37
+	Accuracy : 97.98%, Precision : 89.08%, Recall : 92.09%, F-score : 90.56%
+
+20250612 05:49:44
+	Accuracy : 97.97%, Precision : 88.99%, Recall : 92.09%, F-score : 90.51%
+
+20250612 05:49:51
+	Accuracy : 97.96%, Precision : 88.90%, Recall : 92.09%, F-score : 90.47%
+
+20250612 05:49:57
+	Accuracy : 97.95%, Precision : 88.82%, Recall : 92.09%, F-score : 90.43%
+
+20250612 05:50:03
+	Accuracy : 97.94%, Precision : 88.76%, Recall : 92.09%, F-score : 90.39%
+
+20250612 05:50:09
+	Accuracy : 97.93%, Precision : 88.68%, Recall : 92.09%, F-score : 90.35%
+
+20250612 05:50:15
+	Accuracy : 97.92%, Precision : 88.62%, Recall : 92.09%, F-score : 90.33%
+
+20250612 05:50:21
+	Accuracy : 97.91%, Precision : 88.56%, Recall : 92.09%, F-score : 90.29%
+
+20250612 05:50:26
+	Accuracy : 97.91%, Precision : 88.49%, Recall : 92.09%, F-score : 90.26%
+
+20250612 05:50:32
+	Accuracy : 97.90%, Precision : 88.42%, Recall : 92.09%, F-score : 90.22%
+
+20250612 05:50:39
+	Accuracy : 97.89%, Precision : 88.34%, Recall : 92.09%, F-score : 90.18%
+
+20250612 05:50:45
+	Accuracy : 97.88%, Precision : 88.27%, Recall : 92.09%, F-score : 90.14%
+
+20250612 05:50:53
+	Accuracy : 97.86%, Precision : 92.97%, Recall : 86.21%, F-score : 89.46%
+
+20250612 05:50:59
+	Accuracy : 97.46%, Precision : 92.66%, Recall : 82.38%, F-score : 87.22%
+
+20250612 05:51:04
+	Accuracy : 97.42%, Precision : 92.27%, Recall : 82.38%, F-score : 87.05%
+
+20250612 05:51:11
+	Accuracy : 97.64%, Precision : 92.31%, Recall : 84.70%, F-score : 88.34%
+
+20250612 05:51:17
+	Accuracy : 98.12%, Precision : 92.63%, Recall : 89.24%, F-score : 90.90%
+
+20250612 05:51:22
+	Accuracy : 98.28%, Precision : 92.78%, Recall : 90.79%, F-score : 91.77%
+
+20250612 05:51:28
+	Accuracy : 98.28%, Precision : 92.69%, Recall : 90.79%, F-score : 91.73%
+
+20250612 05:51:35
+	Accuracy : 98.27%, Precision : 92.63%, Recall : 90.79%, F-score : 91.70%
+
+20250612 05:51:40
+	Accuracy : 98.26%, Precision : 92.57%, Recall : 90.79%, F-score : 91.67%
+
+20250612 05:51:46
+	Accuracy : 98.26%, Precision : 92.54%, Recall : 90.79%, F-score : 91.66%
+
+20250612 05:51:51
+	Accuracy : 98.18%, Precision : 92.48%, Recall : 90.01%, F-score : 91.23%
+
+20250612 05:52:01
+	Accuracy : 97.89%, Precision : 92.26%, Recall : 87.29%, F-score : 89.70%
+
+20250612 05:52:07
+	Accuracy : 97.89%, Precision : 92.24%, Recall : 87.29%, F-score : 89.70%
+
+20250612 05:52:12
+	Accuracy : 97.79%, Precision : 92.07%, Recall : 86.51%, F-score : 89.20%
+
+20250612 05:52:17
+	Accuracy : 97.89%, Precision : 92.27%, Recall : 87.29%, F-score : 89.71%
+
+20250612 05:52:23
+	Accuracy : 98.09%, Precision : 92.38%, Recall : 89.24%, F-score : 90.78%
+
+20250612 05:52:29
+	Accuracy : 98.28%, Precision : 92.78%, Recall : 90.79%, F-score : 91.77%
+
+20250612 05:52:36
+	Accuracy : 97.88%, Precision : 92.22%, Recall : 87.29%, F-score : 89.69%
+
+20250612 05:52:42
+	Accuracy : 98.09%, Precision : 92.36%, Recall : 89.24%, F-score : 90.77%
+
+20250612 05:52:49
+	Accuracy : 97.89%, Precision : 92.24%, Recall : 87.29%, F-score : 89.70%
+
+20250612 05:52:56
+	Accuracy : 98.10%, Precision : 92.44%, Recall : 89.24%, F-score : 90.81%
+
+20250612 05:53:02
+	Accuracy : 97.89%, Precision : 92.23%, Recall : 87.29%, F-score : 89.69%
+
+20250612 05:56:44
+	Accuracy : 97.74%, Precision : 91.16%, Recall : 87.02%, F-score : 89.04%
+
+20250612 05:56:55
+	Accuracy : 97.86%, Precision : 91.34%, Recall : 88.01%, F-score : 89.65%
+
+20250612 05:57:06
+	Accuracy : 98.08%, Precision : 91.53%, Recall : 90.14%, F-score : 90.83%
+
+20250612 05:57:17
+	Accuracy : 97.91%, Precision : 91.35%, Recall : 88.58%, F-score : 89.95%
+
+20250612 05:57:27
+	Accuracy : 97.75%, Precision : 91.20%, Recall : 87.02%, F-score : 89.06%
+
+20250612 05:57:38
+	Accuracy : 97.91%, Precision : 91.33%, Recall : 88.58%, F-score : 89.93%
+
+20250612 05:57:49
+	Accuracy : 97.90%, Precision : 91.36%, Recall : 88.45%, F-score : 89.88%
+
+20250612 05:58:00
+	Accuracy : 98.05%, Precision : 91.44%, Recall : 89.96%, F-score : 90.69%
+
+20250612 05:58:11
+	Accuracy : 97.91%, Precision : 91.37%, Recall : 88.58%, F-score : 89.95%
+
+20250612 05:58:20
+	Accuracy : 98.08%, Precision : 91.52%, Recall : 90.14%, F-score : 90.82%
+
+20250612 05:58:31
+	Accuracy : 97.91%, Precision : 91.34%, Recall : 88.58%, F-score : 89.94%
+
+20250612 05:58:42
+	Accuracy : 98.08%, Precision : 91.49%, Recall : 90.14%, F-score : 90.81%
+
+20250612 05:58:53
+	Accuracy : 98.08%, Precision : 91.52%, Recall : 90.14%, F-score : 90.82%
+
+20250612 05:59:05
+	Accuracy : 97.91%, Precision : 91.34%, Recall : 88.58%, F-score : 89.94%
+
+20250612 05:59:15
+	Accuracy : 98.08%, Precision : 91.49%, Recall : 90.14%, F-score : 90.81%
+
+20250612 05:59:26
+	Accuracy : 97.91%, Precision : 91.34%, Recall : 88.58%, F-score : 89.94%
+
+20250612 05:59:37
+	Accuracy : 98.08%, Precision : 91.48%, Recall : 90.14%, F-score : 90.80%
+
+20250612 05:59:49
+	Accuracy : 97.92%, Precision : 91.38%, Recall : 88.58%, F-score : 89.96%
+
+20250612 05:59:59
+	Accuracy : 97.92%, Precision : 91.39%, Recall : 88.58%, F-score : 89.96%
+
+20250612 06:00:13
+	Accuracy : 97.73%, Precision : 91.96%, Recall : 85.98%, F-score : 88.87%
+
+20250612 06:00:24
+	Accuracy : 97.72%, Precision : 91.87%, Recall : 85.98%, F-score : 88.83%
+
+20250612 06:00:35
+	Accuracy : 97.88%, Precision : 91.93%, Recall : 87.54%, F-score : 89.68%
+
+20250612 06:00:45
+	Accuracy : 97.96%, Precision : 91.92%, Recall : 88.45%, F-score : 90.15%
+
+20250612 06:00:54
+	Accuracy : 97.96%, Precision : 91.84%, Recall : 88.45%, F-score : 90.11%
+
+20250612 06:01:04
+	Accuracy : 97.95%, Precision : 91.77%, Recall : 88.45%, F-score : 90.08%
+
+20250612 06:01:15
+	Accuracy : 97.94%, Precision : 91.70%, Recall : 88.45%, F-score : 90.04%
+
+20250612 06:01:26
+	Accuracy : 97.93%, Precision : 91.61%, Recall : 88.45%, F-score : 90.00%
+
+20250612 06:01:36
+	Accuracy : 97.92%, Precision : 91.53%, Recall : 88.45%, F-score : 89.96%
+
+20250612 06:01:46
+	Accuracy : 98.09%, Precision : 91.61%, Recall : 90.14%, F-score : 90.87%
+
+20250612 06:01:58
+	Accuracy : 98.08%, Precision : 91.53%, Recall : 90.14%, F-score : 90.83%
+
+20250612 06:02:08
+	Accuracy : 98.07%, Precision : 91.43%, Recall : 90.14%, F-score : 90.78%
+
+20250612 06:02:21
+	Accuracy : 98.06%, Precision : 91.36%, Recall : 90.14%, F-score : 90.74%
+
+20250612 06:02:33
+	Accuracy : 98.05%, Precision : 91.29%, Recall : 90.14%, F-score : 90.71%
+
+20250612 06:02:42
+	Accuracy : 98.05%, Precision : 91.22%, Recall : 90.14%, F-score : 90.67%
+
+20250612 06:02:53
+	Accuracy : 98.04%, Precision : 91.17%, Recall : 90.14%, F-score : 90.65%
+
+20250612 06:03:02
+	Accuracy : 98.03%, Precision : 91.10%, Recall : 90.14%, F-score : 90.61%
+
+20250612 06:03:14
+	Accuracy : 98.02%, Precision : 91.03%, Recall : 90.14%, F-score : 90.58%
+
+20250612 06:03:23
+	Accuracy : 98.26%, Precision : 91.17%, Recall : 92.40%, F-score : 91.78%
+
+20250612 06:03:32
+	Accuracy : 98.25%, Precision : 91.11%, Recall : 92.40%, F-score : 91.75%
+
+20250612 06:03:45
+	Accuracy : 98.38%, Precision : 91.14%, Recall : 93.70%, F-score : 92.41%
+
+20250612 06:03:55
+	Accuracy : 98.37%, Precision : 91.10%, Recall : 93.70%, F-score : 92.38%
+
+20250612 06:04:06
+	Accuracy : 98.36%, Precision : 91.02%, Recall : 93.70%, F-score : 92.34%
+
+20250612 06:04:16
+	Accuracy : 98.35%, Precision : 90.95%, Recall : 93.70%, F-score : 92.31%
+
+20250612 06:04:26
+	Accuracy : 98.34%, Precision : 90.86%, Recall : 93.70%, F-score : 92.26%
+
+20250612 06:04:37
+	Accuracy : 98.33%, Precision : 90.78%, Recall : 93.70%, F-score : 92.22%
+
+20250612 06:04:48
+	Accuracy : 98.32%, Precision : 90.70%, Recall : 93.70%, F-score : 92.18%
+
+20250612 06:04:58
+	Accuracy : 98.31%, Precision : 90.61%, Recall : 93.70%, F-score : 92.13%
+
+20250612 06:05:09
+	Accuracy : 98.31%, Precision : 90.56%, Recall : 93.70%, F-score : 92.10%
+
+20250612 06:05:23
+	Accuracy : 98.30%, Precision : 90.50%, Recall : 93.70%, F-score : 92.07%
+
+20250612 06:05:32
+	Accuracy : 98.43%, Precision : 90.55%, Recall : 95.00%, F-score : 92.72%
+
+20250612 06:05:43
+	Accuracy : 98.42%, Precision : 90.47%, Recall : 95.00%, F-score : 92.68%
+
+20250612 06:05:54
+	Accuracy : 98.41%, Precision : 90.39%, Recall : 95.00%, F-score : 92.64%
+
+20250612 06:06:04
+	Accuracy : 98.55%, Precision : 90.45%, Recall : 96.43%, F-score : 93.34%
+
+20250612 06:06:16
+	Accuracy : 98.54%, Precision : 90.37%, Recall : 96.43%, F-score : 93.30%
+
+20250612 06:06:27
+	Accuracy : 98.53%, Precision : 90.28%, Recall : 96.43%, F-score : 93.26%
+
+20250612 06:06:38
+	Accuracy : 98.52%, Precision : 90.22%, Recall : 96.43%, F-score : 93.22%
+
+20250612 06:06:48
+	Accuracy : 98.51%, Precision : 90.14%, Recall : 96.43%, F-score : 93.18%
+
+20250612 06:06:59
+	Accuracy : 98.50%, Precision : 90.07%, Recall : 96.43%, F-score : 93.14%
+
+20250612 06:07:09
+	Accuracy : 98.50%, Precision : 90.01%, Recall : 96.43%, F-score : 93.11%
+
+20250612 06:07:22
+	Accuracy : 98.49%, Precision : 89.94%, Recall : 96.43%, F-score : 93.07%
+
+20250612 06:07:31
+	Accuracy : 98.48%, Precision : 89.86%, Recall : 96.43%, F-score : 93.03%
+
+20250612 06:07:41
+	Accuracy : 98.47%, Precision : 89.79%, Recall : 96.43%, F-score : 92.99%
+
+20250612 06:07:53
+	Accuracy : 98.46%, Precision : 89.70%, Recall : 96.43%, F-score : 92.94%
+
+20250612 06:08:04
+	Accuracy : 98.45%, Precision : 89.63%, Recall : 96.43%, F-score : 92.91%
+
+20250612 06:08:15
+	Accuracy : 98.44%, Precision : 89.57%, Recall : 96.43%, F-score : 92.88%
+
+20250612 06:08:24
+	Accuracy : 98.43%, Precision : 89.49%, Recall : 96.43%, F-score : 92.83%
+
+20250612 06:08:37
+	Accuracy : 98.42%, Precision : 89.41%, Recall : 96.43%, F-score : 92.79%
+
+20250612 06:08:48
+	Accuracy : 98.41%, Precision : 89.32%, Recall : 96.43%, F-score : 92.74%
+
+20250612 06:08:58
+	Accuracy : 98.40%, Precision : 89.28%, Recall : 96.43%, F-score : 92.72%
+
+20250612 06:09:10
+	Accuracy : 98.40%, Precision : 89.22%, Recall : 96.43%, F-score : 92.69%
+
+20250612 06:09:21
+	Accuracy : 98.39%, Precision : 89.13%, Recall : 96.43%, F-score : 92.64%
+
+20250612 06:09:32
+	Accuracy : 98.38%, Precision : 89.06%, Recall : 96.43%, F-score : 92.60%
+
+20250612 06:09:42
+	Accuracy : 98.37%, Precision : 88.99%, Recall : 96.43%, F-score : 92.56%
+
+20250612 06:09:53
+	Accuracy : 98.36%, Precision : 88.90%, Recall : 96.43%, F-score : 92.51%
+
+20250612 06:10:03
+	Accuracy : 98.35%, Precision : 88.83%, Recall : 96.43%, F-score : 92.47%
+
+20250612 06:10:12
+	Accuracy : 98.34%, Precision : 88.75%, Recall : 96.43%, F-score : 92.43%
+
+20250612 06:10:23
+	Accuracy : 98.47%, Precision : 88.82%, Recall : 97.73%, F-score : 93.07%
+
+20250612 06:10:32
+	Accuracy : 98.46%, Precision : 88.75%, Recall : 97.73%, F-score : 93.03%
+
+20250612 06:10:44
+	Accuracy : 98.45%, Precision : 88.68%, Recall : 97.73%, F-score : 92.99%
+
+20250612 06:10:54
+	Accuracy : 98.44%, Precision : 88.60%, Recall : 97.73%, F-score : 92.94%
+
+20250612 06:11:08
+	Accuracy : 97.87%, Precision : 90.45%, Recall : 89.16%, F-score : 89.80%
+
+20250612 06:11:19
+	Accuracy : 98.29%, Precision : 90.43%, Recall : 93.70%, F-score : 92.04%
+
+20250612 06:11:32
+	Accuracy : 98.40%, Precision : 90.34%, Recall : 95.00%, F-score : 92.61%
+
+20250612 06:11:42
+	Accuracy : 98.40%, Precision : 90.33%, Recall : 95.00%, F-score : 92.61%
+
+20250612 06:11:54
+	Accuracy : 98.40%, Precision : 90.33%, Recall : 95.00%, F-score : 92.61%
+
+20250612 06:12:04
+	Accuracy : 98.55%, Precision : 90.45%, Recall : 96.43%, F-score : 93.34%
+
+20250612 06:12:14
+	Accuracy : 98.55%, Precision : 90.43%, Recall : 96.43%, F-score : 93.33%
+
+20250612 06:12:24
+	Accuracy : 98.55%, Precision : 90.43%, Recall : 96.43%, F-score : 93.33%
+
+20250612 06:12:33
+	Accuracy : 98.55%, Precision : 90.41%, Recall : 96.43%, F-score : 93.33%
+
+20250612 06:12:43
+	Accuracy : 98.55%, Precision : 90.41%, Recall : 96.43%, F-score : 93.33%
+
+20250612 06:12:53
+	Accuracy : 98.55%, Precision : 90.41%, Recall : 96.43%, F-score : 93.33%
+
+20250612 06:13:05
+	Accuracy : 97.85%, Precision : 89.72%, Recall : 89.88%, F-score : 89.80%
+
+20250612 06:13:18
+	Accuracy : 98.18%, Precision : 90.19%, Recall : 92.81%, F-score : 91.48%
+
+20250612 06:13:27
+	Accuracy : 98.40%, Precision : 90.33%, Recall : 95.00%, F-score : 92.61%
+
+20250612 06:13:39
+	Accuracy : 98.62%, Precision : 90.48%, Recall : 97.09%, F-score : 93.67%
+
+20250612 06:13:50
+	Accuracy : 98.40%, Precision : 90.28%, Recall : 95.00%, F-score : 92.58%
+
+20250612 06:14:02
+	Accuracy : 98.55%, Precision : 90.45%, Recall : 96.43%, F-score : 93.34%
+
+20250612 06:14:13
+	Accuracy : 98.49%, Precision : 90.41%, Recall : 95.88%, F-score : 93.06%
+
+20250612 06:14:23
+	Accuracy : 98.40%, Precision : 90.31%, Recall : 95.00%, F-score : 92.60%
+
+20250612 06:14:34
+	Accuracy : 98.31%, Precision : 90.22%, Recall : 94.12%, F-score : 92.13%
+
+20250612 06:14:43
+	Accuracy : 98.40%, Precision : 90.29%, Recall : 95.00%, F-score : 92.59%
+
+20250612 06:14:53
+	Accuracy : 98.30%, Precision : 90.20%, Recall : 94.12%, F-score : 92.12%
+
+20250612 06:20:06
+	Accuracy : 97.80%, Precision : 91.48%, Recall : 87.23%, F-score : 89.30%
+
+20250612 06:20:11
+	Accuracy : 98.19%, Precision : 91.68%, Recall : 91.12%, F-score : 91.40%
+
+20250612 06:20:15
+	Accuracy : 98.47%, Precision : 91.91%, Recall : 93.72%, F-score : 92.80%
+
+20250612 06:20:19
+	Accuracy : 98.48%, Precision : 91.93%, Recall : 93.84%, F-score : 92.88%
+
+20250612 06:20:24
+	Accuracy : 98.19%, Precision : 91.66%, Recall : 91.12%, F-score : 91.39%
+
+20250612 06:20:28
+	Accuracy : 98.35%, Precision : 91.79%, Recall : 92.67%, F-score : 92.23%
+
+20250612 06:20:31
+	Accuracy : 98.19%, Precision : 91.71%, Recall : 91.12%, F-score : 91.41%
+
+20250612 06:20:35
+	Accuracy : 98.19%, Precision : 91.65%, Recall : 91.12%, F-score : 91.38%
+
+20250612 06:20:40
+	Accuracy : 98.34%, Precision : 91.81%, Recall : 92.54%, F-score : 92.18%
+
+20250612 06:20:44
+	Accuracy : 98.33%, Precision : 91.81%, Recall : 92.42%, F-score : 92.11%
+
+20250612 06:20:47
+	Accuracy : 98.33%, Precision : 91.81%, Recall : 92.42%, F-score : 92.11%
+
+20250612 06:20:51
+	Accuracy : 98.49%, Precision : 91.96%, Recall : 93.84%, F-score : 92.89%
+
+20250612 06:20:56
+	Accuracy : 98.20%, Precision : 91.72%, Recall : 91.12%, F-score : 91.42%
+
+20250612 06:20:59
+	Accuracy : 98.19%, Precision : 91.68%, Recall : 91.12%, F-score : 91.40%
+
+20250612 06:21:04
+	Accuracy : 98.48%, Precision : 91.94%, Recall : 93.84%, F-score : 92.88%
+
+20250612 06:21:08
+	Accuracy : 98.33%, Precision : 91.84%, Recall : 92.42%, F-score : 92.13%
+
+20250612 06:21:16
+	Accuracy : 97.16%, Precision : 94.99%, Recall : 77.13%, F-score : 85.13%
+
+20250612 06:21:20
+	Accuracy : 97.15%, Precision : 94.90%, Recall : 77.13%, F-score : 85.10%
+
+20250612 06:21:25
+	Accuracy : 97.14%, Precision : 94.79%, Recall : 77.13%, F-score : 85.06%
+
+20250612 06:21:29
+	Accuracy : 97.13%, Precision : 94.69%, Recall : 77.13%, F-score : 85.01%
+
+20250612 06:21:34
+	Accuracy : 97.12%, Precision : 94.57%, Recall : 77.13%, F-score : 84.96%
+
+20250612 06:21:38
+	Accuracy : 97.32%, Precision : 94.61%, Recall : 79.08%, F-score : 86.15%
+
+20250612 06:21:43
+	Accuracy : 97.31%, Precision : 94.51%, Recall : 79.08%, F-score : 86.10%
+
+20250612 06:21:47
+	Accuracy : 97.30%, Precision : 94.40%, Recall : 79.08%, F-score : 86.06%
+
+20250612 06:21:51
+	Accuracy : 97.29%, Precision : 94.32%, Recall : 79.08%, F-score : 86.03%
+
+20250612 06:21:56
+	Accuracy : 97.56%, Precision : 94.43%, Recall : 81.66%, F-score : 87.58%
+
+20250612 06:22:01
+	Accuracy : 97.55%, Precision : 94.36%, Recall : 81.66%, F-score : 87.55%
+
+20250612 06:22:05
+	Accuracy : 97.55%, Precision : 94.29%, Recall : 81.66%, F-score : 87.52%
+
+20250612 06:22:10
+	Accuracy : 97.54%, Precision : 94.22%, Recall : 81.66%, F-score : 87.49%
+
+20250612 06:22:14
+	Accuracy : 97.53%, Precision : 94.12%, Recall : 81.66%, F-score : 87.45%
+
+20250612 06:22:18
+	Accuracy : 97.52%, Precision : 94.03%, Recall : 81.66%, F-score : 87.41%
+
+20250612 06:22:22
+	Accuracy : 97.51%, Precision : 93.94%, Recall : 81.66%, F-score : 87.37%
+
+20250612 06:22:27
+	Accuracy : 97.50%, Precision : 93.84%, Recall : 81.66%, F-score : 87.33%
+
+20250612 06:22:31
+	Accuracy : 97.49%, Precision : 93.75%, Recall : 81.66%, F-score : 87.29%
+
+20250612 06:22:36
+	Accuracy : 97.49%, Precision : 93.69%, Recall : 81.66%, F-score : 87.27%
+
+20250612 06:22:41
+	Accuracy : 97.73%, Precision : 93.79%, Recall : 83.99%, F-score : 88.62%
+
+20250612 06:22:45
+	Accuracy : 98.06%, Precision : 93.91%, Recall : 87.23%, F-score : 90.45%
+
+20250612 06:22:49
+	Accuracy : 98.05%, Precision : 93.84%, Recall : 87.23%, F-score : 90.41%
+
+20250612 06:22:53
+	Accuracy : 98.04%, Precision : 93.74%, Recall : 87.23%, F-score : 90.37%
+
+20250612 06:22:57
+	Accuracy : 98.03%, Precision : 93.64%, Recall : 87.23%, F-score : 90.32%
+
+20250612 06:23:02
+	Accuracy : 98.02%, Precision : 93.55%, Recall : 87.23%, F-score : 90.28%
+
+20250612 06:23:07
+	Accuracy : 98.01%, Precision : 93.47%, Recall : 87.23%, F-score : 90.24%
+
+20250612 06:23:12
+	Accuracy : 98.00%, Precision : 93.37%, Recall : 87.23%, F-score : 90.19%
+
+20250612 06:23:15
+	Accuracy : 97.99%, Precision : 93.27%, Recall : 87.23%, F-score : 90.15%
+
+20250612 06:23:20
+	Accuracy : 97.98%, Precision : 93.20%, Recall : 87.23%, F-score : 90.12%
+
+20250612 06:23:25
+	Accuracy : 98.25%, Precision : 93.32%, Recall : 89.81%, F-score : 91.54%
+
+20250612 06:23:30
+	Accuracy : 98.38%, Precision : 93.33%, Recall : 91.12%, F-score : 92.21%
+
+20250612 06:23:34
+	Accuracy : 98.37%, Precision : 93.24%, Recall : 91.12%, F-score : 92.17%
+
+20250612 06:23:38
+	Accuracy : 98.36%, Precision : 93.15%, Recall : 91.12%, F-score : 92.12%
+
+20250612 06:23:42
+	Accuracy : 98.35%, Precision : 93.06%, Recall : 91.12%, F-score : 92.08%
+
+20250612 06:23:46
+	Accuracy : 98.34%, Precision : 92.97%, Recall : 91.12%, F-score : 92.03%
+
+20250612 06:23:51
+	Accuracy : 98.33%, Precision : 92.89%, Recall : 91.12%, F-score : 91.99%
+
+20250612 06:23:55
+	Accuracy : 98.32%, Precision : 92.81%, Recall : 91.12%, F-score : 91.96%
+
+20250612 06:24:00
+	Accuracy : 98.31%, Precision : 92.74%, Recall : 91.12%, F-score : 91.92%
+
+20250612 06:24:04
+	Accuracy : 98.30%, Precision : 92.65%, Recall : 91.12%, F-score : 91.88%
+
+20250612 06:24:09
+	Accuracy : 98.29%, Precision : 92.57%, Recall : 91.12%, F-score : 91.84%
+
+20250612 06:24:13
+	Accuracy : 98.28%, Precision : 92.50%, Recall : 91.12%, F-score : 91.80%
+
+20250612 06:24:17
+	Accuracy : 98.27%, Precision : 92.40%, Recall : 91.12%, F-score : 91.75%
+
+20250612 06:24:22
+	Accuracy : 98.40%, Precision : 92.44%, Recall : 92.42%, F-score : 92.43%
+
+20250612 06:24:26
+	Accuracy : 98.39%, Precision : 92.36%, Recall : 92.42%, F-score : 92.39%
+
+20250612 06:24:30
+	Accuracy : 98.39%, Precision : 92.28%, Recall : 92.42%, F-score : 92.35%
+
+20250612 06:24:34
+	Accuracy : 98.38%, Precision : 92.23%, Recall : 92.42%, F-score : 92.32%
+
+20250612 06:24:39
+	Accuracy : 98.37%, Precision : 92.14%, Recall : 92.42%, F-score : 92.28%
+
+20250612 06:24:44
+	Accuracy : 98.36%, Precision : 92.06%, Recall : 92.42%, F-score : 92.24%
+
+20250612 06:24:48
+	Accuracy : 98.35%, Precision : 91.99%, Recall : 92.42%, F-score : 92.20%
+
+20250612 06:24:53
+	Accuracy : 98.49%, Precision : 92.03%, Recall : 93.84%, F-score : 92.93%
+
+20250612 06:24:58
+	Accuracy : 98.49%, Precision : 91.96%, Recall : 93.84%, F-score : 92.89%
+
+20250612 06:25:01
+	Accuracy : 98.48%, Precision : 91.87%, Recall : 93.84%, F-score : 92.85%
+
+20250612 06:25:05
+	Accuracy : 98.47%, Precision : 91.79%, Recall : 93.84%, F-score : 92.81%
+
+20250612 06:25:11
+	Accuracy : 98.46%, Precision : 91.72%, Recall : 93.84%, F-score : 92.77%
+
+20250612 06:25:16
+	Accuracy : 98.45%, Precision : 91.64%, Recall : 93.84%, F-score : 92.73%
+
+20250612 06:25:20
+	Accuracy : 98.44%, Precision : 91.56%, Recall : 93.84%, F-score : 92.69%
+
+20250612 06:25:24
+	Accuracy : 98.43%, Precision : 91.48%, Recall : 93.84%, F-score : 92.65%
+
+20250612 06:25:27
+	Accuracy : 98.42%, Precision : 91.40%, Recall : 93.84%, F-score : 92.60%
+
+20250612 06:25:33
+	Accuracy : 98.41%, Precision : 91.31%, Recall : 93.84%, F-score : 92.56%
+
+20250612 06:25:36
+	Accuracy : 98.40%, Precision : 91.23%, Recall : 93.84%, F-score : 92.52%
+
+20250612 06:25:40
+	Accuracy : 98.39%, Precision : 91.13%, Recall : 93.84%, F-score : 92.47%
+
+20250612 06:25:47
+	Accuracy : 97.95%, Precision : 92.22%, Recall : 87.93%, F-score : 90.03%
+
+20250612 06:25:50
+	Accuracy : 97.66%, Precision : 91.75%, Recall : 85.48%, F-score : 88.50%
+
+20250612 06:25:54
+	Accuracy : 98.26%, Precision : 92.04%, Recall : 91.39%, F-score : 91.71%
+
+20250612 06:25:58
+	Accuracy : 98.36%, Precision : 92.02%, Recall : 92.42%, F-score : 92.22%
+
+20250612 06:26:01
+	Accuracy : 98.35%, Precision : 91.95%, Recall : 92.42%, F-score : 92.18%
+
+20250612 06:26:07
+	Accuracy : 98.50%, Precision : 92.04%, Recall : 93.84%, F-score : 92.94%
+
+20250612 06:26:12
+	Accuracy : 98.49%, Precision : 92.01%, Recall : 93.84%, F-score : 92.92%
+
+20250612 06:26:16
+	Accuracy : 98.49%, Precision : 91.97%, Recall : 93.84%, F-score : 92.90%
+
+20250612 06:26:19
+	Accuracy : 98.48%, Precision : 91.95%, Recall : 93.84%, F-score : 92.89%
+
+20250612 06:26:24
+	Accuracy : 98.48%, Precision : 91.95%, Recall : 93.84%, F-score : 92.89%
+
+20250612 06:26:28
+	Accuracy : 98.34%, Precision : 91.82%, Recall : 92.54%, F-score : 92.18%
+
+20250612 06:26:36
+	Accuracy : 98.20%, Precision : 91.79%, Recall : 91.12%, F-score : 91.45%
+
+20250612 06:26:41
+	Accuracy : 98.34%, Precision : 91.90%, Recall : 92.42%, F-score : 92.15%
+
+20250612 06:26:45
+	Accuracy : 98.49%, Precision : 92.00%, Recall : 93.84%, F-score : 92.91%
+
+20250612 06:26:49
+	Accuracy : 98.34%, Precision : 91.88%, Recall : 92.42%, F-score : 92.15%
+
+20250612 06:26:54
+	Accuracy : 98.20%, Precision : 91.75%, Recall : 91.12%, F-score : 91.43%
+
+20250612 06:26:58
+	Accuracy : 98.50%, Precision : 92.04%, Recall : 93.84%, F-score : 92.94%
+
+20250612 06:27:03
+	Accuracy : 98.35%, Precision : 91.87%, Recall : 92.54%, F-score : 92.21%
+
+20250612 06:27:09
+	Accuracy : 98.20%, Precision : 91.79%, Recall : 91.12%, F-score : 91.45%
+
+20250612 06:27:13
+	Accuracy : 98.35%, Precision : 91.89%, Recall : 92.54%, F-score : 92.22%
+
+20250612 06:27:17
+	Accuracy : 98.20%, Precision : 91.77%, Recall : 91.12%, F-score : 91.44%
+
+20250612 06:27:21
+	Accuracy : 98.20%, Precision : 91.79%, Recall : 91.12%, F-score : 91.45%
+
+20250612 06:33:51
+	Accuracy : 98.51%, Precision : 91.90%, Recall : 94.23%, F-score : 93.05%
+
+20250612 06:33:55
+	Accuracy : 98.46%, Precision : 91.83%, Recall : 93.70%, F-score : 92.76%
+
+20250612 06:33:57
+	Accuracy : 98.57%, Precision : 91.97%, Recall : 94.70%, F-score : 93.32%
+
+20250612 06:34:02
+	Accuracy : 98.59%, Precision : 91.99%, Recall : 94.90%, F-score : 93.42%
+
+20250612 06:34:06
+	Accuracy : 98.42%, Precision : 91.85%, Recall : 93.34%, F-score : 92.59%
+
+20250612 06:34:10
+	Accuracy : 98.52%, Precision : 91.95%, Recall : 94.23%, F-score : 93.08%
+
+20250612 06:34:14
+	Accuracy : 98.53%, Precision : 91.99%, Recall : 94.23%, F-score : 93.09%
+
+20250612 06:34:17
+	Accuracy : 98.53%, Precision : 92.02%, Recall : 94.23%, F-score : 93.11%
+
+20250612 06:34:21
+	Accuracy : 98.52%, Precision : 91.97%, Recall : 94.23%, F-score : 93.08%
+
+20250612 06:34:24
+	Accuracy : 98.42%, Precision : 91.84%, Recall : 93.34%, F-score : 92.58%
+
+20250612 06:34:27
+	Accuracy : 98.52%, Precision : 91.92%, Recall : 94.23%, F-score : 93.06%
+
+20250612 06:34:31
+	Accuracy : 98.52%, Precision : 91.95%, Recall : 94.23%, F-score : 93.08%
+
+20250612 06:34:35
+	Accuracy : 98.88%, Precision : 92.23%, Recall : 97.57%, F-score : 94.82%
+
+20250612 06:34:39
+	Accuracy : 98.51%, Precision : 91.88%, Recall : 94.23%, F-score : 93.04%
+
+20250612 06:34:44
+	Accuracy : 98.53%, Precision : 92.00%, Recall : 94.23%, F-score : 93.10%
+
+20250612 06:34:49
+	Accuracy : 98.52%, Precision : 91.97%, Recall : 94.23%, F-score : 93.08%
+
+20250612 06:34:52
+	Accuracy : 98.53%, Precision : 92.01%, Recall : 94.23%, F-score : 93.11%
+
+20250612 06:34:57
+	Accuracy : 98.42%, Precision : 91.81%, Recall : 93.34%, F-score : 92.57%
+
+20250612 06:35:00
+	Accuracy : 98.52%, Precision : 91.98%, Recall : 94.23%, F-score : 93.09%
+
+20250612 06:35:04
+	Accuracy : 98.52%, Precision : 91.98%, Recall : 94.23%, F-score : 93.09%
+
+20250612 06:35:07
+	Accuracy : 98.43%, Precision : 91.89%, Recall : 93.34%, F-score : 92.61%
+
+20250612 06:35:14
+	Accuracy : 98.54%, Precision : 95.67%, Recall : 90.22%, F-score : 92.87%
+
+20250612 06:35:17
+	Accuracy : 98.80%, Precision : 95.72%, Recall : 92.81%, F-score : 94.24%
+
+20250612 06:35:20
+	Accuracy : 98.80%, Precision : 95.70%, Recall : 92.81%, F-score : 94.23%
+
+20250612 06:35:23
+	Accuracy : 98.85%, Precision : 95.66%, Recall : 93.34%, F-score : 94.48%
+
+20250612 06:35:27
+	Accuracy : 98.84%, Precision : 95.57%, Recall : 93.34%, F-score : 94.44%
+
+20250612 06:35:31
+	Accuracy : 98.83%, Precision : 95.49%, Recall : 93.34%, F-score : 94.40%
+
+20250612 06:35:36
+	Accuracy : 98.82%, Precision : 95.40%, Recall : 93.34%, F-score : 94.36%
+
+20250612 06:35:39
+	Accuracy : 98.82%, Precision : 95.34%, Recall : 93.34%, F-score : 94.33%
+
+20250612 06:35:42
+	Accuracy : 98.81%, Precision : 95.25%, Recall : 93.34%, F-score : 94.29%
+
+20250612 06:35:45
+	Accuracy : 98.80%, Precision : 95.18%, Recall : 93.34%, F-score : 94.25%
+
+20250612 06:35:50
+	Accuracy : 98.79%, Precision : 95.09%, Recall : 93.34%, F-score : 94.21%
+
+20250612 06:35:53
+	Accuracy : 98.78%, Precision : 95.00%, Recall : 93.34%, F-score : 94.16%
+
+20250612 06:35:57
+	Accuracy : 98.77%, Precision : 94.93%, Recall : 93.34%, F-score : 94.13%
+
+20250612 06:36:00
+	Accuracy : 98.76%, Precision : 94.83%, Recall : 93.34%, F-score : 94.08%
+
+20250612 06:36:04
+	Accuracy : 98.75%, Precision : 94.74%, Recall : 93.34%, F-score : 94.04%
+
+20250612 06:36:08
+	Accuracy : 98.74%, Precision : 94.66%, Recall : 93.34%, F-score : 93.99%
+
+20250612 06:36:11
+	Accuracy : 98.73%, Precision : 94.57%, Recall : 93.34%, F-score : 93.95%
+
+20250612 06:36:16
+	Accuracy : 98.72%, Precision : 94.50%, Recall : 93.34%, F-score : 93.91%
+
+20250612 06:36:20
+	Accuracy : 98.71%, Precision : 94.41%, Recall : 93.34%, F-score : 93.87%
+
+20250612 06:36:23
+	Accuracy : 98.71%, Precision : 94.35%, Recall : 93.34%, F-score : 93.84%
+
+20250612 06:36:27
+	Accuracy : 98.70%, Precision : 94.26%, Recall : 93.34%, F-score : 93.80%
+
+20250612 06:36:31
+	Accuracy : 98.69%, Precision : 94.16%, Recall : 93.34%, F-score : 93.75%
+
+20250612 06:36:35
+	Accuracy : 98.68%, Precision : 94.10%, Recall : 93.34%, F-score : 93.72%
+
+20250612 06:36:38
+	Accuracy : 98.67%, Precision : 94.01%, Recall : 93.34%, F-score : 93.67%
+
+20250612 06:36:42
+	Accuracy : 98.66%, Precision : 93.92%, Recall : 93.34%, F-score : 93.63%
+
+20250612 06:36:45
+	Accuracy : 98.65%, Precision : 93.85%, Recall : 93.34%, F-score : 93.59%
+
+20250612 06:36:50
+	Accuracy : 98.64%, Precision : 93.76%, Recall : 93.34%, F-score : 93.55%
+
+20250612 06:36:53
+	Accuracy : 98.63%, Precision : 93.68%, Recall : 93.34%, F-score : 93.51%
+
+20250612 06:36:57
+	Accuracy : 98.62%, Precision : 93.58%, Recall : 93.34%, F-score : 93.46%
+
+20250612 06:37:00
+	Accuracy : 98.61%, Precision : 93.51%, Recall : 93.34%, F-score : 93.42%
+
+20250612 06:37:03
+	Accuracy : 98.60%, Precision : 93.42%, Recall : 93.34%, F-score : 93.38%
+
+20250612 06:37:06
+	Accuracy : 98.60%, Precision : 93.35%, Recall : 93.34%, F-score : 93.35%
+
+20250612 06:37:09
+	Accuracy : 98.59%, Precision : 93.27%, Recall : 93.34%, F-score : 93.30%
+
+20250612 06:37:14
+	Accuracy : 98.58%, Precision : 93.21%, Recall : 93.34%, F-score : 93.27%
+
+20250612 06:37:18
+	Accuracy : 98.57%, Precision : 93.14%, Recall : 93.34%, F-score : 93.24%
+
+20250612 06:37:22
+	Accuracy : 98.56%, Precision : 93.05%, Recall : 93.34%, F-score : 93.20%
+
+20250612 06:37:25
+	Accuracy : 98.55%, Precision : 92.98%, Recall : 93.34%, F-score : 93.16%
+
+20250612 06:37:28
+	Accuracy : 98.54%, Precision : 92.90%, Recall : 93.34%, F-score : 93.12%
+
+20250612 06:37:31
+	Accuracy : 98.54%, Precision : 92.83%, Recall : 93.34%, F-score : 93.08%
+
+20250612 06:37:34
+	Accuracy : 98.53%, Precision : 92.73%, Recall : 93.34%, F-score : 93.03%
+
+20250612 06:37:38
+	Accuracy : 98.52%, Precision : 92.66%, Recall : 93.34%, F-score : 93.00%
+
+20250612 06:37:41
+	Accuracy : 98.51%, Precision : 92.56%, Recall : 93.34%, F-score : 92.95%
+
+20250612 06:37:45
+	Accuracy : 98.75%, Precision : 92.67%, Recall : 95.67%, F-score : 94.15%
+
+20250612 06:37:48
+	Accuracy : 98.74%, Precision : 92.61%, Recall : 95.67%, F-score : 94.11%
+
+20250612 06:37:52
+	Accuracy : 98.73%, Precision : 92.52%, Recall : 95.67%, F-score : 94.07%
+
+20250612 06:37:56
+	Accuracy : 98.72%, Precision : 92.44%, Recall : 95.67%, F-score : 94.03%
+
+20250612 06:37:59
+	Accuracy : 98.75%, Precision : 92.41%, Recall : 96.01%, F-score : 94.17%
+
+20250612 06:38:02
+	Accuracy : 98.74%, Precision : 92.34%, Recall : 96.01%, F-score : 94.14%
+
+20250612 06:38:05
+	Accuracy : 98.73%, Precision : 92.26%, Recall : 96.01%, F-score : 94.10%
+
+20250612 06:38:09
+	Accuracy : 98.72%, Precision : 92.17%, Recall : 96.01%, F-score : 94.05%
+
+20250612 06:38:12
+	Accuracy : 98.88%, Precision : 92.23%, Recall : 97.57%, F-score : 94.82%
+
+20250612 06:38:16
+	Accuracy : 98.87%, Precision : 92.15%, Recall : 97.57%, F-score : 94.78%
+
+20250612 06:38:20
+	Accuracy : 98.86%, Precision : 92.08%, Recall : 97.57%, F-score : 94.75%
+
+20250612 06:38:23
+	Accuracy : 98.85%, Precision : 91.99%, Recall : 97.57%, F-score : 94.70%
+
+20250612 06:38:27
+	Accuracy : 98.93%, Precision : 92.01%, Recall : 98.45%, F-score : 95.12%
+
+20250612 06:38:30
+	Accuracy : 98.93%, Precision : 91.93%, Recall : 98.45%, F-score : 95.08%
+
+20250612 06:38:34
+	Accuracy : 98.92%, Precision : 91.86%, Recall : 98.45%, F-score : 95.04%
+
+20250612 06:38:37
+	Accuracy : 98.91%, Precision : 91.77%, Recall : 98.45%, F-score : 95.00%
+
+20250612 06:38:40
+	Accuracy : 98.90%, Precision : 91.71%, Recall : 98.45%, F-score : 94.96%
+
+20250612 06:38:44
+	Accuracy : 98.89%, Precision : 91.63%, Recall : 98.45%, F-score : 94.92%
+
+20250612 06:38:47
+	Accuracy : 98.88%, Precision : 91.55%, Recall : 98.45%, F-score : 94.88%
+
+20250612 06:38:53
+	Accuracy : 97.63%, Precision : 91.55%, Recall : 85.39%, F-score : 88.36%
+
+20250612 06:38:56
+	Accuracy : 98.55%, Precision : 92.50%, Recall : 93.91%, F-score : 93.20%
+
+20250612 06:38:59
+	Accuracy : 98.48%, Precision : 92.08%, Recall : 93.67%, F-score : 92.87%
+
+20250612 06:39:03
+	Accuracy : 98.56%, Precision : 92.01%, Recall : 94.56%, F-score : 93.27%
+
+20250612 06:39:07
+	Accuracy : 98.44%, Precision : 91.74%, Recall : 93.67%, F-score : 92.70%
+
+20250612 06:39:11
+	Accuracy : 98.93%, Precision : 91.99%, Recall : 98.45%, F-score : 95.11%
+
+20250612 06:39:15
+	Accuracy : 98.93%, Precision : 91.95%, Recall : 98.45%, F-score : 95.09%
+
+20250612 06:39:19
+	Accuracy : 98.89%, Precision : 91.90%, Recall : 98.12%, F-score : 94.91%
+
+20250612 06:39:23
+	Accuracy : 98.89%, Precision : 91.89%, Recall : 98.12%, F-score : 94.90%
+
+20250612 06:39:26
+	Accuracy : 98.88%, Precision : 91.86%, Recall : 98.12%, F-score : 94.89%
+
+20250612 06:39:30
+	Accuracy : 98.88%, Precision : 91.86%, Recall : 98.12%, F-score : 94.89%
+
+20250612 06:39:37
+	Accuracy : 98.49%, Precision : 91.70%, Recall : 94.23%, F-score : 92.95%
+
+20250612 06:39:41
+	Accuracy : 98.48%, Precision : 91.57%, Recall : 94.23%, F-score : 92.88%
+
+20250612 06:39:45
+	Accuracy : 98.43%, Precision : 91.64%, Recall : 93.67%, F-score : 92.65%
+
+20250612 06:39:48
+	Accuracy : 98.48%, Precision : 91.61%, Recall : 94.23%, F-score : 92.90%
+
+20250612 06:39:51
+	Accuracy : 98.73%, Precision : 91.82%, Recall : 96.56%, F-score : 94.13%
+
+20250612 06:39:54
+	Accuracy : 98.93%, Precision : 92.01%, Recall : 98.45%, F-score : 95.12%
+
+20250612 06:39:58
+	Accuracy : 98.53%, Precision : 91.72%, Recall : 94.56%, F-score : 93.12%
+
+20250612 06:40:02
+	Accuracy : 98.48%, Precision : 91.61%, Recall : 94.23%, F-score : 92.90%
+
+20250612 06:40:06
+	Accuracy : 98.49%, Precision : 91.65%, Recall : 94.23%, F-score : 92.92%
+
+20250612 06:40:09
+	Accuracy : 98.49%, Precision : 91.67%, Recall : 94.23%, F-score : 92.93%
+
+20250612 06:40:13
+	Accuracy : 98.65%, Precision : 91.77%, Recall : 95.79%, F-score : 93.73%
+
+20250612 06:48:12
+	Accuracy : 97.98%, Precision : 91.89%, Recall : 88.45%, F-score : 90.13%
+
+20250612 06:48:16
+	Accuracy : 97.91%, Precision : 91.82%, Recall : 87.81%, F-score : 89.77%
+
+20250612 06:48:19
+	Accuracy : 97.82%, Precision : 91.70%, Recall : 87.08%, F-score : 89.33%
+
+20250612 06:48:23
+	Accuracy : 98.00%, Precision : 91.88%, Recall : 88.76%, F-score : 90.29%
+
+20250612 06:48:27
+	Accuracy : 97.81%, Precision : 91.66%, Recall : 86.97%, F-score : 89.26%
+
+20250612 06:48:30
+	Accuracy : 97.64%, Precision : 91.55%, Recall : 85.27%, F-score : 88.30%
+
+20250612 06:48:34
+	Accuracy : 97.64%, Precision : 91.59%, Recall : 85.27%, F-score : 88.32%
+
+20250612 06:48:37
+	Accuracy : 97.64%, Precision : 91.59%, Recall : 85.27%, F-score : 88.32%
+
+20250612 06:48:40
+	Accuracy : 97.64%, Precision : 91.57%, Recall : 85.27%, F-score : 88.31%
+
+20250612 06:48:43
+	Accuracy : 97.65%, Precision : 91.64%, Recall : 85.27%, F-score : 88.34%
+
+20250612 06:48:47
+	Accuracy : 97.64%, Precision : 91.60%, Recall : 85.27%, F-score : 88.32%
+
+20250612 06:48:51
+	Accuracy : 97.64%, Precision : 91.60%, Recall : 85.27%, F-score : 88.32%
+
+20250612 06:48:54
+	Accuracy : 97.64%, Precision : 91.61%, Recall : 85.27%, F-score : 88.33%
+
+20250612 06:48:57
+	Accuracy : 97.64%, Precision : 91.62%, Recall : 85.27%, F-score : 88.33%
+
+20250612 06:49:01
+	Accuracy : 97.65%, Precision : 91.66%, Recall : 85.27%, F-score : 88.35%
+
+20250612 06:49:04
+	Accuracy : 97.64%, Precision : 91.59%, Recall : 85.27%, F-score : 88.32%
+
+20250612 06:49:07
+	Accuracy : 97.64%, Precision : 91.62%, Recall : 85.27%, F-score : 88.33%
+
+20250612 06:49:11
+	Accuracy : 97.64%, Precision : 91.62%, Recall : 85.27%, F-score : 88.33%
+
+20250612 06:49:14
+	Accuracy : 97.64%, Precision : 91.61%, Recall : 85.27%, F-score : 88.33%
+
+20250612 06:49:17
+	Accuracy : 97.65%, Precision : 91.64%, Recall : 85.27%, F-score : 88.34%
+
+20250612 06:49:22
+	Accuracy : 97.64%, Precision : 91.60%, Recall : 85.27%, F-score : 88.32%
+
+20250612 06:49:28
+	Accuracy : 98.00%, Precision : 92.67%, Recall : 87.86%, F-score : 90.20%
+
+20250612 06:49:31
+	Accuracy : 97.99%, Precision : 92.57%, Recall : 87.86%, F-score : 90.15%
+
+20250612 06:49:35
+	Accuracy : 97.98%, Precision : 92.47%, Recall : 87.86%, F-score : 90.10%
+
+20250612 06:49:38
+	Accuracy : 97.97%, Precision : 92.38%, Recall : 87.86%, F-score : 90.06%
+
+20250612 06:49:43
+	Accuracy : 97.96%, Precision : 92.30%, Recall : 87.86%, F-score : 90.03%
+
+20250612 06:49:46
+	Accuracy : 98.05%, Precision : 92.29%, Recall : 88.76%, F-score : 90.49%
+
+20250612 06:49:50
+	Accuracy : 98.04%, Precision : 92.20%, Recall : 88.76%, F-score : 90.45%
+
+20250612 06:49:54
+	Accuracy : 98.03%, Precision : 92.11%, Recall : 88.76%, F-score : 90.40%
+
+20250612 06:49:57
+	Accuracy : 98.02%, Precision : 92.01%, Recall : 88.76%, F-score : 90.36%
+
+20250612 06:50:00
+	Accuracy : 98.01%, Precision : 91.93%, Recall : 88.76%, F-score : 90.31%
+
+20250612 06:50:03
+	Accuracy : 98.00%, Precision : 91.88%, Recall : 88.76%, F-score : 90.29%
+
+20250612 06:50:06
+	Accuracy : 97.99%, Precision : 91.79%, Recall : 88.76%, F-score : 90.25%
+
+20250612 06:50:10
+	Accuracy : 97.99%, Precision : 91.70%, Recall : 88.76%, F-score : 90.21%
+
+20250612 06:50:13
+	Accuracy : 97.97%, Precision : 91.61%, Recall : 88.76%, F-score : 90.16%
+
+20250612 06:50:17
+	Accuracy : 97.97%, Precision : 91.54%, Recall : 88.76%, F-score : 90.13%
+
+20250612 06:50:20
+	Accuracy : 97.96%, Precision : 91.46%, Recall : 88.76%, F-score : 90.09%
+
+20250612 06:50:23
+	Accuracy : 97.95%, Precision : 91.36%, Recall : 88.76%, F-score : 90.04%
+
+20250612 06:50:25
+	Accuracy : 97.94%, Precision : 91.29%, Recall : 88.76%, F-score : 90.00%
+
+20250612 06:50:28
+	Accuracy : 97.93%, Precision : 91.20%, Recall : 88.76%, F-score : 89.96%
+
+20250612 06:50:31
+	Accuracy : 97.92%, Precision : 91.13%, Recall : 88.76%, F-score : 89.93%
+
+20250612 06:50:35
+	Accuracy : 97.91%, Precision : 91.06%, Recall : 88.76%, F-score : 89.89%
+
+20250612 06:50:39
+	Accuracy : 97.90%, Precision : 90.98%, Recall : 88.76%, F-score : 89.86%
+
+20250612 06:50:42
+	Accuracy : 97.90%, Precision : 90.91%, Recall : 88.76%, F-score : 89.82%
+
+20250612 06:50:46
+	Accuracy : 98.05%, Precision : 90.98%, Recall : 90.33%, F-score : 90.66%
+
+20250612 06:50:49
+	Accuracy : 98.04%, Precision : 90.91%, Recall : 90.33%, F-score : 90.62%
+
+20250612 06:50:52
+	Accuracy : 98.04%, Precision : 90.83%, Recall : 90.33%, F-score : 90.58%
+
+20250612 06:50:55
+	Accuracy : 98.03%, Precision : 90.76%, Recall : 90.33%, F-score : 90.54%
+
+20250612 06:50:59
+	Accuracy : 98.02%, Precision : 90.70%, Recall : 90.33%, F-score : 90.51%
+
+20250612 06:51:03
+	Accuracy : 98.01%, Precision : 90.61%, Recall : 90.33%, F-score : 90.47%
+
+20250612 06:51:06
+	Accuracy : 98.00%, Precision : 90.53%, Recall : 90.33%, F-score : 90.43%
+
+20250612 06:51:08
+	Accuracy : 97.99%, Precision : 90.45%, Recall : 90.33%, F-score : 90.39%
+
+20250612 06:51:12
+	Accuracy : 97.98%, Precision : 90.38%, Recall : 90.33%, F-score : 90.36%
+
+20250612 06:51:15
+	Accuracy : 97.97%, Precision : 90.30%, Recall : 90.33%, F-score : 90.31%
+
+20250612 06:51:19
+	Accuracy : 97.96%, Precision : 90.21%, Recall : 90.33%, F-score : 90.27%
+
+20250612 06:51:21
+	Accuracy : 97.96%, Precision : 90.13%, Recall : 90.33%, F-score : 90.23%
+
+20250612 06:51:24
+	Accuracy : 97.95%, Precision : 90.05%, Recall : 90.33%, F-score : 90.19%
+
+20250612 06:51:27
+	Accuracy : 97.94%, Precision : 89.97%, Recall : 90.33%, F-score : 90.15%
+
+20250612 06:51:30
+	Accuracy : 97.93%, Precision : 89.88%, Recall : 90.33%, F-score : 90.10%
+
+20250612 06:51:33
+	Accuracy : 97.92%, Precision : 89.82%, Recall : 90.33%, F-score : 90.07%
+
+20250612 06:51:37
+	Accuracy : 97.91%, Precision : 89.74%, Recall : 90.33%, F-score : 90.03%
+
+20250612 06:51:41
+	Accuracy : 97.90%, Precision : 89.66%, Recall : 90.33%, F-score : 89.99%
+
+20250612 06:51:45
+	Accuracy : 97.89%, Precision : 89.60%, Recall : 90.33%, F-score : 89.96%
+
+20250612 06:51:48
+	Accuracy : 97.88%, Precision : 89.53%, Recall : 90.33%, F-score : 89.93%
+
+20250612 06:51:51
+	Accuracy : 97.88%, Precision : 89.46%, Recall : 90.33%, F-score : 89.89%
+
+20250612 06:51:54
+	Accuracy : 97.87%, Precision : 89.40%, Recall : 90.33%, F-score : 89.86%
+
+20250612 06:51:57
+	Accuracy : 97.86%, Precision : 89.32%, Recall : 90.33%, F-score : 89.82%
+
+20250612 06:52:01
+	Accuracy : 97.85%, Precision : 89.24%, Recall : 90.33%, F-score : 89.78%
+
+20250612 06:52:05
+	Accuracy : 97.84%, Precision : 89.16%, Recall : 90.33%, F-score : 89.74%
+
+20250612 06:52:09
+	Accuracy : 97.83%, Precision : 89.08%, Recall : 90.33%, F-score : 89.70%
+
+20250612 06:52:12
+	Accuracy : 97.82%, Precision : 89.00%, Recall : 90.33%, F-score : 89.66%
+
+20250612 06:52:15
+	Accuracy : 97.81%, Precision : 88.92%, Recall : 90.33%, F-score : 89.62%
+
+20250612 06:52:18
+	Accuracy : 97.80%, Precision : 88.83%, Recall : 90.33%, F-score : 89.57%
+
+20250612 06:52:22
+	Accuracy : 97.79%, Precision : 88.76%, Recall : 90.33%, F-score : 89.54%
+
+20250612 06:52:25
+	Accuracy : 97.78%, Precision : 88.68%, Recall : 90.33%, F-score : 89.50%
+
+20250612 06:52:29
+	Accuracy : 97.77%, Precision : 88.60%, Recall : 90.33%, F-score : 89.46%
+
+20250612 06:52:33
+	Accuracy : 97.77%, Precision : 88.53%, Recall : 90.33%, F-score : 89.42%
+
+20250612 06:52:36
+	Accuracy : 97.76%, Precision : 88.49%, Recall : 90.33%, F-score : 89.40%
+
+20250612 06:52:40
+	Accuracy : 97.75%, Precision : 88.41%, Recall : 90.33%, F-score : 89.36%
+
+20250612 06:52:43
+	Accuracy : 97.74%, Precision : 88.34%, Recall : 90.33%, F-score : 89.33%
+
+20250612 06:52:46
+	Accuracy : 97.73%, Precision : 88.28%, Recall : 90.33%, F-score : 89.29%
+
+20250612 06:52:50
+	Accuracy : 97.73%, Precision : 88.22%, Recall : 90.33%, F-score : 89.26%
+
+20250612 06:52:57
+	Accuracy : 97.28%, Precision : 90.30%, Recall : 82.89%, F-score : 86.44%
+
+20250612 06:53:01
+	Accuracy : 97.27%, Precision : 90.78%, Recall : 82.28%, F-score : 86.32%
+
+20250612 06:53:05
+	Accuracy : 97.40%, Precision : 90.71%, Recall : 83.71%, F-score : 87.07%
+
+20250612 06:53:08
+	Accuracy : 97.62%, Precision : 90.80%, Recall : 86.00%, F-score : 88.33%
+
+20250612 06:53:11
+	Accuracy : 97.90%, Precision : 90.91%, Recall : 88.76%, F-score : 89.82%
+
+20250612 06:53:13
+	Accuracy : 98.05%, Precision : 90.98%, Recall : 90.33%, F-score : 90.66%
+
+20250612 06:53:17
+	Accuracy : 98.04%, Precision : 90.90%, Recall : 90.33%, F-score : 90.61%
+
+20250612 06:53:20
+	Accuracy : 98.04%, Precision : 90.85%, Recall : 90.33%, F-score : 90.59%
+
+20250612 06:53:24
+	Accuracy : 98.03%, Precision : 90.79%, Recall : 90.33%, F-score : 90.56%
+
+20250612 06:53:27
+	Accuracy : 98.02%, Precision : 90.71%, Recall : 90.33%, F-score : 90.52%
+
+20250612 06:53:30
+	Accuracy : 98.02%, Precision : 90.66%, Recall : 90.33%, F-score : 90.50%
+
+20250612 06:53:36
+	Accuracy : 97.94%, Precision : 90.92%, Recall : 89.25%, F-score : 90.08%
+
+20250612 06:53:39
+	Accuracy : 97.94%, Precision : 90.90%, Recall : 89.25%, F-score : 90.07%
+
+20250612 06:53:42
+	Accuracy : 98.07%, Precision : 91.04%, Recall : 90.47%, F-score : 90.76%
+
+20250612 06:53:45
+	Accuracy : 97.79%, Precision : 90.65%, Recall : 87.98%, F-score : 89.30%
+
+20250612 06:53:49
+	Accuracy : 97.87%, Precision : 90.83%, Recall : 88.55%, F-score : 89.68%
+
+20250612 06:53:53
+	Accuracy : 98.05%, Precision : 90.98%, Recall : 90.33%, F-score : 90.66%
+
+20250612 06:53:56
+	Accuracy : 97.52%, Precision : 90.49%, Recall : 85.27%, F-score : 87.80%
+
+20250612 06:54:00
+	Accuracy : 97.70%, Precision : 90.62%, Recall : 86.97%, F-score : 88.76%
+
+20250612 06:54:02
+	Accuracy : 97.67%, Precision : 90.60%, Recall : 86.66%, F-score : 88.59%
+
+20250612 06:54:06
+	Accuracy : 97.52%, Precision : 90.46%, Recall : 85.27%, F-score : 87.79%
+
+20250612 06:54:08
+	Accuracy : 97.53%, Precision : 90.52%, Recall : 85.27%, F-score : 87.82%
+
+20250612 07:03:55
+	Accuracy : 98.33%, Precision : 92.09%, Recall : 91.89%, F-score : 91.99%
+
+20250612 07:03:57
+	Accuracy : 98.27%, Precision : 92.08%, Recall : 91.33%, F-score : 91.70%
+
+20250612 07:04:00
+	Accuracy : 98.61%, Precision : 92.25%, Recall : 94.61%, F-score : 93.42%
+
+20250612 07:04:03
+	Accuracy : 97.98%, Precision : 91.77%, Recall : 88.60%, F-score : 90.16%
+
+20250612 07:04:06
+	Accuracy : 97.70%, Precision : 91.59%, Recall : 85.92%, F-score : 88.67%
+
+20250612 07:04:10
+	Accuracy : 97.11%, Precision : 90.88%, Recall : 80.40%, F-score : 85.32%
+
+20250612 07:04:13
+	Accuracy : 97.17%, Precision : 91.10%, Recall : 80.83%, F-score : 85.66%
+
+20250612 07:04:16
+	Accuracy : 96.93%, Precision : 90.67%, Recall : 78.76%, F-score : 84.30%
+
+20250612 07:04:19
+	Accuracy : 97.23%, Precision : 91.01%, Recall : 81.54%, F-score : 86.01%
+
+20250612 07:04:22
+	Accuracy : 97.20%, Precision : 91.02%, Recall : 81.20%, F-score : 85.83%
+
+20250612 07:04:25
+	Accuracy : 97.23%, Precision : 91.08%, Recall : 81.47%, F-score : 86.01%
+
+20250612 07:04:28
+	Accuracy : 97.28%, Precision : 91.13%, Recall : 81.94%, F-score : 86.29%
+
+20250612 07:04:31
+	Accuracy : 97.28%, Precision : 91.16%, Recall : 81.94%, F-score : 86.30%
+
+20250612 07:04:33
+	Accuracy : 97.23%, Precision : 91.12%, Recall : 81.47%, F-score : 86.03%
+
+20250612 07:04:36
+	Accuracy : 97.25%, Precision : 91.14%, Recall : 81.60%, F-score : 86.10%
+
+20250612 07:04:38
+	Accuracy : 97.19%, Precision : 91.08%, Recall : 81.07%, F-score : 85.78%
+
+20250612 07:04:41
+	Accuracy : 97.28%, Precision : 91.18%, Recall : 81.94%, F-score : 86.31%
+
+20250612 07:04:45
+	Accuracy : 97.33%, Precision : 91.24%, Recall : 82.39%, F-score : 86.59%
+
+20250612 07:04:48
+	Accuracy : 97.28%, Precision : 91.19%, Recall : 81.94%, F-score : 86.32%
+
+20250612 07:04:51
+	Accuracy : 97.38%, Precision : 91.28%, Recall : 82.86%, F-score : 86.87%
+
+20250612 07:04:54
+	Accuracy : 97.23%, Precision : 91.12%, Recall : 81.47%, F-score : 86.03%
+
+20250612 07:04:59
+	Accuracy : 97.87%, Precision : 95.81%, Recall : 83.31%, F-score : 89.12%
+
+20250612 07:05:02
+	Accuracy : 97.86%, Precision : 95.71%, Recall : 83.31%, F-score : 89.08%
+
+20250612 07:05:05
+	Accuracy : 97.85%, Precision : 95.60%, Recall : 83.31%, F-score : 89.03%
+
+20250612 07:05:08
+	Accuracy : 97.84%, Precision : 95.50%, Recall : 83.31%, F-score : 88.98%
+
+20250612 07:05:11
+	Accuracy : 97.97%, Precision : 95.48%, Recall : 84.62%, F-score : 89.72%
+
+20250612 07:05:14
+	Accuracy : 97.96%, Precision : 95.38%, Recall : 84.62%, F-score : 89.68%
+
+20250612 07:05:17
+	Accuracy : 98.12%, Precision : 95.36%, Recall : 86.19%, F-score : 90.55%
+
+20250612 07:05:20
+	Accuracy : 98.15%, Precision : 95.30%, Recall : 86.60%, F-score : 90.74%
+
+20250612 07:05:23
+	Accuracy : 98.14%, Precision : 95.21%, Recall : 86.60%, F-score : 90.70%
+
+20250612 07:05:26
+	Accuracy : 98.13%, Precision : 95.11%, Recall : 86.60%, F-score : 90.66%
+
+20250612 07:05:28
+	Accuracy : 98.13%, Precision : 95.03%, Recall : 86.60%, F-score : 90.62%
+
+20250612 07:05:30
+	Accuracy : 98.12%, Precision : 94.95%, Recall : 86.60%, F-score : 90.58%
+
+20250612 07:05:32
+	Accuracy : 98.11%, Precision : 94.84%, Recall : 86.60%, F-score : 90.53%
+
+20250612 07:05:35
+	Accuracy : 98.10%, Precision : 94.75%, Recall : 86.60%, F-score : 90.49%
+
+20250612 07:05:38
+	Accuracy : 98.23%, Precision : 94.73%, Recall : 87.99%, F-score : 91.24%
+
+20250612 07:05:41
+	Accuracy : 98.22%, Precision : 94.64%, Recall : 87.99%, F-score : 91.19%
+
+20250612 07:05:44
+	Accuracy : 98.21%, Precision : 94.55%, Recall : 87.99%, F-score : 91.15%
+
+20250612 07:05:46
+	Accuracy : 98.20%, Precision : 94.45%, Recall : 87.99%, F-score : 91.11%
+
+20250612 07:05:49
+	Accuracy : 98.19%, Precision : 94.35%, Recall : 87.99%, F-score : 91.06%
+
+20250612 07:05:52
+	Accuracy : 98.40%, Precision : 94.41%, Recall : 90.03%, F-score : 92.17%
+
+20250612 07:05:55
+	Accuracy : 98.39%, Precision : 94.32%, Recall : 90.03%, F-score : 92.12%
+
+20250612 07:05:57
+	Accuracy : 98.38%, Precision : 94.23%, Recall : 90.03%, F-score : 92.08%
+
+20250612 07:05:59
+	Accuracy : 98.37%, Precision : 94.14%, Recall : 90.03%, F-score : 92.04%
+
+20250612 07:06:01
+	Accuracy : 98.36%, Precision : 94.05%, Recall : 90.03%, F-score : 92.00%
+
+20250612 07:06:04
+	Accuracy : 98.35%, Precision : 93.96%, Recall : 90.03%, F-score : 91.95%
+
+20250612 07:06:07
+	Accuracy : 98.34%, Precision : 93.88%, Recall : 90.03%, F-score : 91.92%
+
+20250612 07:06:10
+	Accuracy : 98.33%, Precision : 93.79%, Recall : 90.03%, F-score : 91.87%
+
+20250612 07:06:13
+	Accuracy : 98.33%, Precision : 93.72%, Recall : 90.03%, F-score : 91.84%
+
+20250612 07:06:16
+	Accuracy : 98.59%, Precision : 93.82%, Recall : 92.65%, F-score : 93.23%
+
+20250612 07:06:19
+	Accuracy : 98.58%, Precision : 93.72%, Recall : 92.65%, F-score : 93.18%
+
+20250612 07:06:23
+	Accuracy : 98.57%, Precision : 93.65%, Recall : 92.65%, F-score : 93.14%
+
+20250612 07:06:25
+	Accuracy : 98.57%, Precision : 93.59%, Recall : 92.65%, F-score : 93.11%
+
+20250612 07:06:28
+	Accuracy : 98.56%, Precision : 93.50%, Recall : 92.65%, F-score : 93.07%
+
+20250612 07:06:31
+	Accuracy : 98.55%, Precision : 93.43%, Recall : 92.65%, F-score : 93.04%
+
+20250612 07:06:34
+	Accuracy : 98.54%, Precision : 93.36%, Recall : 92.65%, F-score : 93.01%
+
+20250612 07:06:37
+	Accuracy : 98.54%, Precision : 93.30%, Recall : 92.65%, F-score : 92.97%
+
+20250612 07:06:40
+	Accuracy : 98.53%, Precision : 93.22%, Recall : 92.65%, F-score : 92.93%
+
+20250612 07:06:43
+	Accuracy : 98.52%, Precision : 93.14%, Recall : 92.65%, F-score : 92.90%
+
+20250612 07:06:46
+	Accuracy : 98.51%, Precision : 93.05%, Recall : 92.65%, F-score : 92.85%
+
+20250612 07:06:49
+	Accuracy : 98.50%, Precision : 92.96%, Recall : 92.65%, F-score : 92.81%
+
+20250612 07:06:52
+	Accuracy : 98.49%, Precision : 92.89%, Recall : 92.65%, F-score : 92.77%
+
+20250612 07:06:55
+	Accuracy : 98.48%, Precision : 92.82%, Recall : 92.65%, F-score : 92.73%
+
+20250612 07:06:57
+	Accuracy : 98.47%, Precision : 92.73%, Recall : 92.65%, F-score : 92.69%
+
+20250612 07:06:59
+	Accuracy : 98.46%, Precision : 92.66%, Recall : 92.65%, F-score : 92.65%
+
+20250612 07:07:02
+	Accuracy : 98.46%, Precision : 92.59%, Recall : 92.65%, F-score : 92.62%
+
+20250612 07:07:05
+	Accuracy : 98.45%, Precision : 92.50%, Recall : 92.65%, F-score : 92.58%
+
+20250612 07:07:07
+	Accuracy : 98.44%, Precision : 92.42%, Recall : 92.65%, F-score : 92.53%
+
+20250612 07:07:10
+	Accuracy : 98.43%, Precision : 92.34%, Recall : 92.65%, F-score : 92.49%
+
+20250612 07:07:13
+	Accuracy : 98.62%, Precision : 92.41%, Recall : 94.61%, F-score : 93.50%
+
+20250612 07:07:16
+	Accuracy : 98.61%, Precision : 92.32%, Recall : 94.61%, F-score : 93.45%
+
+20250612 07:07:19
+	Accuracy : 98.60%, Precision : 92.24%, Recall : 94.61%, F-score : 93.41%
+
+20250612 07:07:22
+	Accuracy : 98.60%, Precision : 92.17%, Recall : 94.61%, F-score : 93.37%
+
+20250612 07:07:26
+	Accuracy : 98.59%, Precision : 92.08%, Recall : 94.61%, F-score : 93.33%
+
+20250612 07:07:28
+	Accuracy : 98.58%, Precision : 91.99%, Recall : 94.61%, F-score : 93.28%
+
+20250612 07:07:31
+	Accuracy : 98.57%, Precision : 91.91%, Recall : 94.61%, F-score : 93.24%
+
+20250612 07:07:34
+	Accuracy : 98.56%, Precision : 91.84%, Recall : 94.61%, F-score : 93.21%
+
+20250612 07:07:37
+	Accuracy : 98.55%, Precision : 91.75%, Recall : 94.61%, F-score : 93.16%
+
+20250612 07:07:41
+	Accuracy : 98.54%, Precision : 91.68%, Recall : 94.61%, F-score : 93.12%
+
+20250612 07:07:44
+	Accuracy : 98.53%, Precision : 91.59%, Recall : 94.61%, F-score : 93.07%
+
+20250612 07:07:47
+	Accuracy : 98.52%, Precision : 91.51%, Recall : 94.61%, F-score : 93.03%
+
+20250612 07:07:50
+	Accuracy : 98.51%, Precision : 91.42%, Recall : 94.61%, F-score : 92.99%
+
+20250612 07:07:56
+	Accuracy : 97.48%, Precision : 92.11%, Recall : 82.99%, F-score : 87.32%
+
+20250612 07:07:59
+	Accuracy : 97.85%, Precision : 92.17%, Recall : 86.79%, F-score : 89.40%
+
+20250612 07:08:02
+	Accuracy : 97.83%, Precision : 91.93%, Recall : 86.88%, F-score : 89.34%
+
+20250612 07:08:05
+	Accuracy : 98.42%, Precision : 92.30%, Recall : 92.65%, F-score : 92.47%
+
+20250612 07:08:09
+	Accuracy : 98.42%, Precision : 92.30%, Recall : 92.65%, F-score : 92.47%
+
+20250612 07:08:11
+	Accuracy : 98.62%, Precision : 92.41%, Recall : 94.61%, F-score : 93.50%
+
+20250612 07:08:15
+	Accuracy : 98.62%, Precision : 92.34%, Recall : 94.61%, F-score : 93.46%
+
+20250612 07:08:18
+	Accuracy : 98.61%, Precision : 92.28%, Recall : 94.61%, F-score : 93.43%
+
+20250612 07:08:20
+	Accuracy : 98.61%, Precision : 92.27%, Recall : 94.61%, F-score : 93.43%
+
+20250612 07:08:22
+	Accuracy : 98.61%, Precision : 92.27%, Recall : 94.61%, F-score : 93.43%
+
+20250612 07:08:25
+	Accuracy : 98.61%, Precision : 92.25%, Recall : 94.61%, F-score : 93.42%
+
+20250612 07:08:31
+	Accuracy : 98.79%, Precision : 92.57%, Recall : 96.15%, F-score : 94.33%
+
+20250612 07:08:34
+	Accuracy : 98.34%, Precision : 92.24%, Recall : 91.89%, F-score : 92.07%
+
+20250612 07:08:37
+	Accuracy : 98.78%, Precision : 92.59%, Recall : 96.03%, F-score : 94.28%
+
+20250612 07:08:39
+	Accuracy : 98.29%, Precision : 92.23%, Recall : 91.33%, F-score : 91.78%
+
+20250612 07:08:43
+	Accuracy : 98.44%, Precision : 92.28%, Recall : 92.87%, F-score : 92.57%
+
+20250612 07:08:46
+	Accuracy : 98.62%, Precision : 92.40%, Recall : 94.61%, F-score : 93.49%
+
+20250612 07:08:48
+	Accuracy : 97.77%, Precision : 91.70%, Recall : 86.53%, F-score : 89.04%
+
+20250612 07:08:50
+	Accuracy : 97.85%, Precision : 91.81%, Recall : 87.21%, F-score : 89.45%
+
+20250612 07:08:53
+	Accuracy : 98.27%, Precision : 92.15%, Recall : 91.22%, F-score : 91.68%
+
+20250612 07:08:56
+	Accuracy : 97.72%, Precision : 91.76%, Recall : 85.92%, F-score : 88.74%
+
+20250612 07:08:59
+	Accuracy : 97.82%, Precision : 91.89%, Recall : 86.82%, F-score : 89.28%
+

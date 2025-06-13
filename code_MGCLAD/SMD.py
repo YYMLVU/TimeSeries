@@ -352,7 +352,7 @@ def SMD(args):
 
     label = y_test[window_size:] if y_test is not None else None
     print('label shape:', label.shape)
-    predictor.predict_anomalies(x_train, x_test, label)
+    predictor.predict_anomalies(x_train, x_test, label, is_adjust=args.is_adjust)
 
     # Save config
     args_path = f"{save_path}/config.txt"

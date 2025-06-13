@@ -87,7 +87,7 @@ class Predictor:
         return df
 
     def predict_anomalies(self, train, test, true_anomalies, load_scores=False, save_output=True,
-                          scale_scores=False):
+                          scale_scores=False, is_adjust=True):
         """ Predicts anomalies
 
         :param train: 2D array of train multivariate time series data
@@ -149,11 +149,11 @@ class Predictor:
         # Global anomalies (entity-level) are predicted using aggregation of anomaly scores across all features
         # These predictions are used to evaluate performance, as true anomalies are labeled at entity-level
         # Evaluate using different threshold methods: brute-force, epsilon and peaks-over-treshold
-        e_eval = epsilon_eval(train_anomaly_scores, test_anomaly_scores, true_anomalies, reg_level=self.reg_level)
+        e_eval = epsilon_eval(train_anomaly_scores, test_anomaly_scores, true_anomalies, reg_level=self.reg_level, is_adjust=is_adjust)
         p_eval = pot_eval(train_anomaly_scores, test_anomaly_scores, true_anomalies,
-                          q=self.q, level=self.level, dynamic=self.dynamic_pot)
+                          q=self.q, level=self.level, dynamic=self.dynamic_pot, is_adjust=is_adjust)
         if true_anomalies is not None:
-            bf_eval = bf_search(test_anomaly_scores, true_anomalies, start=0., end=1, step_num=1000, verbose=False)
+            bf_eval = bf_search(test_anomaly_scores, true_anomalies, start=0., end=1, step_num=1000, verbose=False, is_adjust=is_adjust)
         else:
             bf_eval = {}
 

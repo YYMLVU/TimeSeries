@@ -37,6 +37,7 @@ if __name__ == "__main__":
     group_index = args.group[0]
     index = args.group[2]
     args_summary = str(args.__dict__)
+    is_adjust = args.is_adjust
     print(args_summary)
 
     if dataset == 'SMD':
@@ -48,9 +49,10 @@ if __name__ == "__main__":
     elif dataset in ['MSL', 'SMAP']:
         output_path = f'./code_MGCLAD/output/{dataset}'
         (x_train, _), (x_test, y_test) = get_data(dataset, normalize=normalize)
-        with open(f'./code_MGCLAD/datasets/data/processed/{dataset}_train_aug_neg.pkl', 'rb') as f:
-            x_train_aug = pickle.load(f)
-        x_train_aug, _ = normalize_data(x_train_aug, scaler=None)
+        # with open(f'./code_MGCLAD/datasets/data/processed/{dataset}_train_aug_neg.pkl', 'rb') as f:
+        #     x_train_aug = pickle.load(f)
+        # x_train_aug, _ = normalize_data(x_train_aug, scaler=None)
+        x_train_aug = None
     elif dataset in ['SWAT', 'WADI', 'PSM']:
         output_path = f'./code_MGCLAD/output/{dataset}'
         (x_train, _), (x_test, y_test) = get_data(dataset, normalize=normalize)
@@ -116,6 +118,10 @@ if __name__ == "__main__":
     # model = AutoModelForCausalLM.from_pretrained('./weight/', trust_remote_code=True).to(device)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=args.init_lr)
+    # optimizer = torch.optim.Adam([
+    #     {'params': [p for n, p in model.named_parameters() 
+    #             if not n.startswith('mask_generator')], 'lr': args.init_lr}
+    # ])
     forecast_criterion = nn.MSELoss()
     recon_criterion = nn.MSELoss()
 
@@ -137,7 +143,9 @@ if __name__ == "__main__":
         log_tensorboard,
         args_summary
     )
-
+    # if True:
+    #     trainer.load(f"./code_MGCLAD/Pretrain_checkpoint.pth")
+    # exit()
     trainer.fit(train_loader, val_loader, train_aug_loader)
 
     plot_losses_recon(trainer.losses, save_path=save_path, plot=False)
@@ -194,7 +202,7 @@ if __name__ == "__main__":
 
     label = y_test[window_size:] if y_test is not None else None
     print('label shape:', label.shape)
-    predictor.predict_anomalies(x_train, x_test, label)
+    predictor.predict_anomalies(x_train, x_test, label, is_adjust=is_adjust)
 
     # Save config
     args_path = f"{save_path}/config.txt"

@@ -5,7 +5,6 @@ import torch
 import torch.nn as nn
 from torch.utils.tensorboard import SummaryWriter
 
-
 class Trainer:
     """Trainer class for MTAD-GAT model.
 
@@ -93,27 +92,37 @@ class Trainer:
         # init_train_loss = self.evaluate(train_loader)
         # print(f"Init total train loss: {init_train_loss[1]:5f}")
 
-        # if val_loader is not None:
-        #     init_val_loss = self.evaluate(val_loader)
-        #     print(f"Init total val loss: {init_val_loss[1]:.5f}")
+        if val_loader is not None:
+            init_val_loss = self.evaluate(val_loader)
+            print(f"Init total val loss: {init_val_loss[1]:.5f}")
+        # Add
+        self.model.init_wgan_optimizers()
 
         print(f"Training model for {self.n_epochs} epochs..")
         train_start = time.time()
+
         for epoch in range(self.n_epochs):
             epoch_start = time.time()
             self.model.train()
             recon_b_losses = []
             cl_b_losses = []
-
+            # Update WGAN once every few batches Add
+            batch_count = 0
             # Train on original data and augmented data
             if train_aug_loader is None:
                 for xy in train_loader:
                     x, y = xy
                     x = x.to(self.device)
                     y = y.to(self.device)
+
+                    # Update WGAN every 5 batches Add
+                    if batch_count % 5 == 0:
+                        self.model.update_wgan(x)
+                    batch_count += 1
+
                     self.optimizer.zero_grad()
 
-                    recons, cl = self.model(x)
+                    recons, cl = self.model(x) # Add
 
                     if self.target_dims is not None:
                         x = x[:, :, self.target_dims]
