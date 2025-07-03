@@ -61,3 +61,13 @@ python ./sub_adjacent_transformer-main/main.py --anormly_ratio 0.7 --num_epochs 
 
 F-score : 99.0%
 
+动态构图 + 简单结构系数
+20250701 22:59:46
+	Accuracy : 99.73%, Precision : 98.44%, Recall : 99.34%, F-score : 98.88%
+
+仅动态构图
+20250630 14:56:13
+	Accuracy : 99.73%, Precision : 98.00%, Recall : 99.77%, F-score : 98.88%
+
+
+

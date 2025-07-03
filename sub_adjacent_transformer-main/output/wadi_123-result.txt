@@ -1,0 +1,13 @@
+动态构图 + 简单结构系数
+20250702 04:53:27
+	Accuracy : 99.59%, Precision : 93.39%, Recall : 100.00%, F-score : 96.58%
+
+仅动态构图
+20250703 02:34:53
+	Accuracy : 99.59%, Precision : 93.31%, Recall : 100.00%, F-score : 96.54%
+
+消融：
+20250703 13:17:28
+	Accuracy : 99.72%, Precision : 95.33%, Recall : 100.00%, F-score : 97.61%
+
+

@@ -8,8 +8,9 @@ import torch.nn.functional as F
 
 from models.modules import ConvLayer, ReconstructionModel
 from models.transformer import EncoderLayer, MultiHeadAttention
-# from models.graph import DynamicGraphEmbedding
-from models.AnomalyGraph import DynamicGraphEmbedding
+from models.graph import DynamicGraphEmbedding
+# from models.graph import GraphEmbedding
+# from models.AnomalyGraph import DynamicGraphEmbedding
 from model.AnomalyTransformer import AnomalyTransformer
 from models.contrastive_loss import local_infoNCE, global_infoNCE
 
@@ -230,7 +231,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         self.use_cross_loss = True  # 
         self.use_contrastive = True
         self.use_intra_graph = True  
-        self.use_inter_graph = True
+        self.use_inter_graph = True # 消融
         self.device = device
 
         # preprocessing
@@ -243,6 +244,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         # inter embedding module based on GNN
         # self.inter_module = GraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device))
         self.inter_module = DynamicGraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device), lambda_val=1.0).to(device)
+        # self.inter_module = None
         # self.inter_module = DynamicGraphEmbedding(in_channels=self.window_size, out_channels=self.window_size, num_nodes=n_features, topk=20, heads=2, concat=False, dropout=0.1, lambda_val=1.0).to('cuda')
         # self.inter_module = GATEmbedding(num_nodes=n_features, seq_len=window_size).to(device)
 

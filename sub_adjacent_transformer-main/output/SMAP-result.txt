@@ -19,3 +19,4 @@ python ./sub_adjacent_transformer-main/main.py --anormly_ratio 1 --num_epochs 3 
 
 F-score : 98.2%
 
+

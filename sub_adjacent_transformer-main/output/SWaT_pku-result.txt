@@ -1,0 +1,8 @@
+仅动态构图
+20250703 07:01:06
+	Accuracy : 99.64%, Precision : 97.50%, Recall : 99.59%, F-score : 98.54%
+
+消融：
+20250703 18:47:29
+	Accuracy : 99.65%, Precision : 97.61%, Recall : 99.57%, F-score : 98.58%
+
