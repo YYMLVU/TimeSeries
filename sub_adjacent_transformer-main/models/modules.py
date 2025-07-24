@@ -21,6 +21,38 @@ class ConvLayer(nn.Module):
         x = self.padding(x)
         x = self.relu(self.conv(x))
         return x.permute(0, 2, 1)  # Permute back
+    
+class SmoothLayer(nn.Module):
+    def __init__(self, num_features, kernel_size):
+        """
+        num_features: 特征维度（对应输入的 num_features）
+        p_l: 卷积核大小（分块大小，对应公式里的 p_l）
+        """
+        super(SmoothLayer, self).__init__()
+        # 一维卷积：输入通道=num_features，输出通道=num_features（保持特征数不变）
+        # 卷积核大小=p_l，padding 设为 (p_l - 1) // 2 可保持输出长度和输入一致（window_size 不变）
+        self.conv1d = nn.Conv1d(
+            in_channels=num_features,  
+            out_channels=num_features, 
+            kernel_size=kernel_size,           
+            padding=(kernel_size - 1) // 2,    
+            bias=True  # 是否加偏置 b，对应公式里的 +b
+        )
+
+    def forward(self, x):
+        """
+        x: 输入张量，维度 [batch_size, window_size, num_features]
+        """
+        # 1. 转置维度：[batch_size, window_size, num_features] -> [batch_size, num_features, window_size]
+        x_transposed = x.transpose(1, 2)  
+        
+        # 2. 一维卷积：在 window_size 维度做平滑
+        x_conv = self.conv1d(x_transposed)  
+        
+        # 3. 转回原维度：[batch_size, num_features, window_size] -> [batch_size, window_size, num_features]
+        x_smooth = x_conv.transpose(1, 2)  
+        
+        return x_smooth
 
 
 class GRULayer(nn.Module):

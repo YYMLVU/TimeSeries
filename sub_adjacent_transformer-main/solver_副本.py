@@ -10,12 +10,10 @@ import time
 from utils.utils import *
 from utils.eval import *
 # from model.AnomalyTransformer import AnomalyTransformer
-# from models.model_cgraph_trans import MODEL_CGRAPH_TRANS
-from models.single_branch_model import MODEL_CGRAPH_TRANS
+from models.model_cgraph_trans import MODEL_CGRAPH_TRANS
 from data_factory.data_loader import get_loader_segment
 import matplotlib.pyplot as plt
 from thop import profile
-from tqdm import tqdm
 
 
 def my_kl_loss(p, q):
@@ -100,6 +98,9 @@ class Solver(object):
 
     def __init__(self, config):
 
+        # seed = config.seed if hasattr(config, 'seed') else 42
+        # set_random_seed(seed)
+
         self.__dict__.update(Solver.DEFAULTS, **config)
 
         self.train_loader = get_loader_segment(self.data_path, batch_size=self.batch_size, win_size=self.win_size,
@@ -170,7 +171,7 @@ class Solver(object):
         loss_2 = []
         for i, (input_data, _) in enumerate(vali_loader):
             input_ = input_data.float().to(self.device)
-            output, cl, queries_list, keys_list = self.model(input_)
+            output, cl, queries_list, keys_list = self.model(input_, training=False)  # Add_2
             len_list = len(queries_list)
             loss_attn = 0.0
 
@@ -181,11 +182,11 @@ class Solver(object):
 
             rec_loss = self.criterion(output, input_)
 
-            thisLoss1 = rec_loss + cl
-            thisLoss2 = rec_loss + cl - self.k * loss_attn
+            # thisLoss1 = rec_loss + cl
+            # thisLoss2 = 2 * rec_loss + 0.1 * cl - self.k * loss_attn
 
-            loss_1.append(thisLoss1.item())
-            loss_2.append(thisLoss2.item())
+            loss_1.append(rec_loss.item())
+            loss_2.append(loss_attn.item())
 
             # Add_2
             # output, cl = self.model(input_)
@@ -210,265 +211,129 @@ class Solver(object):
             os.makedirs(path, exist_ok=True)
         # early_stopping = EarlyStopping(patience=3, verbose=True, dataset_name=self.dataset)
         train_steps = len(self.train_loader)
+        # Add
+        self.model.init_wgan_optimizers()
 
         params, flops = 0, 0
-        epoch_time = 0
-        memory_used = 0
-
-        # Phase 1: Warmup with random masking (freeze GAN)
-        print("Phase 1: Warmup training with random masking...")
-        logging.info("Phase 1: Warmup training with random masking...")
-        self.model.set_training_phase('warmup')
-        self.model.freeze_gan_model()
-        for epoch in range(self.model.warmup_epochs):
-            self._train_epoch(epoch, 'warmup', train_steps, time_now, params, flops)
-
-
-        # Phase 2: GAN pre-training (freeze main model)
-        print("Phase 2: GAN pre-training...")
-        logging.info("Phase 2: GAN pre-training...")
-        self.model.set_training_phase('gan_pretrain')
-        self.model.freeze_main_model()
-        self.model.unfreeze_gan_model()
-        self.model.init_wgan_optimizers()
-        for epoch in range(self.model.gan_pretrain_epochs):
-            self._train_gan_epoch(epoch)
-
-
-        # Phase 3: Alternating training
-        print("Phase 3: Alternating training...")
-        logging.info("Phase 3: Alternating training...")
-        self.model.set_training_phase('alternate')
-        self.model.unfreeze_main_model()
-        # remaining_epochs = self.num_epochs - self.model.warmup_epochs - self.model.gan_pretrain_epochs
         for epoch in range(self.num_epochs):
-            # actual_epoch = epoch + self.model.warmup_epochs + self.model.gan_pretrain_epochs
-            # self._train_epoch_alternating(actual_epoch, train_steps, time_now, params, flops)
-            epoch_time, flops, params, memory_used = self._train_epoch_alternating(epoch, train_steps, time_now, params, flops)
+            iter_count = 0
+            loss1_list = []
+            loss2_list = []
+            epoch_start_time = time.time()
+            self.model.train()
+            # best_loss_attn = 0
+            # best_loss_rec = 0
+            # best_loss_cl = 0
+            best_loss = np.inf
+            early_turn = 0
 
-        return epoch_time, flops, params, memory_used  
-    
-    def _train_epoch(self, epoch, phase, train_steps, time_now, params, flops):
-        """Standard training epoch for warmup phase"""
-        iter_count = 0
-        loss1_list = []
-        loss2_list = []
-        epoch_start_time = time.time()
-        self.model.train()
-
-        # 在循环开始前创建进度条
-        progress_bar = tqdm(enumerate(self.train_loader), 
-                            total=len(self.train_loader), 
-                            desc=f"Epoch {epoch+1}/{self.num_epochs}",
-                            leave=True)
-
-        for i, (input_data, labels) in progress_bar:
-            # if i > 300:  # Limit warmup phase samples
-            #     break
-            self.optimizer.zero_grad()
-            iter_count += 1
-            input_ = input_data.float().to(self.device)
-
-            if epoch == 0 and i == 0 and phase == 'warmup':
-                input_profile = input_[[0]]
-                flops, params = profile(self.model2, inputs=(input_profile,))
-                flops = flops/1e9
-                params = params/1e6
-                epoch_start_time = time.time()
-
-            output, cl, queries_list, keys_list = self.model(input_)
-            len_list = len(queries_list)
-
-            # Calculate Association discrepancy
-            loss_attn = 0.0
-            if not self.no_point_adjustment:
-                for u in range(len_list):
-                    loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside).mean()
-            else:
-                loss_attn = 0
-            loss_attn = loss_attn / len_list
-
-            rec_loss = self.criterion(output, input_)
-
-            loss1 = rec_loss + cl
-            loss2 = 2*rec_loss + cl - self.k * loss_attn
-
-            loss1_list.append(loss1.item())
-            loss2_list.append(loss2.item())
-
-            if not self.no_point_adjustment:
-                loss2.backward()
-            else:
-                loss2.backward()
-
-            self.optimizer.step()
-            
-            if (i + 1) % 50 == 0:
-                speed = (time.time() - time_now) / iter_count
-                left_time = speed * ((self.num_epochs - epoch) * train_steps - i)
-                # info = (f'\t loss1: {loss1:.4f}, loss2: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}'
-                #         f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
-                info = (f'loss_attn: {loss_attn:.4f}, loss: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}'
-                        f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
-                
-                # 更新进度条显示
-                progress_bar.set_postfix_str(info)
-
-                # print(info, end='\r')
-                logging.info(f'\t{info}')
-                iter_count = 0
-                time_now = time.time()
-
-        memory_used = torch.cuda.max_memory_allocated() / (1024.0 * 1024.0 * 1024.0)
-        epoch_time = time.time() - epoch_start_time
-        info = (f"Epoch: {epoch + 1} cost time: {epoch_time}, memory: {memory_used:.2f}GB")
-        print(info)
-        logging.info(info)
-
-        torch.save(self.model.state_dict(), self.checkpoint_file)
-        adjust_learning_rate(self.optimizer, epoch + 1, self.lr)
-        
-        return epoch_time, flops, params, memory_used
-
-    def _train_gan_epoch(self, epoch):
-        """GAN pre-training epoch"""
-        epoch_start_time = time.time()
-        
-        for i, (input_data, _) in enumerate(self.train_loader):
-            if i > 50:  # Limit GAN pre-training samples
-                break
-                
-            input_ = input_data.float().to(self.device)
-            
-            # Train GAN with reconstruction loss
-            gan_stats = self.model.update_wgan_with_recon(input_)
-            
-            if i % 50 == 0:
-                print(f"GAN Pre-train Epoch {epoch+1}, Batch {i}: "
-                      f"D_loss={gan_stats['discriminator_loss']:.4f}, "
-                      f"G_loss={gan_stats['generator_loss']:.4f}, "
-                      f"Adv_loss={gan_stats['adversarial_loss']:.4f}, "
-                      f"Recon_loss={gan_stats['reconstruction_loss']:.4f}")
-                logging.info(f"GAN Pre-train Epoch {epoch+1}, Batch {i}: "
-                             f"D_loss={gan_stats['discriminator_loss']:.4f}, "
-                                f"G_loss={gan_stats['generator_loss']:.4f}, "
-                                f"Adv_loss={gan_stats['adversarial_loss']:.4f}, "
-                                f"Recon_loss={gan_stats['reconstruction_loss']:.4f}")
-
-        epoch_time = time.time() - epoch_start_time
-        info = f"GAN Pre-train Epoch: {epoch + 1} cost time: {epoch_time}"
-        print(info)
-        logging.info(info)
-
-        return epoch_time, 0, 0, 0  # No flops or params for GAN pre-training
-
-    def _train_epoch_alternating(self, epoch, train_steps, time_now, params, flops):
-        """Alternating training epoch"""
-        iter_count = 0
-        loss1_list = []
-        loss2_list = []
-        epoch_start_time = time.time()
-        self.model.train()
-
-        # 创建进度条，设置总长度和描述信息
-        progress_bar = tqdm(enumerate(self.train_loader), 
-                        total=len(self.train_loader),
-                        desc=f"Epoch {epoch+1}/{self.num_epochs}",
-                        leave=True)
-
-
-        for i, (input_data, labels) in progress_bar:
-            self.optimizer.zero_grad()
-            iter_count += 1
-            input_ = input_data.float().to(self.device)
-
-            # Update GAN every 5 iterations
-            if i % 10 == 0 and i > 0:
-                # Temporarily freeze main model for GAN update
-                gan_param_ids = set()
-                for param in self.model.mask_generator.parameters():
-                    gan_param_ids.add(id(param))
-                for param in self.model.discriminator.parameters():
-                    gan_param_ids.add(id(param))
-                
-                # Disable main model gradients
-                for param in self.model.parameters():
-                    if id(param) not in gan_param_ids:
-                        param.requires_grad = False
-                        
-                gan_stats = self.model.update_wgan_with_recon(input_)
-
-                # Re-enable main model gradients
-                for param in self.model.parameters():
-                    param.requires_grad = True
-
-                if i % 100 == 0:
-                    # 准备GAN状态信息
-                    gan_info = (f"GAN stats: D_loss={gan_stats['discriminator_loss']:.4f}, "
-                            f"G_loss={gan_stats['generator_loss']:.4f}, "
-                            f"Adv_loss={gan_stats['adversarial_loss']:.4f}, "
-                            f"Recon_loss={gan_stats['reconstruction_loss']:.4f}")
-                    
-                    # 在进度条下方打印GAN信息
-                    tqdm.write(gan_info)
-                    # 保持日志记录不变
-                    logging.info(f'\t{gan_info}')
-
-                # Clear gradients after GAN update
+            for i, (input_data, labels) in enumerate(self.train_loader):
                 self.optimizer.zero_grad()
+                iter_count += 1
+                input_ = input_data.float().to(self.device)
 
-            # Main model training
-            output, cl, queries_list, keys_list = self.model(input_)
-            len_list = len(queries_list)
+                if epoch == 0 and i == 0:
+                    input_profile = input_[[0]]
+                    flops, params = profile(self.model2, inputs=(input_profile,))
+                    flops = flops/1e9
+                    params = params/1e6
+                    epoch_start_time = time.time()
 
-            # Calculate Association discrepancy
-            loss_attn = 0.0
-            if not self.no_point_adjustment:
-                for u in range(len_list):
-                    loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside).mean()
-            else:
-                loss_attn = 0
-            loss_attn = loss_attn / len_list
+                # output, queries_list, keys_list = self.model(input_)
 
-            rec_loss = self.criterion(output, input_)
+                # Update WGAN every 5 batches Add
+                if i % 5 == 0:
+                    self.model.update_wgan(input_)
 
-            loss1 = rec_loss + cl
-            loss2 = 2*rec_loss + cl - self.k * loss_attn
+                output, cl, queries_list, keys_list = self.model(input_) # Add_2
+                len_list = len(queries_list)
 
-            loss1_list.append(loss1.item())
-            loss2_list.append(loss2.item())
+                # calculate Association discrepancy
+                loss_attn = 0.0
+                if not self.no_point_adjustment:
+                    for u in range(len_list):
+                        # b,l,h,d
+                        loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside).mean()
+                else:
+                    loss_attn = 0
+                loss_attn = loss_attn / len_list
 
-            if not self.no_point_adjustment:
-                loss2.backward()
-            else:
-                loss2.backward()
+                rec_loss = self.criterion(output, input_)
 
-            self.optimizer.step()
-            
-            if (i + 1) % 50 == 0:
-                speed = (time.time() - time_now) / iter_count
-                left_time = speed * ((self.num_epochs - epoch) * train_steps - i)
-                # info = (f'\t loss1: {loss1:.4f}, loss2: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}'
-                #         f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
-                info = (f'loss_attn: {loss_attn:.4f}, loss: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}'
-                        f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
+                # loss1 = rec_loss + cl
+                loss2 = 2 * rec_loss + cl - self.k * loss_attn  # loss_attn is used to distinguish normals and anomalies
+                # loss2 = rec_loss + cl
+                # test Equivalence
+                # loss3 = 2*rec_loss - self.k * loss_attn
+
+                # loss1_list.append(loss1.item())
+                loss2_list.append(loss2.item())
+                # vail_rec_loss, vali_loss_attn = self.vali(self.train_nolap_loader)
+                # loss_vali = vali_loss_attn + vail_rec_loss
+                # if loss_vali >= best_loss:
+                #     early_turn += 1
+                #     if early_turn >= 3:
+                #         print(f'Early stopping at epoch {epoch}, batch {i} with loss {loss_vali:.4f}')
+                #         # early_stopping(vali_loss_attn, self.model, path)
+                #         break
+                # else:
+                #     early_turn = 0
+                #     best_loss = loss_vali
+
+                # if output.isnan().any() or cl.isnan().any() or queries_list[0].isnan().any() or keys_list[0].isnan().any():
+                #     logging.info('output:', output)
+                #     logging.info('cl:', cl)
+                #     logging.info('queries:', queries_list[0])
+                #     logging.info('keys:', keys_list[0])
+                #     continue
+                # else:
+                #     if loss_attn >= best_loss_attn and rec_loss <= best_loss_cl and cl <= best_loss_cl and loss2 <= best_loss:
+                #         torch.save(self.model.state_dict(), self.checkpoint_file)                                
+
+                if not self.no_point_adjustment:
+                    # using point adjustment
+                    # loss3.backward()
+                    loss2.backward()
+                    # loss1.backward()  # just for attention matrix plot
+                else:
+                    # no_point_adjustment
+                    # loss3.backward()
+                    loss2.backward()
+
+                self.optimizer.step()
+                # if epoch >= self.model.gan_warmup_epochs and hasattr(self.model, 'gan_augment') and self.model.use_gan:
+                #     if i % self.model.gan_train_freq == 0:
+                #         gan_loss = self.model.gan_augment.train_gan(input_, output, loss1)
+                #         # 每50批次输出一次GAN统计信息
+                #         if i % 50 == 0:
+                #             gan_stats = self.model.gan_augment.get_stats()
+                #             gan_info = f'gan_loss: {gan_loss:.4f}, ' \
+                #                     f'strategy: {self.model.gan_augment.current_strategy}'
+                #             print(gan_info)
+                #             # logging.info(gan_info)
                 
-                # 更新进度条的后缀信息
-                progress_bar.set_postfix_str(info)
+                if (i + 1) % 50 == 0:
+                    # 输出信息
+                    speed = (time.time() - time_now) / iter_count
+                    left_time = speed * ((self.num_epochs - epoch) * train_steps - i)
+                    # info = (f'\t loss1: {loss1:.4f}, loss2: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}'
+                    #         f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
+                    info = (f'\t loss_attn: {loss_attn:.4f}, loss: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}'
+                            f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
+                    print(info)
+                    logging.info(info)
+                    iter_count = 0
+                    time_now = time.time()
 
-                # print(info, end='\r')
-                logging.info(f'\t{info}')
-                iter_count = 0
-                time_now = time.time()
+            memory_used = torch.cuda.max_memory_allocated() / (1024.0 * 1024.0 * 1024.0)
+            epoch_time = time.time() - epoch_start_time
+            info = (f"Epoch: {epoch + 1} cost time: {epoch_time}, memory: {memory_used:.2f}GB, "
+                    f"flops: {flops}GFLOPS, params: {params}M")
+            print(info)
+            logging.info(info)
 
-        memory_used = torch.cuda.max_memory_allocated() / (1024.0 * 1024.0 * 1024.0)
-        epoch_time = time.time() - epoch_start_time
-        info = (f"Epoch: {epoch + 1} cost time: {epoch_time}, memory: {memory_used:.2f}GB")
-        print(info)
-        logging.info(info)
-
-        torch.save(self.model.state_dict(), self.checkpoint_file)
-        adjust_learning_rate(self.optimizer, epoch + 1, self.lr)
+            torch.save(self.model.state_dict(), self.checkpoint_file)
+            adjust_learning_rate(self.optimizer, epoch + 1, self.lr)
 
         return epoch_time, flops, params, memory_used
 
@@ -601,7 +466,7 @@ class Solver(object):
 
             start_time = time.time()
             # output, queries_list, keys_list = self.model(input_)
-            output, cl, queries_list, keys_list = self.model(input_, training=False)
+            output, cl, queries_list, keys_list = self.model(input_, training=False)  # Add_2
             eval_time += time.time() - start_time
 
             len_list = len(queries_list)

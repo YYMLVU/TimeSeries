@@ -6,10 +6,13 @@ import random
 import numpy as np
 import torch.nn.functional as F
 
-from models.modules import ConvLayer, ReconstructionModel
+from models.modules import ConvLayer, ReconstructionModel, SmoothLayer
 from models.transformer import EncoderLayer, MultiHeadAttention
-from models.graph import DynamicGraphEmbedding
-# from models.graph import GraphEmbedding
+from models.graph import DynamicGraphEmbedding, GraphEmbedding
+from models.graph_1 import GraphEmbedding as GraphEmbedding1
+from models.graph_2 import GraphEmbedding as GraphEmbedding2
+from models.graph_3 import GraphEmbedding as GraphEmbedding3
+from models.gnn_plus import create_gnn_plus_complete_model
 # from models.AnomalyGraph import DynamicGraphEmbedding
 from model.AnomalyTransformer import AnomalyTransformer
 from models.contrastive_loss import local_infoNCE, global_infoNCE
@@ -236,21 +239,43 @@ class MODEL_CGRAPH_TRANS(nn.Module):
 
         # preprocessing
         self.conv = ConvLayer(n_features, 7)
+        # self.conv = SmoothLayer(n_features, kernel_size=7)
 
         # augmentation learnable parameters
         self.param = nn.Linear(self.f_dim, self.f_dim)
 
         self.num_levels = 1
-        # inter embedding module based on GNN
-        # self.inter_module = GraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device))
-        self.inter_module = DynamicGraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device), lambda_val=1.0).to(device)
-        # self.inter_module = None
-        # self.inter_module = DynamicGraphEmbedding(in_channels=self.window_size, out_channels=self.window_size, num_nodes=n_features, topk=20, heads=2, concat=False, dropout=0.1, lambda_val=1.0).to('cuda')
-        # self.inter_module = GATEmbedding(num_nodes=n_features, seq_len=window_size).to(device)
+        if self.use_inter_graph:
+            # inter embedding module based on GNN
+            # self.inter_module = GraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device)) # graph
+            # self.inter_module = GraphEmbedding1(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, embed_dim=64, device=torch.device(device)) # graph1
+            # self.inter_module = GraphEmbedding2(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device)) # graph2
+            # self.inter_module = GraphEmbedding3(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device)) # graph3
 
-        # intra embedding module based on GNN
-        # self.intra_module = GraphEmbedding(num_nodes=window_size, seq_len=n_features, num_levels=self.num_levels, device=torch.device(device))
-        self.intra_module = AnomalyTransformer(win_size=self.window_size, enc_in=n_features, c_out=n_features, e_layers=3, linear_attn=True).to(device)
+            config = {
+                'num_nodes': n_features,
+                'seq_len': window_size,
+                'device': torch.device(device),
+                'mp_type': 'gcn',
+                'num_layers': self.num_levels,
+                'hidden_dim': 64,
+                'dropout': 0.1,
+                'use_positional_encoding': True,
+                'use_edge_features': True,
+                'use_dynamic_edges': True
+            }
+
+            self.inter_module = create_gnn_plus_complete_model(config).to(device)
+
+            # self.inter_module = DynamicGraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device)) # graph
+            # self.inter_module = DynamicGraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device), lambda_val=1.0).to(device) # anomalygraph
+            # self.inter_module = None
+            # self.inter_module = DynamicGraphEmbedding(in_channels=self.window_size, out_channels=self.window_size, num_nodes=n_features, topk=20, heads=2, concat=False, dropout=0.1, lambda_val=1.0).to('cuda') # anomalygraph
+
+        if self.use_intra_graph:
+            # intra embedding module based on GNN
+            # self.intra_module = GraphEmbedding(num_nodes=window_size, seq_len=n_features, num_levels=self.num_levels, device=torch.device(device))
+            self.intra_module = AnomalyTransformer(win_size=self.window_size, enc_in=n_features, c_out=n_features, e_layers=3, linear_attn=True)
 
         # projection head
         #self.proj_head_inter = ProjectionLayer(n_feature=self.f_dim, num_heads=1, dropout=dropout)
@@ -576,13 +601,14 @@ class MODEL_CGRAPH_TRANS(nn.Module):
 
         if training:
             x_aug = self.aug_feature_wgan(x)
+            # x_aug = self.aug_feature(x)
         else:
             x_aug = x
-        
+
         # intra graph
         if self.use_intra_graph:
             # enc_intra = self.intra_module(x.permute(0, 2, 1))   # >> (b, k, n)
-            enc_intra, queries_list, keys_list = self.intra_module(x)   # >> (b, k, n)
+            enc_intra, queries_list_intra, keys_list_intra = self.intra_module(x)   # >> (b, k, n)
             enc_intra = enc_intra.permute(0, 2, 1)   # >> (b, n, k)
 
             # projection head
@@ -591,6 +617,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         # inter graph
         if self.use_inter_graph:
             enc_inter = self.inter_module(x)  # >> (b, n, k)
+            # enc_inter, queries_list_inter, keys_list_inter = self.inter_module(x)
 
             # projection head
             enc_inter = self.proj_head_inter(enc_inter)
@@ -601,6 +628,14 @@ class MODEL_CGRAPH_TRANS(nn.Module):
                 # intra aug
                 # enc_intra_aug = self.intra_module(x_aug.permute(0, 2, 1))  # >> (b, k, n)
                 enc_intra_aug, queries_list_aug, keys_list_aug = self.intra_module(x_aug)
+
+                # for i in range(len(queries_list_aug)):
+                #     queries_list_intra[i] = queries_list_intra[i] + queries_list_aug[i]
+                #     keys_list_intra[i] = keys_list_intra[i] + keys_list_aug[i]
+                #     # print("queries_list_intra[0].shape:", queries_list_intra[0].shape)
+                #     # print("keys_list_intra[0].shape:", keys_list_intra[0].shape)
+                #     # print(len(queries_list_aug))
+                    
                 enc_intra_aug = enc_intra_aug.permute(0, 2, 1)   # >> (b, n, k)
                 # projection head
                 enc_intra_aug = self.proj_head_intra(enc_intra_aug).permute(0, 2, 1)
@@ -610,6 +645,16 @@ class MODEL_CGRAPH_TRANS(nn.Module):
             if self.use_inter_graph:
                 # inter aug
                 enc_inter_aug = self.inter_module(x_aug)
+                # enc_inter_aug, queries_list_inter_aug, keys_list_inter_aug = self.inter_module(x_aug)
+
+                # for i in range(len(queries_list_inter_aug)):
+                #     queries_list_inter[i] = queries_list_inter[i] + queries_list_inter_aug[i]
+                #     keys_list_inter[i] = keys_list_inter[i] + keys_list_inter_aug[i]
+                #     # print("queries_list_inter[0].shape:", queries_list_inter[0].shape)
+                #     # print("keys_list_inter[0].shape:", keys_list_inter[0].shape)
+                #     # print(len(queries_list_inter_aug))
+                #     # exit()
+
                 # projection head
                 enc_inter_aug = self.proj_head_inter(enc_inter_aug)
                 # contrastive loss
@@ -666,6 +711,18 @@ class MODEL_CGRAPH_TRANS(nn.Module):
             dec = self.decoder(enc)
         out = self.linear(dec)
 
-        return out, loss_cl, queries_list, keys_list
+        # # Combine queries and keys from both branches for anomaly detection
+        # if self.use_intra_graph and self.use_inter_graph:
+        #     # Combine attention from both branches
+        #     combined_queries = queries_list_intra + queries_list_inter
+        #     combined_keys = keys_list_intra + keys_list_inter
+        #     return out, loss_cl, combined_queries, combined_keys
+        # elif self.use_intra_graph:
+        #     return out, loss_cl, queries_list_intra, keys_list_intra
+        # elif self.use_inter_graph:
+        #     return out, loss_cl, queries_list_inter, keys_list_inter
+        # else:
+        #     return out, loss_cl, [], []
+        return out, loss_cl, queries_list_intra, keys_list_intra
 
 
