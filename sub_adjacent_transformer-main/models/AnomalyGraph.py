@@ -465,238 +465,238 @@ import networkx as nx
 
 #         return enhanced_feat
 
-class AdaGCNConv(MessagePassing):
-    def __init__(self, num_nodes, in_channels, out_channels, improved=False, 
-                 add_self_loops=False, normalize=True, bias=True, init_method='all', lambda_val=1.0):
-        super(AdaGCNConv, self).__init__(aggr='add', node_dim=0)
-        self.num_nodes = num_nodes
-        self.in_channels = in_channels
-        self.out_channels = out_channels
-        self.improved = improved
-        self.add_self_loops = add_self_loops
-        self.normalize = normalize
-        self.bias = bias
-        self.init_method = init_method
-        self.lambda_val = lambda_val  # 结构系数参数λ
+# class AdaGCNConv(MessagePassing):
+#     def __init__(self, num_nodes, in_channels, out_channels, improved=False, 
+#                  add_self_loops=False, normalize=True, bias=True, init_method='all', lambda_val=1.0):
+#         super(AdaGCNConv, self).__init__(aggr='add', node_dim=0)
+#         self.num_nodes = num_nodes
+#         self.in_channels = in_channels
+#         self.out_channels = out_channels
+#         self.improved = improved
+#         self.add_self_loops = add_self_loops
+#         self.normalize = normalize
+#         self.bias = bias
+#         self.init_method = init_method
+#         self.lambda_val = lambda_val  # 结构系数参数λ
 
-        self.weight = Parameter(torch.Tensor(in_channels, out_channels))
+#         self.weight = Parameter(torch.Tensor(in_channels, out_channels))
 
-        if bias:
-            self.bias = Parameter(torch.Tensor(out_channels))
-        else:
-            self.register_parameter('bias', None)
+#         if bias:
+#             self.bias = Parameter(torch.Tensor(out_channels))
+#         else:
+#             self.register_parameter('bias', None)
         
-        # 不再需要预初始化logits
-        self.logits = None
-        self.reset_parameters()
+#         # 不再需要预初始化logits
+#         self.logits = None
+#         self.reset_parameters()
 
-    def reset_parameters(self):
-        glorot(self.weight)
-        zeros(self.bias)
+#     def reset_parameters(self):
+#         glorot(self.weight)
+#         zeros(self.bias)
     
-    # def compute_structural_coeff(self, edge_index):
-    #     """计算结构系数矩阵"""
-    #     # 创建对称邻接矩阵（无自环）
-    #     adj = torch.zeros((self.num_nodes, self.num_nodes), 
-    #                      device=edge_index.device)
-    #     adj[edge_index[0], edge_index[1]] = 1
-    #     adj = (adj + adj.t()).clamp(0, 1)  # 确保对称
+#     # def compute_structural_coeff(self, edge_index):
+#     #     """计算结构系数矩阵"""
+#     #     # 创建对称邻接矩阵（无自环）
+#     #     adj = torch.zeros((self.num_nodes, self.num_nodes), 
+#     #                      device=edge_index.device)
+#     #     adj[edge_index[0], edge_index[1]] = 1
+#     #     adj = (adj + adj.t()).clamp(0, 1)  # 确保对称
         
-    #     # 计算共同邻居矩阵
-    #     common_neighbors = torch.mm(adj, adj.t())
+#     #     # 计算共同邻居矩阵
+#     #     common_neighbors = torch.mm(adj, adj.t())
         
-    #     # 计算结构系数
-    #     structural_coeff = torch.zeros_like(adj, dtype=torch.float)
-    #     for i in range(self.num_nodes):
-    #         for j in range(self.num_nodes):
-    #             if adj[i, j] == 1:  # 只处理存在的边
-    #                 cn = common_neighbors[i, j].item()
-    #                 n_nodes = 2 + cn  # |V_uv| = 2 + |N(u)∩N(v)|
-    #                 n_edges_approx = 1 + 2 * cn  # 近似边数 (u-v, u-cn, v-cn)
+#     #     # 计算结构系数
+#     #     structural_coeff = torch.zeros_like(adj, dtype=torch.float)
+#     #     for i in range(self.num_nodes):
+#     #         for j in range(self.num_nodes):
+#     #             if adj[i, j] == 1:  # 只处理存在的边
+#     #                 cn = common_neighbors[i, j].item()
+#     #                 n_nodes = 2 + cn  # |V_uv| = 2 + |N(u)∩N(v)|
+#     #                 n_edges_approx = 1 + 2 * cn  # 近似边数 (u-v, u-cn, v-cn)
                     
-    #                 # 避免除以零
-    #                 if n_nodes > 1:
-    #                     density = n_edges_approx / (n_nodes * (n_nodes - 1))
-    #                     structural_coeff[i, j] = density * (n_nodes ** self.lambda_val)
+#     #                 # 避免除以零
+#     #                 if n_nodes > 1:
+#     #                     density = n_edges_approx / (n_nodes * (n_nodes - 1))
+#     #                     structural_coeff[i, j] = density * (n_nodes ** self.lambda_val)
         
-    #     return structural_coeff
+#     #     return structural_coeff
     
-    # def compute_structural_coeff(self, edge_index):
-    #     """
-    #     基于共同邻居子图密度的结构系数计算
+#     # def compute_structural_coeff(self, edge_index):
+#     #     """
+#     #     基于共同邻居子图密度的结构系数计算
         
-    #     参数:
-    #     edge_index (torch.Tensor): 边索引，形状为 [2, num_edges]
-    #     num_nodes (int): 节点数量
-    #     lambda_val (float): 幂指数参数
+#     #     参数:
+#     #     edge_index (torch.Tensor): 边索引，形状为 [2, num_edges]
+#     #     num_nodes (int): 节点数量
+#     #     lambda_val (float): 幂指数参数
         
-    #     返回:
-    #     torch.Tensor: 结构系数矩阵，形状为 [num_nodes, num_nodes]
-    #     """
-    #     # 构建邻接矩阵
-    #     adj = torch.zeros((self.num_nodes, self.num_nodes), device=edge_index.device)
-    #     adj[edge_index[0], edge_index[1]] = 1
-    #     adj = (adj + adj.t()).clamp(0, 1)  # 确保对称
+#     #     返回:
+#     #     torch.Tensor: 结构系数矩阵，形状为 [num_nodes, num_nodes]
+#     #     """
+#     #     # 构建邻接矩阵
+#     #     adj = torch.zeros((self.num_nodes, self.num_nodes), device=edge_index.device)
+#     #     adj[edge_index[0], edge_index[1]] = 1
+#     #     adj = (adj + adj.t()).clamp(0, 1)  # 确保对称
         
-    #     # 创建图和子图
-    #     G = nx.from_numpy_array(adj.cpu().numpy())
-    #     sub_graphs = []
+#     #     # 创建图和子图
+#     #     G = nx.from_numpy_array(adj.cpu().numpy())
+#     #     sub_graphs = []
         
-    #     for i in range(self.num_nodes):
-    #         s_indexes = [i]
-    #         for j in range(self.num_nodes):
-    #             if adj[i, j] == 1:
-    #                 s_indexes.append(j)
-    #         sub_graphs.append(G.subgraph(s_indexes))
+#     #     for i in range(self.num_nodes):
+#     #         s_indexes = [i]
+#     #         for j in range(self.num_nodes):
+#     #             if adj[i, j] == 1:
+#     #                 s_indexes.append(j)
+#     #         sub_graphs.append(G.subgraph(s_indexes))
         
-    #     # 获取子图节点列表和邻接矩阵
-    #     subgraph_nodes_list = [list(sub_g.nodes) for sub_g in sub_graphs]
-    #     sub_graphs_adj = [nx.adjacency_matrix(sub_g).toarray() for sub_g in sub_graphs]
+#     #     # 获取子图节点列表和邻接矩阵
+#     #     subgraph_nodes_list = [list(sub_g.nodes) for sub_g in sub_graphs]
+#     #     sub_graphs_adj = [nx.adjacency_matrix(sub_g).toarray() for sub_g in sub_graphs]
         
-    #     # 计算结构系数矩阵
-    #     new_adj = torch.zeros(self.num_nodes, self.num_nodes, device=edge_index.device)
+#     #     # 计算结构系数矩阵
+#     #     new_adj = torch.zeros(self.num_nodes, self.num_nodes, device=edge_index.device)
         
-    #     for node in range(self.num_nodes):
-    #         sub_adj = torch.tensor(sub_graphs_adj[node], dtype=torch.float, device=edge_index.device)
-    #         nodes_list = subgraph_nodes_list[node]
+#     #     for node in range(self.num_nodes):
+#     #         sub_adj = torch.tensor(sub_graphs_adj[node], dtype=torch.float, device=edge_index.device)
+#     #         nodes_list = subgraph_nodes_list[node]
             
-    #         for neighbor_idx in range(len(nodes_list)):
-    #             neighbor = nodes_list[neighbor_idx]
-    #             if neighbor == node:
-    #                 continue
+#     #         for neighbor_idx in range(len(nodes_list)):
+#     #             neighbor = nodes_list[neighbor_idx]
+#     #             if neighbor == node:
+#     #                 continue
                     
-    #             # 计算共同邻居
-    #             c_neighbors = set(subgraph_nodes_list[node]).intersection(subgraph_nodes_list[neighbor])
-    #             if neighbor in c_neighbors:
-    #                 c_neighbors_list = list(c_neighbors)
-    #                 count = torch.tensor(0.0, device=edge_index.device)
+#     #             # 计算共同邻居
+#     #             c_neighbors = set(subgraph_nodes_list[node]).intersection(subgraph_nodes_list[neighbor])
+#     #             if neighbor in c_neighbors:
+#     #                 c_neighbors_list = list(c_neighbors)
+#     #                 count = torch.tensor(0.0, device=edge_index.device)
                     
-    #                 # 计算共同邻居子图中的边数
-    #                 for i, item1 in enumerate(nodes_list):
-    #                     if item1 in c_neighbors:
-    #                         for item2 in c_neighbors_list:
-    #                             j = nodes_list.index(item2)
-    #                             count += sub_adj[i, j]
+#     #                 # 计算共同邻居子图中的边数
+#     #                 for i, item1 in enumerate(nodes_list):
+#     #                     if item1 in c_neighbors:
+#     #                         for item2 in c_neighbors_list:
+#     #                             j = nodes_list.index(item2)
+#     #                             count += sub_adj[i, j]
 
-    #                 # 计算结构系数 (避免除以零)
-    #                 if len(c_neighbors) > 1:
-    #                     new_adj[node, neighbor] = count / 2
-    #                     new_adj[node, neighbor] /= (len(c_neighbors) * (len(c_neighbors) - 1))
-    #                     new_adj[node, neighbor] *= (len(c_neighbors) ** self.lambda_val)
+#     #                 # 计算结构系数 (避免除以零)
+#     #                 if len(c_neighbors) > 1:
+#     #                     new_adj[node, neighbor] = count / 2
+#     #                     new_adj[node, neighbor] /= (len(c_neighbors) * (len(c_neighbors) - 1))
+#     #                     new_adj[node, neighbor] *= (len(c_neighbors) ** self.lambda_val)
         
-    #     return new_adj
+#     #     return new_adj
 
-    def compute_structural_coeff(self, edge_index, lambda_val=1.0): # 近似功能 Gpu大幅加速
-        """
-        完全向量化的结构系数计算 - 更高效的GPU版本
-        """
-        device = edge_index.device
-        # 构建邻接矩阵
-        adj = torch.zeros((self.num_nodes, self.num_nodes), device=device, dtype=torch.float)
-        adj[edge_index[0], edge_index[1]] = 1
-        adj = (adj + adj.t()).clamp(0, 1)
+#     def compute_structural_coeff(self, edge_index, lambda_val=1.0): # 近似功能 Gpu大幅加速
+#         """
+#         完全向量化的结构系数计算 - 更高效的GPU版本
+#         """
+#         device = edge_index.device
+#         # 构建邻接矩阵
+#         adj = torch.zeros((self.num_nodes, self.num_nodes), device=device, dtype=torch.float)
+#         adj[edge_index[0], edge_index[1]] = 1
+#         adj = (adj + adj.t()).clamp(0, 1)
         
-        # 添加自连接来构建邻居mask
-        neighbor_mask = adj + torch.eye(self.num_nodes, device=device)
-        neighbor_mask = neighbor_mask.clamp(0, 1)
+#         # 添加自连接来构建邻居mask
+#         neighbor_mask = adj + torch.eye(self.num_nodes, device=device)
+#         neighbor_mask = neighbor_mask.clamp(0, 1)
         
-        # 计算所有节点对的共同邻居数量
-        # common_neighbor_count[i,j] = 节点i和j的共同邻居数量
-        common_neighbor_count = torch.mm(neighbor_mask, neighbor_mask.t())
+#         # 计算所有节点对的共同邻居数量
+#         # common_neighbor_count[i,j] = 节点i和j的共同邻居数量
+#         common_neighbor_count = torch.mm(neighbor_mask, neighbor_mask.t())
         
-        # 只保留有边连接且共同邻居数>1的节点对
-        edge_mask = adj * (common_neighbor_count > 1)
+#         # 只保留有边连接且共同邻居数>1的节点对
+#         edge_mask = adj * (common_neighbor_count > 1)
         
-        # 计算结构系数的近似版本 (基于共同邻居数量而非子图密度)
-        # 这是一个简化版本，避免了复杂的子图计算
-        structural_coeff = torch.zeros_like(adj)
+#         # 计算结构系数的近似版本 (基于共同邻居数量而非子图密度)
+#         # 这是一个简化版本，避免了复杂的子图计算
+#         structural_coeff = torch.zeros_like(adj)
         
-        # 使用共同邻居数量作为密度的代理
-        valid_pairs = edge_mask > 0
-        if valid_pairs.any():
-            # 归一化共同邻居数量
-            max_common = common_neighbor_count.max()
-            if max_common > 0:
-                normalized_common = common_neighbor_count / max_common
-                structural_coeff[valid_pairs] = (normalized_common[valid_pairs] * 
-                                            (common_neighbor_count[valid_pairs].float() ** lambda_val))
+#         # 使用共同邻居数量作为密度的代理
+#         valid_pairs = edge_mask > 0
+#         if valid_pairs.any():
+#             # 归一化共同邻居数量
+#             max_common = common_neighbor_count.max()
+#             if max_common > 0:
+#                 normalized_common = common_neighbor_count / max_common
+#                 structural_coeff[valid_pairs] = (normalized_common[valid_pairs] * 
+#                                             (common_neighbor_count[valid_pairs].float() ** lambda_val))
         
-        return structural_coeff
+#         return structural_coeff
     
-    def forward(self, x, edge_index, edge_weight=None):
-        # x形状: [num_nodes, batch_size, seq_len]
-        # edge_index形状: [2, num_edges]
+#     def forward(self, x, edge_index, edge_weight=None):
+#         # x形状: [num_nodes, batch_size, seq_len]
+#         # edge_index形状: [2, num_edges]
         
-        # 1. 计算特征相似度作为边权重
-        x_norm = F.normalize(x, p=2, dim=-1)  # 归一化特征 [num_nodes, batch_size, win_size]
+#         # 1. 计算特征相似度作为边权重
+#         x_norm = F.normalize(x, p=2, dim=-1)  # 归一化特征 [num_nodes, batch_size, win_size]
 
-        # Reshape x_norm to [num_nodes, batch_size * win_size] if you want cross-node similarities
-        # Or better, permute dimensions to get [batch_size, num_nodes, win_size]
-        x_norm_permuted = x_norm.permute(1, 0, 2)  # [batch_size, num_nodes, win_size]
+#         # Reshape x_norm to [num_nodes, batch_size * win_size] if you want cross-node similarities
+#         # Or better, permute dimensions to get [batch_size, num_nodes, win_size]
+#         x_norm_permuted = x_norm.permute(1, 0, 2)  # [batch_size, num_nodes, win_size]
         
-        # Compute similarity matrix
-        similarity = torch.matmul(x_norm_permuted, x_norm_permuted.transpose(-1, -2))  # [batch_size, num_nodes, num_nodes]
-        # Permute back if needed to get [num_nodes, batch_size, num_nodes]
-        similarity = similarity.permute(1, 0, 2)  # Now matches comment shape [num_nodes, batch_size, num_nodes]
-        mean_similarity = similarity.mean(dim=1)  # [num_nodes, num_nodes]
+#         # Compute similarity matrix
+#         similarity = torch.matmul(x_norm_permuted, x_norm_permuted.transpose(-1, -2))  # [batch_size, num_nodes, num_nodes]
+#         # Permute back if needed to get [num_nodes, batch_size, num_nodes]
+#         similarity = similarity.permute(1, 0, 2)  # Now matches comment shape [num_nodes, batch_size, num_nodes]
+#         mean_similarity = similarity.mean(dim=1)  # [num_nodes, num_nodes]
         
-        # 2. 为每个节点选择前30%的边
-        num_edges_per_node = int(self.num_nodes * 0.3)  # 30%的边
-        if num_edges_per_node < 1:
-            num_edges_per_node = 1  # 至少保留1条边
+#         # 2. 为每个节点选择前30%的边
+#         num_edges_per_node = int(self.num_nodes * 0.3)  # 30%的边
+#         if num_edges_per_node < 1:
+#             num_edges_per_node = 1  # 至少保留1条边
 
-        # 获取每个节点的topk相似邻居(不包括自己)
-        topk_values, topk_indices = torch.topk(mean_similarity, num_edges_per_node+1, dim=-1)
+#         # 获取每个节点的topk相似邻居(不包括自己)
+#         topk_values, topk_indices = torch.topk(mean_similarity, num_edges_per_node+1, dim=-1)
         
-        # 构建边mask
-        edge_mask = torch.zeros_like(mean_similarity, dtype=torch.bool)
-        for i in range(self.num_nodes):
-            neighbors = topk_indices[i][topk_indices[i] != i]  # 排除自连接
-            if len(neighbors) > num_edges_per_node:
-                neighbors = neighbors[:num_edges_per_node]
-            edge_mask[i, neighbors] = True
+#         # 构建边mask
+#         edge_mask = torch.zeros_like(mean_similarity, dtype=torch.bool)
+#         for i in range(self.num_nodes):
+#             neighbors = topk_indices[i][topk_indices[i] != i]  # 排除自连接
+#             if len(neighbors) > num_edges_per_node:
+#                 neighbors = neighbors[:num_edges_per_node]
+#             edge_mask[i, neighbors] = True
         
-        # 3. 应用边mask到edge_index
-        src, dst = edge_index
-        edge_valid = edge_mask[src, dst]
-        pruned_edge_index = edge_index[:, edge_valid]
+#         # 3. 应用边mask到edge_index
+#         src, dst = edge_index
+#         edge_valid = edge_mask[src, dst]
+#         pruned_edge_index = edge_index[:, edge_valid]
 
-        # 3. 计算结构系数 (仅对剪枝后的边)
-        structural_coeff = self.compute_structural_coeff(pruned_edge_index)
-        # 4. 结合相似度和结构系数
-        if edge_weight is None:
-            edge_weight = mean_similarity[src, dst][edge_valid]
-        # 获取结构系数值
-        src_pruned, dst_pruned = pruned_edge_index
-        structural_values = structural_coeff[src_pruned, dst_pruned]
-        # 融合相似度和结构系数 (加权相加)
-        fused_edge_weight = edge_weight + structural_values
-        # 5. 归一化
-        if self.normalize:
-            pruned_edge_index, fused_edge_weight = gcn_norm(
-                pruned_edge_index, fused_edge_weight, x.size(self.node_dim),
-                self.improved, self.add_self_loops, dtype=x.dtype)
+#         # 3. 计算结构系数 (仅对剪枝后的边)
+#         structural_coeff = self.compute_structural_coeff(pruned_edge_index)
+#         # 4. 结合相似度和结构系数
+#         if edge_weight is None:
+#             edge_weight = mean_similarity[src, dst][edge_valid]
+#         # 获取结构系数值
+#         src_pruned, dst_pruned = pruned_edge_index
+#         structural_values = structural_coeff[src_pruned, dst_pruned]
+#         # 融合相似度和结构系数 (加权相加)
+#         fused_edge_weight = edge_weight + structural_values
+#         # 5. 归一化
+#         if self.normalize:
+#             pruned_edge_index, fused_edge_weight = gcn_norm(
+#                 pruned_edge_index, fused_edge_weight, x.size(self.node_dim),
+#                 self.improved, self.add_self_loops, dtype=x.dtype)
 
-        # pruned_edge_weight = mean_similarity[src, dst][edge_valid] if edge_weight is None else edge_weight[edge_valid]
-        # # 4. 归一化边权重
-        # if self.normalize:
-        #     pruned_edge_index, pruned_edge_weight = gcn_norm(
-        #         pruned_edge_index, pruned_edge_weight, x.size(self.node_dim),
-        #         self.improved, self.add_self_loops, dtype=x.dtype)
+#         # pruned_edge_weight = mean_similarity[src, dst][edge_valid] if edge_weight is None else edge_weight[edge_valid]
+#         # # 4. 归一化边权重
+#         # if self.normalize:
+#         #     pruned_edge_index, pruned_edge_weight = gcn_norm(
+#         #         pruned_edge_index, pruned_edge_weight, x.size(self.node_dim),
+#         #         self.improved, self.add_self_loops, dtype=x.dtype)
         
-        # 5. 特征变换
-        x = torch.matmul(x, self.weight)
+#         # 5. 特征变换
+#         x = torch.matmul(x, self.weight)
         
-        # 6. 消息传递(不再需要logits，因为边已经通过相似度筛选)
-        out = self.propagate(pruned_edge_index, x=x, edge_weight=fused_edge_weight)
+#         # 6. 消息传递(不再需要logits，因为边已经通过相似度筛选)
+#         out = self.propagate(pruned_edge_index, x=x, edge_weight=fused_edge_weight)
         
-        if self.bias is not None:
-            out += self.bias
+#         if self.bias is not None:
+#             out += self.bias
 
-        return out
+#         return out
 
-    def message(self, x_j, edge_weight):
-        return edge_weight.view(-1, 1, 1) * x_j  # 直接使用相似度作为权重
+#     def message(self, x_j, edge_weight):
+#         return edge_weight.view(-1, 1, 1) * x_j  # 直接使用相似度作为权重
     
 # class AdaGCNConv(MessagePassing):
 #     def __init__(self, num_nodes, in_channels, out_channels, improved=False, 
@@ -779,174 +779,174 @@ class AdaGCNConv(MessagePassing):
 #         norm_coeffs = structural_coeffs / (row_sum[edge_index[0]] + 1e-8)
 #         return norm_coeffs
 
-# class AdaGCNConv(MessagePassing):
-#     def __init__(self, num_nodes, in_channels, out_channels, improved=False, 
-#                  add_self_loops=False, normalize=True, bias=True, init_method='all', 
-#                  lambda_val=0.5, edge_ratio=0.3, use_cache=True):
-#         super(AdaGCNConv, self).__init__(aggr='add', node_dim=0)
-#         self.num_nodes = num_nodes
-#         self.in_channels = in_channels
-#         self.out_channels = out_channels
-#         self.improved = improved
-#         self.add_self_loops = add_self_loops
-#         self.normalize = normalize
-#         self.bias = bias
-#         self.init_method = init_method
-#         self.lambda_val = lambda_val
-#         self.edge_ratio = edge_ratio  # 可配置的边保留比例
-#         self.use_cache = use_cache    # 是否使用缓存
+class AdaGCNConv(MessagePassing):
+    def __init__(self, num_nodes, in_channels, out_channels, improved=False, 
+                 add_self_loops=False, normalize=True, bias=True, init_method='all', 
+                 lambda_val=0.5, edge_ratio=0.3, use_cache=True):
+        super(AdaGCNConv, self).__init__(aggr='add', node_dim=0)
+        self.num_nodes = num_nodes
+        self.in_channels = in_channels
+        self.out_channels = out_channels
+        self.improved = improved
+        self.add_self_loops = add_self_loops
+        self.normalize = normalize
+        self.bias = bias
+        self.init_method = init_method
+        self.lambda_val = lambda_val
+        self.edge_ratio = edge_ratio  # 可配置的边保留比例
+        self.use_cache = use_cache    # 是否使用缓存
 
-#         self.weight = Parameter(torch.Tensor(in_channels, out_channels))
+        self.weight = Parameter(torch.Tensor(in_channels, out_channels))
 
-#         if bias:
-#             self.bias = Parameter(torch.Tensor(out_channels))
-#         else:
-#             self.register_parameter('bias', None)
+        if bias:
+            self.bias = Parameter(torch.Tensor(out_channels))
+        else:
+            self.register_parameter('bias', None)
 
-#         # 缓存机制
-#         self._cached_edge_index = None
-#         self._cached_edge_weight = None
-#         self._last_similarity_hash = None
+        # 缓存机制
+        self._cached_edge_index = None
+        self._cached_edge_weight = None
+        self._last_similarity_hash = None
 
-#         self.reset_parameters()
+        self.reset_parameters()
 
-#     def reset_parameters(self):
-#         glorot(self.weight)
-#         zeros(self.bias)
+    def reset_parameters(self):
+        glorot(self.weight)
+        zeros(self.bias)
 
-#     def forward(self, x, edge_index, edge_weight=None):
-#         # 改进1: 批量化相似度计算
-#         x_norm = F.normalize(x, p=2, dim=-1)
-#         similarity = self._compute_similarity_batch(x_norm)
+    def forward(self, x, edge_index, edge_weight=None):
+        # 改进1: 批量化相似度计算
+        x_norm = F.normalize(x, p=2, dim=-1)
+        similarity = self._compute_similarity_batch(x_norm)
         
-#         # 改进2: 缓存机制 - 如果相似度没有显著变化，复用边索引
-#         similarity_hash = self._compute_hash(similarity) if self.use_cache else None
+        # 改进2: 缓存机制 - 如果相似度没有显著变化，复用边索引
+        similarity_hash = self._compute_hash(similarity) if self.use_cache else None
         
-#         if (self.use_cache and self._last_similarity_hash is not None and 
-#             abs(similarity_hash - self._last_similarity_hash) < 1e-6):
-#             pruned_edge_index = self._cached_edge_index
-#             pruned_edge_weight = self._cached_edge_weight
-#         else:
-#             # 改进3: 更高效的边选择策略
-#             pruned_edge_index, pruned_edge_weight = self._select_edges_efficient(
-#                 similarity, edge_index, edge_weight)
+        if (self.use_cache and self._last_similarity_hash is not None and 
+            abs(similarity_hash - self._last_similarity_hash) < 1e-6):
+            pruned_edge_index = self._cached_edge_index
+            pruned_edge_weight = self._cached_edge_weight
+        else:
+            # 改进3: 更高效的边选择策略
+            pruned_edge_index, pruned_edge_weight = self._select_edges_efficient(
+                similarity, edge_index, edge_weight)
             
-#             if self.use_cache:
-#                 self._cached_edge_index = pruned_edge_index
-#                 self._cached_edge_weight = pruned_edge_weight
-#                 self._last_similarity_hash = similarity_hash
+            if self.use_cache:
+                self._cached_edge_index = pruned_edge_index
+                self._cached_edge_weight = pruned_edge_weight
+                self._last_similarity_hash = similarity_hash
 
-#         # 改进4: 优化的结构系数计算
-#         structural_coeffs = self._compute_structural_coefficients_optimized(
-#             pruned_edge_index, self.num_nodes)
+        # 改进4: 优化的结构系数计算
+        structural_coeffs = self._compute_structural_coefficients_optimized(
+            pruned_edge_index, self.num_nodes)
 
-#         # 改进5: 自适应权重融合
-#         alpha = torch.sigmoid(torch.tensor(self.lambda_val))  # 学习权重平衡
-#         final_edge_weight = alpha * pruned_edge_weight + (1 - alpha) * structural_coeffs
+        # 改进5: 自适应权重融合
+        alpha = torch.sigmoid(torch.tensor(self.lambda_val))  # 学习权重平衡
+        final_edge_weight = alpha * pruned_edge_weight + (1 - alpha) * structural_coeffs
 
-#         if self.normalize:
-#             pruned_edge_index, final_edge_weight = gcn_norm(
-#                 pruned_edge_index, final_edge_weight, x.size(self.node_dim),
-#                 self.improved, self.add_self_loops, dtype=x.dtype)
+        if self.normalize:
+            pruned_edge_index, final_edge_weight = gcn_norm(
+                pruned_edge_index, final_edge_weight, x.size(self.node_dim),
+                self.improved, self.add_self_loops, dtype=x.dtype)
 
-#         # 改进6: 残差连接
-#         x_original = x
-#         x = torch.matmul(x, self.weight)
-#         out = self.propagate(pruned_edge_index, x=x, edge_weight=final_edge_weight)
+        # 改进6: 残差连接
+        x_original = x
+        x = torch.matmul(x, self.weight)
+        out = self.propagate(pruned_edge_index, x=x, edge_weight=final_edge_weight)
         
-#         # 残差连接（如果维度匹配）
-#         if self.in_channels == self.out_channels:
-#             out = out + x_original
+        # 残差连接（如果维度匹配）
+        if self.in_channels == self.out_channels:
+            out = out + x_original
 
-#         if self.bias is not None:
-#             out += self.bias
+        if self.bias is not None:
+            out += self.bias
 
-#         return out
+        return out
 
-#     def _compute_similarity_batch(self, x_norm):
-#         """批量化相似度计算"""
-#         # 使用einsum进行更高效的批量矩阵乘法
-#         x_norm_permuted = x_norm.permute(1, 0, 2)  # [batch, nodes, features]
-#         similarity = torch.einsum('bif,bjf->bij', x_norm_permuted, x_norm_permuted)
-#         return similarity.mean(dim=0)  # [nodes, nodes]
+    def _compute_similarity_batch(self, x_norm):
+        """批量化相似度计算"""
+        # 使用einsum进行更高效的批量矩阵乘法
+        x_norm_permuted = x_norm.permute(1, 0, 2)  # [batch, nodes, features]
+        similarity = torch.einsum('bif,bjf->bij', x_norm_permuted, x_norm_permuted)
+        return similarity.mean(dim=0)  # [nodes, nodes]
 
-#     def _select_edges_efficient(self, similarity, edge_index, edge_weight):
-#         """更高效的边选择策略"""
-#         num_edges_per_node = max(int(self.num_nodes * self.edge_ratio), 1)
+    def _select_edges_efficient(self, similarity, edge_index, edge_weight):
+        """更高效的边选择策略"""
+        num_edges_per_node = max(int(self.num_nodes * self.edge_ratio), 1)
         
-#         # 使用torch.topk的sorted=False选项提升性能
-#         topk_values, topk_indices = torch.topk(
-#             similarity, num_edges_per_node + 1, dim=-1, sorted=False)
+        # 使用torch.topk的sorted=False选项提升性能
+        topk_values, topk_indices = torch.topk(
+            similarity, num_edges_per_node + 1, dim=-1, sorted=False)
         
-#         # 向量化的边mask构建
-#         row_indices = torch.arange(self.num_nodes, device=similarity.device)
-#         row_indices = row_indices.unsqueeze(1).expand(-1, num_edges_per_node + 1)
+        # 向量化的边mask构建
+        row_indices = torch.arange(self.num_nodes, device=similarity.device)
+        row_indices = row_indices.unsqueeze(1).expand(-1, num_edges_per_node + 1)
         
-#         # 排除自连接
-#         mask = topk_indices != row_indices
+        # 排除自连接
+        mask = topk_indices != row_indices
         
-#         # 确保有足够的有效邻居
-#         valid_counts = mask.sum(dim=1)
-#         min_valid = valid_counts.min().item()
-#         actual_edges_per_node = min(num_edges_per_node, min_valid)
+        # 确保有足够的有效邻居
+        valid_counts = mask.sum(dim=1)
+        min_valid = valid_counts.min().item()
+        actual_edges_per_node = min(num_edges_per_node, min_valid)
         
-#         if actual_edges_per_node <= 0:
-#             actual_edges_per_node = 1
+        if actual_edges_per_node <= 0:
+            actual_edges_per_node = 1
         
-#         # 重新构建有效邻居矩阵
-#         valid_neighbors = torch.zeros((self.num_nodes, actual_edges_per_node), 
-#                                     dtype=torch.long, device=similarity.device)
+        # 重新构建有效邻居矩阵
+        valid_neighbors = torch.zeros((self.num_nodes, actual_edges_per_node), 
+                                    dtype=torch.long, device=similarity.device)
         
-#         for i in range(self.num_nodes):
-#             valid_mask = mask[i]
-#             valid_indices = topk_indices[i][valid_mask][:actual_edges_per_node]
-#             if len(valid_indices) < actual_edges_per_node:
-#                 # 如果没有足够的邻居，用其他节点填充
-#                 remaining = actual_edges_per_node - len(valid_indices)
-#                 all_others = torch.arange(self.num_nodes, device=similarity.device)
-#                 others = all_others[all_others != i][:remaining]
-#                 valid_indices = torch.cat([valid_indices, others])
-#             valid_neighbors[i] = valid_indices
+        for i in range(self.num_nodes):
+            valid_mask = mask[i]
+            valid_indices = topk_indices[i][valid_mask][:actual_edges_per_node]
+            if len(valid_indices) < actual_edges_per_node:
+                # 如果没有足够的邻居，用其他节点填充
+                remaining = actual_edges_per_node - len(valid_indices)
+                all_others = torch.arange(self.num_nodes, device=similarity.device)
+                others = all_others[all_others != i][:remaining]
+                valid_indices = torch.cat([valid_indices, others])
+            valid_neighbors[i] = valid_indices
         
-#         # 构建边索引
-#         src_nodes = torch.arange(self.num_nodes, device=similarity.device)
-#         src_nodes = src_nodes.unsqueeze(1).expand(-1, actual_edges_per_node).flatten()
-#         dst_nodes = valid_neighbors.flatten()
+        # 构建边索引
+        src_nodes = torch.arange(self.num_nodes, device=similarity.device)
+        src_nodes = src_nodes.unsqueeze(1).expand(-1, actual_edges_per_node).flatten()
+        dst_nodes = valid_neighbors.flatten()
         
-#         new_edge_index = torch.stack([src_nodes, dst_nodes], dim=0)
-#         new_edge_weight = similarity[src_nodes, dst_nodes]
+        new_edge_index = torch.stack([src_nodes, dst_nodes], dim=0)
+        new_edge_weight = similarity[src_nodes, dst_nodes]
         
-#         return new_edge_index, new_edge_weight
+        return new_edge_index, new_edge_weight
 
-#     def _compute_structural_coefficients_optimized(self, edge_index, num_nodes):
-#         """优化的结构系数计算"""
-#         # 使用稀疏矩阵操作提升效率
-#         indices = edge_index
-#         values = torch.ones(edge_index.size(1), device=edge_index.device)
-#         adj_sparse = torch.sparse_coo_tensor(indices, values, (num_nodes, num_nodes))
+    def _compute_structural_coefficients_optimized(self, edge_index, num_nodes):
+        """优化的结构系数计算"""
+        # 使用稀疏矩阵操作提升效率
+        indices = edge_index
+        values = torch.ones(edge_index.size(1), device=edge_index.device)
+        adj_sparse = torch.sparse_coo_tensor(indices, values, (num_nodes, num_nodes))
         
-#         # 稀疏矩阵乘法计算共同邻居
-#         common_neighbors_sparse = torch.sparse.mm(adj_sparse, adj_sparse.t())
+        # 稀疏矩阵乘法计算共同邻居
+        common_neighbors_sparse = torch.sparse.mm(adj_sparse, adj_sparse.t())
         
-#         # 修复索引计算问题
-#         common_neighbors_dense = common_neighbors_sparse.to_dense()
-#         edge_common = common_neighbors_dense[edge_index[0], edge_index[1]]
+        # 修复索引计算问题
+        common_neighbors_dense = common_neighbors_sparse.to_dense()
+        edge_common = common_neighbors_dense[edge_index[0], edge_index[1]]
         
-#         # 计算结构系数
-#         structural_coeffs = torch.pow(2 + edge_common.float(), self.lambda_val)
+        # 计算结构系数
+        structural_coeffs = torch.pow(2 + edge_common.float(), self.lambda_val)
         
-#         # 行归一化 - 确保索引在有效范围内
-#         row_sum = torch.zeros(num_nodes, device=structural_coeffs.device)
+        # 行归一化 - 确保索引在有效范围内
+        row_sum = torch.zeros(num_nodes, device=structural_coeffs.device)
         
-#         # 添加边界检查
-#         valid_indices = (edge_index[0] >= 0) & (edge_index[0] < num_nodes)
-#         if valid_indices.any():
-#             row_sum.scatter_add_(0, edge_index[0][valid_indices], structural_coeffs[valid_indices])
-#             norm_coeffs = structural_coeffs / (row_sum[edge_index[0]] + 1e-8)
-#         else:
-        #     norm_coeffs = structural_coeffs
+        # 添加边界检查
+        valid_indices = (edge_index[0] >= 0) & (edge_index[0] < num_nodes)
+        if valid_indices.any():
+            row_sum.scatter_add_(0, edge_index[0][valid_indices], structural_coeffs[valid_indices])
+            norm_coeffs = structural_coeffs / (row_sum[edge_index[0]] + 1e-8)
+        else:
+            norm_coeffs = structural_coeffs
         
-        # return norm_coeffs
+        return norm_coeffs
     
     # def _compute_hash(self, tensor):
     #     """计算张量的简单哈希值用于缓存"""
@@ -954,36 +954,6 @@ class AdaGCNConv(MessagePassing):
 
     # def message(self, x_j, edge_weight):
     #     return edge_weight.view(-1, 1, 1) * x_j
-
-class DynamicGraphEmbedding(torch.nn.Module):
-    def __init__(self, num_nodes, seq_len, num_levels=1, device=torch.device('cuda:0'), lambda_val=1.0):
-        super(DynamicGraphEmbedding, self).__init__()
-        self.num_nodes = num_nodes
-        self.seq_len = seq_len
-        self.device = device
-        self.num_levels = num_levels
-        
-        # 初始化全连接边索引
-        source_nodes, target_nodes = [], []
-        for i in range(num_nodes):
-            for j in range(num_nodes):
-                if i != j:  # 排除自连接
-                    source_nodes.append(j)
-                    target_nodes.append(i)
-        self.edge_index = torch.tensor([source_nodes, target_nodes], dtype=torch.long, device=self.device)
-        
-        self.gc_module = AdaGCNConv(num_nodes, seq_len, seq_len, lambda_val=lambda_val)
-
-    def forward(self, x):
-        # 输入x形状: (bsz, seq_len, num_nodes)
-        x = x.permute(2, 0, 1)  # >> (num_nodes, bsz, seq_len)
-        
-        # 进行图卷积
-        for i in range(self.num_levels):
-            x = self.gc_module(x, self.edge_index)  # >> (num_nodes, bsz, seq_len)
-        
-        x = x.permute(1, 2, 0)  # >> (bsz, seq_len, num_nodes)
-        return x
 
 # class DynamicGraphEmbedding(torch.nn.Module):
 #     def __init__(self, num_nodes, seq_len, num_levels=1, device=torch.device('cuda:0'), lambda_val=1.0):
@@ -1002,15 +972,7 @@ class DynamicGraphEmbedding(torch.nn.Module):
 #                     target_nodes.append(i)
 #         self.edge_index = torch.tensor([source_nodes, target_nodes], dtype=torch.long, device=self.device)
         
-#         # 修复AdaGCNConv的初始化参数
-#         self.gc_module = AdaGCNConv(
-#             num_nodes=num_nodes, 
-#             in_channels=seq_len, 
-#             out_channels=seq_len, 
-#             lambda_val=lambda_val,
-#             edge_ratio=0.3,
-#             use_cache=False  # 暂时禁用缓存以避免问题
-#         ).to(device)
+#         self.gc_module = AdaGCNConv(num_nodes, seq_len, seq_len, lambda_val=lambda_val)
 
 #     def forward(self, x):
 #         # 输入x形状: (bsz, seq_len, num_nodes)
@@ -1022,6 +984,44 @@ class DynamicGraphEmbedding(torch.nn.Module):
         
 #         x = x.permute(1, 2, 0)  # >> (bsz, seq_len, num_nodes)
 #         return x
+
+class DynamicGraphEmbedding(torch.nn.Module):
+    def __init__(self, num_nodes, seq_len, num_levels=1, device=torch.device('cuda:0'), lambda_val=1.0):
+        super(DynamicGraphEmbedding, self).__init__()
+        self.num_nodes = num_nodes
+        self.seq_len = seq_len
+        self.device = device
+        self.num_levels = num_levels
+        
+        # 初始化全连接边索引
+        source_nodes, target_nodes = [], []
+        for i in range(num_nodes):
+            for j in range(num_nodes):
+                if i != j:  # 排除自连接
+                    source_nodes.append(j)
+                    target_nodes.append(i)
+        self.edge_index = torch.tensor([source_nodes, target_nodes], dtype=torch.long, device=self.device)
+        
+        # 修复AdaGCNConv的初始化参数
+        self.gc_module = AdaGCNConv(
+            num_nodes=num_nodes, 
+            in_channels=seq_len, 
+            out_channels=seq_len, 
+            lambda_val=lambda_val,
+            edge_ratio=0.3,
+            use_cache=False  # 暂时禁用缓存以避免问题
+        ).to(device)
+
+    def forward(self, x):
+        # 输入x形状: (bsz, seq_len, num_nodes)
+        x = x.permute(2, 0, 1)  # >> (num_nodes, bsz, seq_len)
+        
+        # 进行图卷积
+        for i in range(self.num_levels):
+            x = self.gc_module(x, self.edge_index)  # >> (num_nodes, bsz, seq_len)
+        
+        x = x.permute(1, 2, 0)  # >> (bsz, seq_len, num_nodes)
+        return x
 
 
 if __name__ == '__main__':

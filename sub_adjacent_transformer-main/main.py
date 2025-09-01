@@ -14,6 +14,8 @@ def str2bool(v1):
 
 
 def main(config):
+    # seed = config.seed if hasattr(config, 'seed') else 42
+    # set_random_seed(seed)
     cudnn.benchmark = True
     if not os.path.exists(config.model_save_path):
         mkdir(config.model_save_path)
@@ -291,9 +293,28 @@ if __name__ == '__main__':
     parser.add_argument('--train_data_ratio', type=float, default=1.0)
     parser.add_argument('--train_data_step', type=int, default=1)
 
+    # # 增加一个随机数种子参数，每次运行生成的种子记录在seed_config.txt中，避免下次再次抽中相同种子
+    # SEED_FILE = './sub_adjacent_transformer-main/seed_config.txt'
+    # used_seeds = []
+    # if os.path.exists(SEED_FILE):
+    #     with open(SEED_FILE, 'r') as f:
+    #         for line in f:
+    #             line = line.strip()
+    #             if line.isdigit():
+    #                 used_seeds.append(int(line))
+    # pool = list(set(range(50001)) - set(used_seeds))
+    # if not pool:
+    #     raise ValueError("No available seeds left in the pool.")
+    # new_seed = random.choice(pool)
+    # with open(SEED_FILE, 'a') as f:
+    #     f.write(f"{new_seed}\n")
+    # new_seed = 14759
+    # parser.add_argument('--seed', type=int, default=new_seed, help='random seed for reproducibility')
+
     config0 = parser.parse_args()
 
     args = vars(config0)
+
 
     # some files
     os.makedirs('./sub_adjacent_transformer-main/logs', exist_ok=True)

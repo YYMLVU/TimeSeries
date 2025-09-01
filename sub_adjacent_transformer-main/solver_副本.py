@@ -11,6 +11,7 @@ from utils.utils import *
 from utils.eval import *
 # from model.AnomalyTransformer import AnomalyTransformer
 from models.model_cgraph_trans import MODEL_CGRAPH_TRANS
+# from models.single_branch_model import MODEL_CGRAPH_TRANS
 from data_factory.data_loader import get_loader_segment
 import matplotlib.pyplot as plt
 from thop import profile
@@ -212,6 +213,7 @@ class Solver(object):
         # early_stopping = EarlyStopping(patience=3, verbose=True, dataset_name=self.dataset)
         train_steps = len(self.train_loader)
         # Add
+        # self.model.set_training_phase('alternate')
         self.model.init_wgan_optimizers()
 
         params, flops = 0, 0
@@ -244,6 +246,7 @@ class Solver(object):
                 # Update WGAN every 5 batches Add
                 if i % 5 == 0:
                     self.model.update_wgan(input_)
+                    # self.model.update_wgan_with_recon(input_)
 
                 output, cl, queries_list, keys_list = self.model(input_) # Add_2
                 len_list = len(queries_list)
@@ -261,7 +264,10 @@ class Solver(object):
                 rec_loss = self.criterion(output, input_)
 
                 # loss1 = rec_loss + cl
-                loss2 = 2 * rec_loss + cl - self.k * loss_attn  # loss_attn is used to distinguish normals and anomalies
+                loss2 = 2 * rec_loss + 0.5 * cl - self.k * loss_attn  # loss_attn is used to distinguish normals and anomalies
+
+                # loss2 = 2 * rec_loss + cl - self.k * loss_attn  # change add
+
                 # loss2 = rec_loss + cl
                 # test Equivalence
                 # loss3 = 2*rec_loss - self.k * loss_attn
@@ -629,6 +635,7 @@ class Solver(object):
             f.write(timestamp + '\n')
             f.write(f"\tAccuracy : {accuracy:.2%}, Precision : {precision:.2%}, Recall : {recall:.2%}, "
                     f"F-score : {f_score:.2%}" + '\n')
+            f.write(f"\tTP: {TP}, TN: {TN}, FP: {FP}, FN: {FN}" + '\n')
             # for k, v in eval_dict.items():
             #     f.write(f'\t{k}:\t{v}' + '\n')
             f.write('\n')

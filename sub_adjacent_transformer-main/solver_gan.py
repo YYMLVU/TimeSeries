@@ -9,10 +9,14 @@ import logging
 import time
 from utils.utils import *
 from utils.eval import *
-from model.AnomalyTransformer import AnomalyTransformer
+# from model.AnomalyTransformer import AnomalyTransformer
+# from models.model_cgraph_trans import MODEL_CGRAPH_TRANS
+# from models.single_branch_model import MODEL_CGRAPH_TRANS
+from models.Gan_Gnn_plus_model import MODEL_CGRAPH_TRANS
 from data_factory.data_loader import get_loader_segment
 import matplotlib.pyplot as plt
 from thop import profile
+from tqdm import tqdm
 
 
 def my_kl_loss(p, q):
@@ -138,11 +142,48 @@ class Solver(object):
 
     def build_model(self):
         linear_attn = not self.no_linear_attn
-        self.model = AnomalyTransformer(win_size=self.win_size, enc_in=self.input_c, c_out=self.output_c, e_layers=3,
-                                        linear_attn=linear_attn)
-        self.model2 = AnomalyTransformer(win_size=self.win_size, enc_in=self.input_c, c_out=self.output_c, e_layers=3,
-                                         linear_attn=linear_attn)
+        # self.model = AnomalyTransformer(win_size=self.win_size, enc_in=self.input_c, c_out=self.output_c, e_layers=3,
+        #                                 linear_attn=linear_attn, mapping_fun=self.mapping_function)
+        # self.model2 = AnomalyTransformer(win_size=self.win_size, enc_in=self.input_c, c_out=self.output_c, e_layers=3,
+        #                                  linear_attn=linear_attn, mapping_fun=self.mapping_function)
+        self.model = MODEL_CGRAPH_TRANS(
+            self.input_c,
+            self.win_size,
+            self.output_c,
+            device="cuda" if torch.cuda.is_available() else "cpu"
+        )
+        self.model2 = MODEL_CGRAPH_TRANS(
+            self.input_c,
+            self.win_size,
+            self.output_c,
+            device="cuda" if torch.cuda.is_available() else "cpu"
+        )
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
+        # 为intra graph模块设置单独的优化器
+        if hasattr(self.model, 'intra_module') and self.model.intra_module is not None:
+            self.optimizer_intra = torch.optim.Adam(
+                list(self.model.intra_module.parameters()) + 
+                list(self.model.proj_head_intra.parameters()) + 
+                list(self.model.philayer.parameters()),
+                lr=self.lr * 0.8  # 稍低的学习率
+            )
+            # self.optimizer_intra = torch.optim.Adam(
+            #     list(self.model.intra_module.parameters()) + 
+            #     list(self.model.proj_head_intra.parameters()),
+            #     lr=self.lr * 0.8  # 稍低的学习率
+            # )
+        else:
+            self.optimizer_intra = torch.optim.Adam([torch.tensor(0.0, requires_grad=True)], lr=self.lr)
+        
+        # 为inter graph模块设置单独的优化器
+        if hasattr(self.model, 'inter_module') and self.model.inter_module is not None:
+            self.optimizer_inter = torch.optim.Adam(
+                list(self.model.inter_module.parameters()) + 
+                list(self.model.proj_head_inter.parameters()),
+                lr=self.lr * 0.8  # 稍低的学习率
+            )
+        else:
+            self.optimizer_inter = torch.optim.Adam([torch.tensor(0.0, requires_grad=True)], lr=self.lr)
 
         if torch.cuda.is_available():
             self.model.cuda()
@@ -155,7 +196,7 @@ class Solver(object):
         loss_2 = []
         for i, (input_data, _) in enumerate(vali_loader):
             input_ = input_data.float().to(self.device)
-            output, queries_list, keys_list = self.model(input_)
+            output, cl, queries_list, keys_list = self.model(input_)
             len_list = len(queries_list)
             loss_attn = 0.0
 
@@ -166,11 +207,18 @@ class Solver(object):
 
             rec_loss = self.criterion(output, input_)
 
-            thisLoss1 = rec_loss
-            thisLoss2 = rec_loss - self.k * loss_attn
+            thisLoss1 = rec_loss + cl
+            thisLoss2 = rec_loss + cl - self.k * loss_attn
 
             loss_1.append(thisLoss1.item())
             loss_2.append(thisLoss2.item())
+
+            # Add_2
+            # output, cl = self.model(input_)
+            # recon_loss = torch.sqrt(self.criterion(input_, output))
+            # loss_1.append(recon_loss.item())
+            # total_loss = recon_loss + cl
+            # loss_2.append(total_loss.item())
 
         return np.average(loss_1), np.average(loss_2)
 
@@ -190,78 +238,266 @@ class Solver(object):
         train_steps = len(self.train_loader)
 
         params, flops = 0, 0
+        epoch_time = 0
+        memory_used = 0
+
+        # Phase 1: Warmup with random masking (freeze GAN)
+        print("Phase 1: Warmup training with random masking...")
+        logging.info("Phase 1: Warmup training with random masking...")
+        self.model.set_training_phase('warmup')
+        self.model.freeze_gan_model()
+        for epoch in range(self.model.warmup_epochs):
+            self._train_epoch(epoch, 'warmup', train_steps, time_now, params, flops)
+
+
+        # Phase 2: GAN pre-training (freeze main model)
+        print("Phase 2: GAN pre-training...")
+        logging.info("Phase 2: GAN pre-training...")
+        self.model.set_training_phase('gan_pretrain')
+        self.model.freeze_main_model()
+        self.model.unfreeze_gan_model()
+        self.model.init_wgan_optimizers()
+        for epoch in range(self.model.gan_pretrain_epochs):
+            self._train_gan_epoch(epoch)
+
+
+        # Phase 3: Alternating training
+        print("Phase 3: Alternating training...")
+        logging.info("Phase 3: Alternating training...")
+        self.model.set_training_phase('alternate')
+        self.model.unfreeze_main_model()
+        # remaining_epochs = self.num_epochs - self.model.warmup_epochs - self.model.gan_pretrain_epochs
         for epoch in range(self.num_epochs):
-            iter_count = 0
-            loss1_list = []
-            loss2_list = []
-            epoch_start_time = time.time()
-            self.model.train()
+            # actual_epoch = epoch + self.model.warmup_epochs + self.model.gan_pretrain_epochs
+            # self._train_epoch_alternating(actual_epoch, train_steps, time_now, params, flops)
+            epoch_time, flops, params, memory_used = self._train_epoch_alternating(epoch, train_steps, time_now, params, flops)
 
-            for i, (input_data, labels) in enumerate(self.train_loader):
-                self.optimizer.zero_grad()
-                iter_count += 1
-                input_ = input_data.float().to(self.device)
-                if epoch == 0 and i == 0:
-                    input_profile = input_[[0]]
-                    flops, params = profile(self.model2, inputs=(input_profile,))
-                    flops = flops/1e9
-                    params = params/1e6
-                    epoch_start_time = time.time()
+        return epoch_time, flops, params, memory_used  
+    
+    def _train_epoch(self, epoch, phase, train_steps, time_now, params, flops):
+        """Standard training epoch for warmup phase"""
+        iter_count = 0
+        loss1_list = []
+        loss2_list = []
+        epoch_start_time = time.time()
+        self.model.train()
 
-                output, queries_list, keys_list = self.model(input_)
-                len_list = len(queries_list)
+        # 在循环开始前创建进度条
+        progress_bar = tqdm(enumerate(self.train_loader), 
+                            total=len(self.train_loader), 
+                            desc=f"Epoch {epoch+1}/{self.num_epochs}",
+                            leave=True)
 
-                # calculate Association discrepancy
-                loss_attn = 0.0
-                if not self.no_point_adjustment:
-                    for u in range(len_list):
-                        # b,l,h,d
-                        loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside).mean()
-                else:
-                    loss_attn = 0
-                loss_attn = loss_attn / len_list
+        for i, (input_data, labels) in progress_bar:
+            if i > 1500:  # Limit warmup phase samples
+                break
+            self.optimizer.step()
+            self.optimizer_inter.zero_grad()
+            self.optimizer_intra.zero_grad()
+            self.optimizer.zero_grad()
+            iter_count += 1
+            input_ = input_data.float().to(self.device)
 
-                rec_loss = self.criterion(output, input_)
+            if epoch == 0 and i == 0:
+                input_profile = input_[[0]]
+                flops, params = profile(self.model2, inputs=(input_profile,))
+                flops = flops/1e9
+                params = params/1e6
+                epoch_start_time = time.time()
 
-                loss1 = rec_loss
-                loss2 = rec_loss - self.k * loss_attn  # loss_attn is used to distinguish normals and anomalies
-                # test Equivalence
-                loss3 = 2*rec_loss - self.k * loss_attn
+            # output, cl, queries_list, keys_list = self.model(input_) # Add_2
+            output, cl, queries_list, keys_list, loss_intra, loss_inter = self.model(input_, training=True)  # Add_2
+            len_list = len(queries_list)
 
-                loss1_list.append(loss1.item())
-                loss2_list.append(loss2.item())
-                if (i + 1) % 50 == 0:
-                    speed = (time.time() - time_now) / iter_count
-                    left_time = speed * ((self.num_epochs - epoch) * train_steps - i)
+            # calculate Association discrepancy
+            loss_attn = 0.0
+            if not self.no_point_adjustment:
+                for u in range(len_list):
+                    # b,l,h,d
+                    loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside).mean()
+            else:
+                loss_attn = 0
+            loss_attn = loss_attn / len_list
 
-                    info = (
-                        f'\t loss1: {loss1:.4f}, loss3: {loss3:.4f}; rec_loss: {rec_loss:.4f}, loss_attn: {loss_attn:.4f}'
+            rec_loss = self.criterion(output, input_)
+
+            loss2 = 2 * rec_loss + cl - self.k * loss_attn  # loss_attn is used to distinguish normals and anomalies
+            loss2_list.append(loss2.item())                              
+            loss_intra.backward(retain_graph=True)  # Add_2
+            torch.nn.utils.clip_grad_norm_(self.model.intra_module.parameters(), max_norm=1.0)
+            loss_inter.backward(retain_graph=True)  # Add_2
+            torch.nn.utils.clip_grad_norm_(self.model.inter_module.parameters(), max_norm=1.0)
+            if not self.no_point_adjustment:
+                loss2.backward()
+            else:
+                loss2.backward()
+            torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
+            self.optimizer_intra.step()
+            self.optimizer_inter.step()
+            self.optimizer.step()
+            
+            if (i + 1) % 50 == 0:
+                speed = (time.time() - time_now) / iter_count
+                left_time = speed * ((self.num_epochs - epoch) * train_steps - i)
+                # info = (f'\t loss1: {loss1:.4f}, loss2: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}'
+                #         f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
+                # info = (f'loss_attn: {loss_attn:.4f}, loss: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}'
+                #         f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
+                info = (f'loss_attn: {loss_attn:.4f}, loss: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}, loss_intra: {loss_intra:.4f}, loss_inter: {loss_inter:.4f}'
                         f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
-                    print(info)
-                    logging.info(info)
+                
+                # 更新进度条显示
+                progress_bar.set_postfix_str(info)
 
-                    iter_count = 0
-                    time_now = time.time()
+                # print(info, end='\r')
+                logging.info(f'\t{info}')
+                iter_count = 0
+                time_now = time.time()
 
-                if not self.no_point_adjustment:
-                    # using point adjustment
-                    loss3.backward()
-                    # loss1.backward()  # just for attention matrix plot
-                else:
-                    # no_point_adjustment
-                    loss3.backward()
+        memory_used = torch.cuda.max_memory_allocated() / (1024.0 * 1024.0 * 1024.0)
+        epoch_time = time.time() - epoch_start_time
+        info = (f"Epoch: {epoch + 1} cost time: {epoch_time}, memory: {memory_used:.2f}GB")
+        print(info)
+        logging.info(info)
 
-                self.optimizer.step()
+        torch.save(self.model.state_dict(), self.checkpoint_file)
+        adjust_learning_rate(self.optimizer, epoch + 1, self.lr)
+        
+        return epoch_time, flops, params, memory_used
 
-            memory_used = torch.cuda.max_memory_allocated() / (1024.0 * 1024.0 * 1024.0)
-            epoch_time = time.time() - epoch_start_time
-            info = (f"Epoch: {epoch + 1} cost time: {epoch_time}, memory: {memory_used:.2f}GB, "
-                    f"flops: {flops}GFLOPS, params: {params}M")
-            print(info)
-            logging.info(info)
+    def _train_gan_epoch(self, epoch):
+        """GAN pre-training epoch"""
+        epoch_start_time = time.time()
+        
+        for i, (input_data, _) in enumerate(self.train_loader):
+            if i >= 0:  # Limit GAN pre-training samples
+                break
+                
+            input_ = input_data.float().to(self.device)
+            
+            # Train GAN with reconstruction loss
+            gan_stats = self.model.update_wgan_with_recon(input_)
+            
+            if i % 50 == 0:
+                print(f"GAN Pre-train Epoch {epoch+1}, Batch {i}: "
+                      f"D_loss={gan_stats['discriminator_loss']:.4f}, "
+                      f"G_loss={gan_stats['generator_loss']:.4f}, "
+                      f"Adv_loss={gan_stats['adversarial_loss']:.4f}, "
+                      f"Recon_loss={gan_stats['reconstruction_loss']:.4f}")
+                logging.info(f"GAN Pre-train Epoch {epoch+1}, Batch {i}: "
+                             f"D_loss={gan_stats['discriminator_loss']:.4f}, "
+                                f"G_loss={gan_stats['generator_loss']:.4f}, "
+                                f"Adv_loss={gan_stats['adversarial_loss']:.4f}, "
+                                f"Recon_loss={gan_stats['reconstruction_loss']:.4f}")
 
-            torch.save(self.model.state_dict(), self.checkpoint_file)
-            adjust_learning_rate(self.optimizer, epoch + 1, self.lr)
+        epoch_time = time.time() - epoch_start_time
+        info = f"GAN Pre-train Epoch: {epoch + 1} cost time: {epoch_time}"
+        print(info)
+        logging.info(info)
+
+        return epoch_time, 0, 0, 0  # No flops or params for GAN pre-training
+
+    def _train_epoch_alternating(self, epoch, train_steps, time_now, params, flops):
+        """Alternating training epoch"""
+        iter_count = 0
+        loss1_list = []
+        loss2_list = []
+        epoch_start_time = time.time()
+        self.model.train()
+
+        # 创建进度条，设置总长度和描述信息
+        progress_bar = tqdm(enumerate(self.train_loader), 
+                        total=len(self.train_loader),
+                        desc=f"Epoch {epoch+1}/{self.num_epochs}",
+                        leave=True)
+
+
+        for i, (input_data, labels) in progress_bar:
+            self.optimizer.step()
+            self.optimizer_inter.zero_grad()
+            self.optimizer_intra.zero_grad()
+            self.optimizer.zero_grad()
+            iter_count += 1
+            input_ = input_data.float().to(self.device)
+
+            if epoch == 0 and i == 0:
+                input_profile = input_[[0]]
+                flops, params = profile(self.model2, inputs=(input_profile,))
+                flops = flops/1e9
+                params = params/1e6
+                epoch_start_time = time.time()
+            # Update WGAN every 5 batches Add
+            if i % 5 == 0:
+                gan_stats = self.model.update_wgan_with_recon(input_)
+                if i % 100 == 0:
+                    # 准备GAN状态信息
+                    gan_info = (f"GAN stats: D_loss={gan_stats['discriminator_loss']:.4f}, "
+                            f"G_loss={gan_stats['generator_loss']:.4f}, "
+                            f"Adv_loss={gan_stats['adversarial_loss']:.4f}, "
+                            f"Recon_loss={gan_stats['reconstruction_loss']:.4f}")
+                    
+                    # 在进度条下方打印GAN信息
+                    tqdm.write(gan_info)
+                    # 保持日志记录不变
+                    logging.info(f'\t{gan_info}')
+
+            # output, cl, queries_list, keys_list = self.model(input_) # Add_2
+            output, cl, queries_list, keys_list, loss_intra, loss_inter = self.model(input_, training=True)  # Add_2
+            len_list = len(queries_list)
+
+            # calculate Association discrepancy
+            loss_attn = 0.0
+            if not self.no_point_adjustment:
+                for u in range(len_list):
+                    # b,l,h,d
+                    loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside).mean()
+            else:
+                loss_attn = 0
+            loss_attn = loss_attn / len_list
+
+            rec_loss = self.criterion(output, input_)
+
+            loss2 = 2 * rec_loss + cl - self.k * loss_attn  # loss_attn is used to distinguish normals and anomalies
+            loss2_list.append(loss2.item())                              
+            loss_intra.backward(retain_graph=True)  # Add_2
+            torch.nn.utils.clip_grad_norm_(self.model.intra_module.parameters(), max_norm=1.0)
+            loss_inter.backward(retain_graph=True)  # Add_2
+            torch.nn.utils.clip_grad_norm_(self.model.inter_module.parameters(), max_norm=1.0)
+            if not self.no_point_adjustment:
+                loss2.backward()
+            else:
+                loss2.backward()
+            torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
+            self.optimizer_intra.step()
+            self.optimizer_inter.step()
+            self.optimizer.step()
+            
+            if (i + 1) % 50 == 0:
+                speed = (time.time() - time_now) / iter_count
+                left_time = speed * ((self.num_epochs - epoch) * train_steps - i)
+                # info = (f'\t loss1: {loss1:.4f}, loss2: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}'
+                #         f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
+                # info = (f'loss_attn: {loss_attn:.4f}, loss: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}'
+                #         f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
+                info = (f'loss_attn: {loss_attn:.4f}, loss: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}, loss_intra: {loss_intra:.4f}, loss_inter: {loss_inter:.4f}'
+                        f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
+                
+                # 更新进度条的后缀信息
+                progress_bar.set_postfix_str(info)
+
+                # print(info, end='\r')
+                logging.info(f'\t{info}')
+                iter_count = 0
+                time_now = time.time()
+
+        memory_used = torch.cuda.max_memory_allocated() / (1024.0 * 1024.0 * 1024.0)
+        epoch_time = time.time() - epoch_start_time
+        info = (f"Epoch: {epoch + 1} cost time: {epoch_time}, memory: {memory_used:.2f}GB")
+        print(info)
+        logging.info(info)
+
+        torch.save(self.model.state_dict(), self.checkpoint_file)
+        adjust_learning_rate(self.optimizer, epoch + 1, self.lr)
 
         return epoch_time, flops, params, memory_used
 
@@ -282,7 +518,8 @@ class Solver(object):
         loss_list = []
         for i, (input_data, labels) in enumerate(self.train_nolap_loader):
             input = input_data.float().to(self.device)
-            output, queries_list, keys_list = self.model(input)
+            # output, queries_list, keys_list = self.model(input)
+            output, cl, queries_list, keys_list,_,_ = self.model(input, training=False) # Add_2
             len_list = len(queries_list)
             # loss [B, L]  [256, 100]
             loss = torch.mean(criterion(input, output), dim=-1)
@@ -310,13 +547,15 @@ class Solver(object):
         else:
             # no point adjustment
             train_energy = train_loss_array  # / np.maximum(train_attn_array, 1e-6)
+        # train_energy = train_loss_array
 
         # (2) find the threshold
         attens_energy = []
         loss_list = []
         for i, (input_data, labels) in enumerate(self.thre_loader):
             input = input_data.float().to(self.device)
-            output, queries_list, keys_list = self.model(input)
+            # output, queries_list, keys_list = self.model(input)
+            output, cl, queries_list, keys_list,_,_ = self.model(input, training=False) # Add_2
             len_list = len(queries_list)
 
             loss = torch.mean(criterion(input, output), dim=-1)
@@ -350,6 +589,7 @@ class Solver(object):
             # test_energy = test_loss_array * -np.log(test_attn_array)
             # test_energy = np.maximum(softmax(-test_attn_array, temperature=temperature, window=softmax_span),
             #                          1 / np.maximum(test_attn_array, 1e-6)) * test_loss_array
+        # test_energy = test_loss_array
 
         # probs
         if not self.no_gauss_dynamic and not self.no_point_adjustment:
@@ -389,7 +629,8 @@ class Solver(object):
             input_ = input_data.float().to(self.device)
 
             start_time = time.time()
-            output, queries_list, keys_list = self.model(input_)
+            # output, queries_list, keys_list = self.model(input_)
+            output, cl, queries_list, keys_list,_,_ = self.model(input_, training=False)
             eval_time += time.time() - start_time
 
             len_list = len(queries_list)
@@ -404,7 +645,7 @@ class Solver(object):
                 else:
                     loss_attn += self.loss_fun(queries_list[u], keys_list[u], self.span, self.oneside)
 
-            # Metric
+            # # Metric
             loss_attn = loss_attn / len_list
 
             loss_attn = loss_attn.detach().cpu().numpy()
@@ -435,6 +676,7 @@ class Solver(object):
         if not self.no_point_adjustment:
             test_att_loss2 = softmax(-test_attn_array, temperature=temperature, window=softmax_span)
             test_energy = test_att_loss2 * test_rec_loss
+            # test_energy = test_rec_loss
             anomaly_score = test_energy
         else:
             # no point adjustment
@@ -456,15 +698,6 @@ class Solver(object):
 
         # test labels
         test_labels = np.concatenate(test_labels, axis=0).reshape(-1)
-
-        # # Add
-        # from pate.PATE_metric import PATE
-        # # Initialize PATE and compute the metric
-        # pate = PATE(test_labels, test_energy, binary_scores = False)
-        # print(f"PATE: {round(pate, 4)}")
-        # logging.info(f"PATE: {round(pate, 4)}")
-        # exit()
-
         lmax, lmin = compute_longest_anomaly(test_labels)
         print(f'The anomaly span is [{lmin}-{lmax}]')
         print(f'anomaly ratio in test set: {sum(test_labels)} / {len(test_labels)} = '

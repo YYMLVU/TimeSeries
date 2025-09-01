@@ -8,14 +8,15 @@ import torch.nn.functional as F
 
 from models.modules import ConvLayer, ReconstructionModel, SmoothLayer
 from models.transformer import EncoderLayer, MultiHeadAttention
-from models.graph import DynamicGraphEmbedding, GraphEmbedding
-from models.graph_1 import GraphEmbedding as GraphEmbedding1
-from models.graph_2 import GraphEmbedding as GraphEmbedding2
-from models.graph_3 import GraphEmbedding as GraphEmbedding3
+from models.graph import GraphEmbedding
+# from models.graph_1 import GraphEmbedding as GraphEmbedding1
+# from models.graph_2 import GraphEmbedding as GraphEmbedding2
+# from models.graph_3 import GraphEmbedding as GraphEmbedding3
 from models.gnn_plus import create_gnn_plus_complete_model
 # from models.AnomalyGraph import DynamicGraphEmbedding
 from model.AnomalyTransformer import AnomalyTransformer
 from models.contrastive_loss import local_infoNCE, global_infoNCE
+from models.PHilayer import PHilayer
 
 '''
 
@@ -232,9 +233,11 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         self.f_dim = n_features
         self.decoder_type = 0  # 0:transformer   1:rnn
         self.use_cross_loss = True  # 
-        self.use_contrastive = True
+        self.use_contrastive = False
         self.use_intra_graph = True  
         self.use_inter_graph = True # 消融
+        self.use_gan = False
+        self.use_decoder = False
         self.device = device
 
         # preprocessing
@@ -247,25 +250,25 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         self.num_levels = 1
         if self.use_inter_graph:
             # inter embedding module based on GNN
-            # self.inter_module = GraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device)) # graph
+            self.inter_module = GraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device)) # graph
             # self.inter_module = GraphEmbedding1(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, embed_dim=64, device=torch.device(device)) # graph1
             # self.inter_module = GraphEmbedding2(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device)) # graph2
             # self.inter_module = GraphEmbedding3(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device)) # graph3
 
-            config = {
-                'num_nodes': n_features,
-                'seq_len': window_size,
-                'device': torch.device(device),
-                'mp_type': 'gcn',
-                'num_layers': self.num_levels,
-                'hidden_dim': 64,
-                'dropout': 0.1,
-                'use_positional_encoding': True,
-                'use_edge_features': True,
-                'use_dynamic_edges': True
-            }
+            # config = { # gcn
+            #     'num_nodes': n_features,
+            #     'seq_len': window_size,
+            #     'device': torch.device(device),
+            #     'mp_type': 'gcn',
+            #     'num_layers': self.num_levels,
+            #     'hidden_dim': window_size * 2,
+            #     'dropout': 0.1,
+            #     'use_positional_encoding': True,
+            #     'use_edge_features': True,
+            #     'use_dynamic_edges': True
+            # }
 
-            self.inter_module = create_gnn_plus_complete_model(config).to(device)
+            # self.inter_module = create_gnn_plus_complete_model(config).to(device)
 
             # self.inter_module = DynamicGraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device)) # graph
             # self.inter_module = DynamicGraphEmbedding(num_nodes=n_features, seq_len=window_size, num_levels=self.num_levels, device=torch.device(device), lambda_val=1.0).to(device) # anomalygraph
@@ -324,6 +327,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         self.generator_optimizer = None
         self.discriminator_optimizer = None
         self.wgan_initialized = False
+        self.philayer = PHilayer(hidden_dim=self.f_dim, output_dim=256)
 
 
     def aug_feature1(self, input_feat, drop_dim = 2, drop_percent = 0.1):
@@ -600,8 +604,10 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         #     x_aug = x
 
         if training:
-            x_aug = self.aug_feature_wgan(x)
-            # x_aug = self.aug_feature(x)
+            if self.use_gan:
+                x_aug = self.aug_feature_wgan(x)
+            else:
+                x_aug = self.aug_feature(x)
         else:
             x_aug = x
 
@@ -613,6 +619,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
 
             # projection head
             enc_intra = self.proj_head_intra(enc_intra).permute(0, 2, 1)
+            enc_intra,kl_loss, _  = self.philayer(enc_intra)  # Apply PHI layer for feature transformation
 
         # inter graph
         if self.use_inter_graph:
@@ -639,6 +646,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
                 enc_intra_aug = enc_intra_aug.permute(0, 2, 1)   # >> (b, n, k)
                 # projection head
                 enc_intra_aug = self.proj_head_intra(enc_intra_aug).permute(0, 2, 1)
+                enc_intra_aug, _, _  = self.philayer(enc_intra_aug)  # Apply PHI layer for feature transformation
                 # contrastive loss
                 loss_intra_in = self.loss_cl_s_change(enc_intra, enc_intra_aug)
 
@@ -681,14 +689,22 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         if training and self.use_contrastive:
             loss_cl = 0
             if self.use_intra_graph:
-                loss_cl += loss_intra_in
+                # loss_cl += loss_intra_in
+                # loss_cl += kl_loss
+                loss_intra_in = loss_intra_in
+                loss_intra_in += 0.5 * kl_loss
             if self.use_inter_graph:
-                loss_cl += loss_inter_in
-            if self.use_cross_loss and self.use_intra_graph and self.use_inter_graph:
-                loss_cross = self.loss_cl(enc_intra, enc_inter)
-                loss_cl += loss_cross
+                # loss_cl += loss_inter_in
+                loss_inter_in = loss_inter_in
         else:
-            loss_cl = torch.zeros([1]).cuda()
+            loss_cl = 0
+            loss_intra_in = 0
+            loss_inter_in = 0
+        # cross loss
+        if training and self.use_cross_loss and self.use_intra_graph and self.use_inter_graph:
+            # loss_intra_in = kl_loss # add
+            loss_cross = self.loss_cl(enc_intra, enc_inter)
+            loss_cl += loss_cross
 
         # fuse
         if self.use_intra_graph and self.use_inter_graph:
@@ -704,25 +720,31 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         elif self.use_inter_graph:
             enc = enc_inter
 
-        # decoder
-        if self.decoder_type == 0:
-            dec, _ = self.decoder(enc)
-        elif self.decoder_type == 1:
-            dec = self.decoder(enc)
-        out = self.linear(dec)
+        if self.use_decoder:
+            # decoder
+            if self.decoder_type == 0:
+                dec, _ = self.decoder(enc)
+            elif self.decoder_type == 1:
+                dec = self.decoder(enc)
+            enc = self.linear(dec)
 
         # # Combine queries and keys from both branches for anomaly detection
         # if self.use_intra_graph and self.use_inter_graph:
         #     # Combine attention from both branches
         #     combined_queries = queries_list_intra + queries_list_inter
         #     combined_keys = keys_list_intra + keys_list_inter
-        #     return out, loss_cl, combined_queries, combined_keys
+        #     return enc, loss_cl, combined_queries, combined_keys
         # elif self.use_intra_graph:
-        #     return out, loss_cl, queries_list_intra, keys_list_intra
+        #     return enc, loss_cl, queries_list_intra, keys_list_intra
         # elif self.use_inter_graph:
-        #     return out, loss_cl, queries_list_inter, keys_list_inter
+        #     return enc, loss_cl, queries_list_inter, keys_list_inter
         # else:
-        #     return out, loss_cl, [], []
-        return out, loss_cl, queries_list_intra, keys_list_intra
+        #     return enc, loss_cl, [], []
+        if not self.use_intra_graph:
+            return enc, loss_cl, queries_list_intra, keys_list_intra, None, loss_inter_in
+        elif not self.use_inter_graph:
+            return enc, loss_cl, queries_list_intra, keys_list_intra, loss_intra_in, None
+        return enc, loss_cl, queries_list_intra, keys_list_intra, loss_intra_in, loss_inter_in
+        # return enc, loss_cl+loss_intra_in+loss_inter_in, queries_list_intra, keys_list_intra
 
 

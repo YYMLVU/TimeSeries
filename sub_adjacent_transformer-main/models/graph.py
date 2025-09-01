@@ -163,7 +163,7 @@ class AdaGCNConv(MessagePassing):
         # 计算余弦相似度
         x_norm = F.normalize(x_avg, p=2, dim=-1).to('cuda')  # 归一化特征 -> (num_nodes, in_channels)
         sim_matrix = torch.mm(x_norm, x_norm.transpose(0, 1)).to('cuda')  # (num_nodes, num_nodes)
-        sim_matrix = (sim_matrix + 1) / 2  # 余弦相似度范围[-1,1] -> [0,1]
+        sim_matrix = abs(sim_matrix) # 取绝对值，将[-1, 1]映射到[0, 1]
         sim_flat = sim_matrix.flatten().to('cuda')  # 展平为一维向量 -> (num_nodes^2,)
 
         # 设置logits: 第一列为保留边的概率，第二列为删除边的概率
