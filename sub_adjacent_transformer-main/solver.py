@@ -190,6 +190,20 @@ class Solver(object):
             self.model.cuda()
             self.model2.cuda()
 
+        # # 为kl_weight创建独立优化器（只根据rec_loss更新）
+        # self.optimizer_kl = torch.optim.Adam([self.model.kl_weight], lr=self.lr * 0.1)
+        # 为 kl_weight 创建独立优化器（只根据 rec_loss 更新）
+        # 确保 kl_weight 存在且可训练
+        if not hasattr(self.model, 'kl_weight'):
+            self.model.kl_weight = torch.tensor(0.1, device=self.device, requires_grad=True)
+       
+        # 创建独立的优化器参数组
+        kl_params = [self.model.kl_weight] if hasattr(self.model, 'kl_weight') else []
+        if kl_params:
+            self.optimizer_kl = torch.optim.Adam(kl_params, lr=self.lr * 0.1)
+        else:
+            self.optimizer_kl = None
+
     def vali(self, vali_loader):
         self.model.eval()
 
@@ -293,8 +307,18 @@ class Solver(object):
 
                 rec_loss = self.criterion(output, input_)
 
+                # # 仅用rec_loss更新kl_weight,不影响主网络梯度：方向rec_loss越大，kl_weight越小
+                # self.optimizer_kl.zero_grad()
+                # alpha_loss = rec_loss.detach() * self.model.kl_weight
+                # alpha_loss.backward()
+                # self.optimizer_kl.step()
+                if self.optimizer_kl is not None:
+                    self.optimizer_kl.zero_grad()
+                    alpha_loss = rec_loss.detach() * self.model.kl_weight
+                    alpha_loss.backward()  # 只对 kl_weight 产生梯度
+                
                 # loss1 = rec_loss + cl
-                loss2 = 2 * rec_loss + cl - self.k * loss_attn  # loss_attn is used to distinguish normals and anomalies
+                loss2 = 10 * rec_loss + 0.8 * cl - self.k * loss_attn  # loss_attn is used to distinguish normals and anomalies
 
                 # loss2 = 2 * rec_loss + cl - self.k * loss_attn  # change add
 
@@ -346,6 +370,15 @@ class Solver(object):
                 if loss_inter is not None and loss_inter != 0:
                     self.optimizer_inter.step()
                 self.optimizer.step()
+                # print(f'kl_weight: {self.model.kl_weight.item():.4f}')
+                # self.optimizer_kl.step()
+                # with torch.no_grad():
+                #     self.model.kl_weight.clamp_(0.0, 1.0)
+                if self.optimizer_kl is not None:
+                    self.optimizer_kl.step()
+                    with torch.no_grad():
+                        self.model.kl_weight.clamp_(0.0, 1.0)
+
                 # if epoch >= self.model.gan_warmup_epochs and hasattr(self.model, 'gan_augment') and self.model.use_gan:
                 #     if i % self.model.gan_train_freq == 0:
                 #         gan_loss = self.model.gan_augment.train_gan(input_, output, loss1)
@@ -363,7 +396,10 @@ class Solver(object):
                     left_time = speed * ((self.num_epochs - epoch) * train_steps - i)
                     # info = (f'\t loss1: {loss1:.4f}, loss2: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}'
                     #         f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
-                    info = (f'\t loss_attn: {loss_attn:.4f}, loss: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}, loss_intra: {(loss_intra or 0):.4f}, loss_inter: {(loss_inter or 0):.4f}'
+                    # info = (f'\t loss_attn: {loss_attn:.4f}, loss: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}, loss_intra: {(loss_intra or 0):.4f}, loss_inter: {(loss_inter or 0):.4f}'
+                    #         f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
+                    info = (f'\t loss_attn: {loss_attn:.4f}, loss: {loss2:.4f}; rec_loss: {rec_loss:.4f}, cl: {cl:.4f}, kl_w: {self.model.kl_weight.item():.4f}, '
+                            f' loss_intra: {(loss_intra or 0):.4f}, loss_inter: {(loss_inter or 0):.4f}'
                             f' speed: {speed:.4f}s/iter; left time: {left_time:.4f}s')
                     print(info)
                     logging.info(info)

@@ -328,7 +328,7 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         self.discriminator_optimizer = None
         self.wgan_initialized = False
         self.philayer = PHilayer(hidden_dim=self.f_dim, output_dim=256)
-
+        self.register_buffer('kl_weight', torch.tensor(random.randint(0, 10) / 10.0), persistent=False)
 
     def aug_feature1(self, input_feat, drop_dim = 2, drop_percent = 0.1):
         aug_input_feat = copy.deepcopy(input_feat)
@@ -602,7 +602,11 @@ class MODEL_CGRAPH_TRANS(nn.Module):
         #     x_aug = self.conv(x_aug)
         # else:
         #     x_aug = x
-
+        if training:
+            # 确保在正确设备上且可求导
+            if not self.kl_weight.requires_grad:
+                self.kl_weight.requires_grad_(True)
+            self.kl_weight = self.kl_weight.to(x.device)
         if training:
             if self.use_gan:
                 x_aug = self.aug_feature_wgan(x)
@@ -692,7 +696,8 @@ class MODEL_CGRAPH_TRANS(nn.Module):
                 # loss_cl += loss_intra_in
                 # loss_cl += kl_loss
                 loss_intra_in = loss_intra_in
-                loss_intra_in += 0.5 * kl_loss
+                # loss_intra_in += 0.5 * kl_loss
+                loss_intra_in += self.kl_weight.detach() * kl_loss # 使用detach，避免主网络反传时更新kl_weight
             if self.use_inter_graph:
                 # loss_cl += loss_inter_in
                 loss_inter_in = loss_inter_in
@@ -705,6 +710,8 @@ class MODEL_CGRAPH_TRANS(nn.Module):
             # loss_intra_in = kl_loss # add
             loss_cross = self.loss_cl(enc_intra, enc_inter)
             loss_cl += loss_cross
+            # loss_cl += kl_loss # add
+            loss_cl += self.kl_weight.detach() * kl_loss # 使用detach，避免主网络反传时更新kl_weight
 
         # fuse
         if self.use_intra_graph and self.use_inter_graph:
